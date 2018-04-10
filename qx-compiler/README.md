@@ -13,6 +13,8 @@ ls -l
 docker-compose run qxcompiler -c "cd myapp && qx compile"
 docker-compose run --service-ports qxcompiler -c "cd myapp && qx serve"
 
+# closes it all
+docker-compose down
 ```
 
 ## TODO
