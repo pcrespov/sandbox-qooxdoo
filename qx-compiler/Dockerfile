@@ -20,4 +20,4 @@ WORKDIR /home/node/src
 VOLUME  /home/node/src
 EXPOSE 8080
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT [ "qx" ]

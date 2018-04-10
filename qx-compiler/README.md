@@ -3,15 +3,20 @@
 Build an image with [qx-compiler] and uses compose to map source code in the host
 and compile or serve a website
 
+Example of usage with ```docker-compose```
+
 ```bash
+# build image
 docker-compose build
 
-docker-compose run qxcompiler -c "qx create myapp -I"
-# myapp folder is created in host
-ls -l
+# create an app: myapp
+docker-compose run qxcompiler create myapp -I
 
-docker-compose run qxcompiler -c "cd myapp && qx compile"
-docker-compose run --service-ports qxcompiler -c "cd myapp && qx serve"
+# compile myapp
+docker-compose run -w /home/node/src/myapp qxcompiler compile
+
+# serve myapp
+docker-compose run -w /home/node/src/myapp --service-ports qxcompiler serve
 
 ```
 
