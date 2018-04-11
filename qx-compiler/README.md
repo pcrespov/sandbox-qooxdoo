@@ -46,11 +46,7 @@ qx compile
 
 unalias qx
 
-<<<<<<< HEAD
 # stop
-=======
-# closes it all
->>>>>>> 430bfd7a856449387cd0844f50507be013fae0f7
 docker-compose down
 ```
 
