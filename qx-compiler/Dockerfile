@@ -1,5 +1,8 @@
 FROM node:8.9.2
 
+LABEL maintainer="pcrespov" \
+      description="qooxdoo compiler"
+
 # reuses user defined in base image
 USER node
 
