@@ -3,7 +3,7 @@
 Build an image with [qx-compiler] and uses compose to map source code in the host
 and compile or serve a website
 
-Example of usage with ```docker-compose```
+Example of usage with ```docker-compose``` cli
 
 ```bash
 # build image
@@ -15,9 +15,39 @@ docker-compose run qxcompiler create myapp -I
 # compile myapp
 docker-compose run -w /home/node/src/myapp qxcompiler compile
 
+
 # serve myapp
 docker-compose run -w /home/node/src/myapp --service-ports qxcompiler serve
 
+# stop
+docker-compose down
+```
+
+Using bare ```docker``` cli is obviously also possible
+
+```bash
+    # Assuming itisfoundation/qxcompiler is the image's tag
+    docker run -v $(pwd):/home/node/src itisfoundation/qxcompiler create myapp-I
+
+    # compile
+    cd myapp
+    docker run -t -v $(pwd):/home/node/src itisfoundation/qxcompiler compile
+
+
+```
+
+**TIP**: once the app folder is created, defining an alias can be handy
+
+``` bash
+alias qx='docker-compose run -w /home/node/src/myapp --service-ports qxcompiler'
+
+qx --help
+qx compile
+
+unalias qx
+
+# stop
+docker-compose down
 ```
 
 ## TODO
