@@ -1,0 +1,27 @@
+{
+  "info" : 
+  {
+    "name" : "app",
+
+    "summary" : "undefined",
+    "description" : "undefined",
+    
+    "homepage" : "undefined",
+
+    "license" : "MIT license",
+    "authors" : "",
+
+    "version" : "1.0.0",
+    "qooxdoo-range": "6.0.0-alpha"
+  },
+  
+  "provides" : 
+  {
+    "namespace"   : "app",
+    "encoding"    : "utf-8",
+    "class"       : "source/class",
+    "resource"    : "source/resource",
+    "translation" : "source/translation",
+    "type"        : "application"
+  }
+}
