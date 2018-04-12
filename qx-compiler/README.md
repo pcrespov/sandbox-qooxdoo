@@ -52,7 +52,8 @@ docker-compose down
 
 ## TODO
 
-- [ ] pass version as argument to dockerfile and tag image ```npm -g list | grep qxcompiler```
+- [ ] option to qooxdoo compiler from github?
+- [x] pass version as argument to dockerfile and tag image ```npm -g list | grep qxcompiler```
 
 [1]:https://www.npmjs.com/package/qxcompiler
 [qx-compiler]:https://github.com/qooxdoo/qooxdoo-compiler 

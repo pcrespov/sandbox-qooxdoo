@@ -1,10 +1,12 @@
 version: '3'
 services:
   qxcompiler:
-    image: itisfoundation/qxcompiler
+    image: "itisfoundation/qxcompiler:${VERSION_TAG:-0.2.10}"
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - version=${VERSION_TAG:-0.2.10}
     working_dir: /home/node/src
     volumes:
       - '.:/home/node/src'
