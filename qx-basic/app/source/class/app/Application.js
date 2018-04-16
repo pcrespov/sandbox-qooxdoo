@@ -5,7 +5,6 @@
    License: MIT license
 
    Authors: pcrespov
-
 ************************************************************************ */
 
 /**
@@ -148,8 +147,7 @@ qx.Class.define("app.Application", {
       }
       cnt.add(cntForm);
       container.add(cnt);
-    }
-
+    },
 
   }
 });
