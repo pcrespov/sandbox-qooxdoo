@@ -1,7 +1,7 @@
 /**
  * Fetches tweets and binds to property tweets
  */
-qx.Class.define('tweets.IdenticaService', {
+qx.Class.define('tweets.data.MessagesService', {
   extend: qx.core.Object,
 
   properties: {
@@ -9,6 +9,8 @@ qx.Class.define('tweets.IdenticaService', {
     },
 
   members: {
+    __store: null,    
+
     fetchTweets: function() {
       if (this.__store == null) {
         // BUG: version for 5.0.2 does not exists

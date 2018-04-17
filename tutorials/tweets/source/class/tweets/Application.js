@@ -54,8 +54,8 @@ qx.Class.define("tweets.Application",
       this.debug("Running qx version" + version);
 
       // Floating window
-      let main = new tweets.MainWindow();
-      let service = new tweets.IdenticaService();
+      let main = new tweets.ui.MainWindow();
+      let service = new tweets.data.MessagesService();
 
       /*       
       service.addListener('changeTweets', function(e) {
@@ -76,7 +76,7 @@ qx.Class.define("tweets.Application",
       var controller = new qx.data.controller.List(null, main.getList());
       controller.setLabelPath('text');
       controller.setIconPath('user.profile_image_url');
-      controller.setDelegate({
+/*       controller.setDelegate({
         configureItem: function(item) {
           item.getChildControl('icon').setWidth(48);
           item.getChildControl('icon').setHeight(48);
@@ -85,7 +85,7 @@ qx.Class.define("tweets.Application",
         }
       });
 
-      service.bind('tweets', controller, 'model');
+      service.bind('tweets', controller, 'model'); */
 
       // start the loading on startup
       service.fetchTweets();
