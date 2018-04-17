@@ -17,7 +17,7 @@ qx.Class.define(
         );
 
         // initialize the layout and allow wrap for "post"
-        var layout = new qx.ui.layout.Grid(4, 3);
+        var layout = this._layout = new qx.ui.layout.Grid(4, 2);
         layout.setColumnFlex(1, 1);
         this._setLayout(layout);
 
@@ -31,6 +31,13 @@ qx.Class.define(
       properties: {
         // This property is needed for the theming
         appearance: {refine: true, init: 'listitem'},
+
+        gap: {
+          themeable : true,
+          check: 'Integer',
+          apply: '_applyGap',
+          nullable: true,
+        },
 
         icon: {
           //  But be careful, the check is only done in the source version
@@ -47,6 +54,7 @@ qx.Class.define(
 
       members: {
         _dateFormat: null,
+        _layout: null,
 
         // overridden to create sub-widgets
         // see http://www.qooxdoo.org/current/pages/desktop/ui_develop.html
@@ -95,6 +103,11 @@ qx.Class.define(
         _applyPost: function(value, old) {
           var post = this.getChildControl("post");
           post.setValue(value);
+        },
+
+        _applyGap: function(value, old) {
+          this._layout.setSpacingX(value);
+          console.debug("gap set", value);
         },
 
         // property apply

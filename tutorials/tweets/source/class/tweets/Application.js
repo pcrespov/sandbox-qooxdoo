@@ -114,7 +114,7 @@ qx.Class.define("tweets.Application",
           item.getChildControl('icon').setWidth(48);
           item.getChildControl('icon').setHeight(48);
           item.getChildControl('icon').setScale(true);
-          item.setMinHeight(52);
+          item.setMinHeight(60);
         }
       });
 
