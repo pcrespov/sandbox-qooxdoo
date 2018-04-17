@@ -8,11 +8,17 @@
 
 ************************************************************************ */
 
-qx.Theme.define("tweets.theme.Appearance",
-{
-  extend : qx.theme.indigo.Appearance,
+qx.Theme.define('tweets.theme.Appearance', {
+  extend: qx.theme.simple.Appearance,
 
-  appearances :
-  {
+  appearances: {
+    'tweet-view': {},
+    'toolbar': {
+      style: function() {
+        return {
+          backgroundColor: 'window-border-inner'
+        }
+      }
+    }
   }
 });

@@ -30,14 +30,14 @@ qx.Class.define(
       // properties read/write directly in children controls
       properties: {
         // This property is needed for the theming
-        appearance: {refine: true, init: 'listitem'},
+        appearance: {refine: true, init: 'tweet-view'},
 
-        gap: {
+/*         gap: {
           themeable : true,
           check: 'Integer',
           apply: '_applyGap',
           nullable: true,
-        },
+        }, */
 
         icon: {
           //  But be careful, the check is only done in the source version
