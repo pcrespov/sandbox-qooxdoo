@@ -33,9 +33,10 @@ qx.Class.define('tweets.MainWindow', {
     this.add(toolbar, {row: 0, column: 0, colSpan: 2});
 
     {
-      var list = new qx.ui.list.List();
+      var list = this.__list = new qx.ui.list.List();
       this.setContentPadding(1);
       this.add(list, {row: 1, column: 0, colSpan: 2});
+      // this.debug( this.__list );
     }
 
     layout.setRowFlex(1, 1);
@@ -67,9 +68,19 @@ qx.Class.define('tweets.MainWindow', {
         postButton.setEnabled(value.length < 140 && value.length > 0);
       }, this);
 
-      // TODO use validator with textarea
     }
   },
 
-  events: {'reload': 'qx.event.type.Event', 'post': 'qx.event.type.Data'}
+  events: 
+  {
+    'reload': 'qx.event.type.Event', 
+    'post': 'qx.event.type.Data',
+  },
+
+  members:
+  {
+    getList: function(){
+        return this.__list;
+    }
+  }
 });

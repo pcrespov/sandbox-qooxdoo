@@ -48,19 +48,49 @@ qx.Class.define("tweets.Application",
       }
 
       // Document is the application root
-      var doc = this.getRoot();
+      // var doc = this.getRoot();
+
+      const version = qx.core.Environment.get('qx.version');
+      this.debug("Running qx version" + version);
 
       // Floating window
-      var main = new tweets.MainWindow();
-      main.open();
+      let main = new tweets.MainWindow();
+      let service = new tweets.IdenticaService();
+
+      /*       
+      service.addListener('changeTweets', function(e) {
+        this.debug(qx.dev.Debug.debugProperties(e.getData()));
+      }, this); 
+      */
 
       main.addListener("reload", function(){
         this.debug("Clicked reload");
-      });
+        service.fetchTweets();
+      }, this);
 
       main.addListener("post", function(e){
         this.debug("Posting data '" + e.getData() + "'");
-      })
+      }, this);
+
+      //this.debug(main.getList());
+      var controller = new qx.data.controller.List(null, main.getList());
+      controller.setLabelPath('text');
+      controller.setIconPath('user.profile_image_url');
+      controller.setDelegate({
+        configureItem: function(item) {
+          item.getChildControl('icon').setWidth(48);
+          item.getChildControl('icon').setHeight(48);
+          item.getChildControl('icon').setScale(true);
+          item.setRich(true);
+        }
+      });
+
+      service.bind('tweets', controller, 'model');
+
+      // start the loading on startup
+      service.fetchTweets();
+
+      main.open();
     }
   }
 });
