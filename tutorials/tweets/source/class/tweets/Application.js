@@ -57,6 +57,9 @@ qx.Class.define("tweets.Application",
       let main = new tweets.ui.MainWindow();
       let service = new tweets.data.MessagesService();
 
+      this.__loginWindow = new tweets.ui.LoginWindow();
+      this.__loginWindow.moveTo(320, 30);
+      this.__loginWindow.open();
       
       service.addListener('changeTweets', function(e) {
         this.debug("Model changed:\n model=" + qx.dev.Debug.debugProperties(e.getData()));
@@ -71,9 +74,14 @@ qx.Class.define("tweets.Application",
         this.debug("Posting data '" + e.getData() + "'");
       }, this);
 
+      this.__loginWindow.addListener("changeLoginData", function(e){
+        this.debug("changeLoginData data" + qx.dev.Debug.debugProperties(e.getData()));
+        var loginData = e.getData();
+        service.fetchTweets();
+      }, this);
       
-      // binding 
       
+      // binding       
       // service.tweets model with window.list via a controller
       var controller = new qx.data.controller.List(null, main.getList());
       controller.setLabelPath('text');
@@ -91,8 +99,9 @@ qx.Class.define("tweets.Application",
       controller.getChildren = function(){ return [];};
       service.bind('tweets', controller, 'model');
 
+      
       // start the loading on startup
-      service.fetchTweets();
+      
 
       main.open();
     }

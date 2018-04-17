@@ -8,8 +8,8 @@ qx.Class.define('tweets.ui.MainWindow', {
     this.setShowMinimize(false);
     this.setShowClose(false);
 
-    this.setWidth(250);
-    this.setHeight(300);
+    this.setWidth(500);
+    this.setHeight(400);
 
     var layout = new qx.ui.layout.Grid(0, 0);
     this.setLayout(layout);
