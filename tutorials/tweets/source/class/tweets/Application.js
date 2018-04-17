@@ -87,20 +87,38 @@ qx.Class.define("tweets.Application",
       controller.setLabelPath('text');
       controller.setIconPath('user.profile_image_url');
 
-       controller.setDelegate({
+      controller.setDelegate({
+        createItem: function() {
+          return new tweets.ui.TweetView();
+        },
+
+        // Keeps properties from model and widget in sync
+        // sourcePath, targetProperty, map options, widget, index to current
+        // binding (i.e. index in the list)
+        bindItem: function(controller, item, index) {
+          console.debug('binding', item, index);
+          controller.bindProperty('text', 'post', null, item, index);
+          controller.bindProperty(
+              'user.profile_image_url', 'icon', null, item, index);
+          controller.bindProperty(
+              'created_at', 'time', {
+                converter: function(data) {
+                  // converts model string to Data object in widget property
+                  return new Date(data);
+                }
+              },
+              item, index);
+        },
+
         configureItem: function(item) {
           item.getChildControl('icon').setWidth(48);
           item.getChildControl('icon').setHeight(48);
           item.getChildControl('icon').setScale(true);
-          item.setRich(true);
+          item.setMinHeight(52);
         }
       });
-      
-      controller.getChildren = function(){ return [];};
-      service.bind('tweets', controller, 'model');
 
-      
-      // start the loading on startup
+      service.bind('tweets', controller, 'model');
       
 
       main.open();
