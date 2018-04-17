@@ -36,7 +36,8 @@ qx.Class.define('tweets.ui.MainWindow', {
     });
 
     {
-      var list = this.__list = new qx.ui.list.List();
+      //var list = this.__list = new qx.ui.list.List();
+      var list = this.__list = new qx.ui.form.List();
       this.setContentPadding(1);
       this.add(list, {
         row: 1,

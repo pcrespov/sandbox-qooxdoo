@@ -57,11 +57,10 @@ qx.Class.define("tweets.Application",
       let main = new tweets.ui.MainWindow();
       let service = new tweets.data.MessagesService();
 
-      /*       
+      
       service.addListener('changeTweets', function(e) {
-        this.debug(qx.dev.Debug.debugProperties(e.getData()));
-      }, this); 
-      */
+        this.debug("Model changed:\n model=" + qx.dev.Debug.debugProperties(e.getData()));
+      }, this);       
 
       main.addListener("reload", function(){
         this.debug("Clicked reload");
@@ -72,11 +71,15 @@ qx.Class.define("tweets.Application",
         this.debug("Posting data '" + e.getData() + "'");
       }, this);
 
-      //this.debug(main.getList());
+      
+      // binding 
+      
+      // service.tweets model with window.list via a controller
       var controller = new qx.data.controller.List(null, main.getList());
       controller.setLabelPath('text');
       controller.setIconPath('user.profile_image_url');
-/*       controller.setDelegate({
+
+       controller.setDelegate({
         configureItem: function(item) {
           item.getChildControl('icon').setWidth(48);
           item.getChildControl('icon').setHeight(48);
@@ -84,8 +87,9 @@ qx.Class.define("tweets.Application",
           item.setRich(true);
         }
       });
-
-      service.bind('tweets', controller, 'model'); */
+      
+      controller.getChildren = function(){ return [];};
+      service.bind('tweets', controller, 'model');
 
       // start the loading on startup
       service.fetchTweets();
