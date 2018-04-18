@@ -1,11 +1,13 @@
-# [qx-compiler] dockerfile
+# [qooxdoo-compiler] dockerfile
 
-Build an image with [qx-compiler] and uses compose to map source code in the host
-and compile or serve a website
+Contains:
+
+- Dockerfile to build an image with [qooxdoo-compiler]
+- docker-compose configuration to use [qooxdoo-compiler]'s cli: compile, translate, serve ...
 
 Some example of usage with ```docker-compose``` cli:
 
-- Build image
+- Build image 
 
 ``` bash
     # build container with latest version qx-compiler
@@ -15,14 +17,14 @@ Some example of usage with ```docker-compose``` cli:
     VERSION_TAG=latest docker-compose build
 ```
 
-- Run qxcompiler
+- Run [qooxdoo-compiler]
 
 ``` bash
     # create an app: myapp
-    docker-compose run qxcompiler create myapp -I
+    docker-compose run qx create myapp -I
 
     # compile ./myapp
-    APP_DIR=myapp docker-compose run qxcompiler compile
+    APP_DIR=myapp docker-compose run qx compile
 
     # serve myapp
     APP_DIR=myapp docker-compose up
@@ -35,10 +37,10 @@ Some example of usage with ```docker-compose``` cli:
 docker-compose build
 
 # create an app: myapp
-docker-compose run qxcompiler create myapp -I
+docker-compose run qx create myapp -I
 
 # compile myapp
-docker-compose run -w /home/node/src/myapp qxcompiler compile
+docker-compose run -w /home/node/src/myapp qx compile
 
 
 # serve myapp
@@ -51,20 +53,19 @@ docker-compose down
 - Using bare ```docker``` cli is obviously also possible
 
 ```bash
-    # Assuming itisfoundation/qxcompiler is the image's tag
-    docker run -v $(pwd):/home/node/src itisfoundation/qxcompiler create myapp-I
+   # Assuming itisfoundation/qxcompiler is the image's tag
+   docker run -v $(pwd):/home/node/src itisfoundation/qxcompiler create myapp-I
 
-    # compile
-    cd myapp
-    docker run -t -v $(pwd):/home/node/src itisfoundation/qxcompiler compile
-
+   # compile
+   cd myapp
+   docker run -t -v $(pwd):/home/node/src itisfoundation/qxcompiler compile
 
 ```
 
 - **TIP**: once the app folder is created, defining an alias can be handy
 
 ``` bash
-alias qx='docker-compose run -w /home/node/src/myapp --service-ports qxcompiler'
+alias qx='docker-compose run -w /home/node/src/myapp --service-ports qx'
 
 qx --help
 qx compile
@@ -78,7 +79,7 @@ docker-compose down
 ## TODO
 
 - [ ] option to qooxdoo compiler from github?
-- [x] pass version as argument to dockerfile and tag image ```npm -g list | grep qxcompiler```
+
 
 [1]:https://www.npmjs.com/package/qxcompiler
-[qx-compiler]:https://github.com/qooxdoo/qooxdoo-compiler 
+[qooxdoo-compiler]:https://github.com/qooxdoo/qooxdoo-compiler 

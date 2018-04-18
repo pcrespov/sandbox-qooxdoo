@@ -1,6 +1,6 @@
 version: '3'
 services:
-  qxcompiler:
+  qx:
     image: "itisfoundation/qxcompiler:${VERSION_TAG:-0.2.10}"
     build:
       context: .
