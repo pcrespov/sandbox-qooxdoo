@@ -2,8 +2,9 @@ version: '3'
 services:
   qxcompiler:
     image: itisfoundation/qxcompiler:0.2.10
-    working_dir: /home/node/src
     volumes:
       - '.:/home/node/src'
     ports:
       - '8080:8080'
+    working_dir: /home/node/src/${TARGET_DIR:-tweets}
+    command: serve
