@@ -27,6 +27,7 @@ qx.Class.define("tweets.ui.LoginWindow", {
 
         // Init events ----        
         let ok = form.getButtons()[0]; // TODO: guarantee correct button
+        // form.getChildControl( true);
         ok.addListener("execute", function () {
             if (form.validate()) {
                 //var loginData = this.__model;

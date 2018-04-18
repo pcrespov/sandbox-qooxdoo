@@ -26,7 +26,23 @@ qx.Class.define('tweets.ui.MainWindow', {
         this.fireEvent('reload');
       }, this);
 
-      toolbar.add(reloadButton);
+      toolbar.add(reloadButton);      
+      toolbar.addSpacer();
+
+      // preferences
+      var preferencesButton = new qx.ui.toolbar.Button(this.tr("Preferences"));
+      toolbar.add(preferencesButton);
+
+      var settingsWindow = null;
+      preferencesButton.setToolTipText(this.tr("Change the applications settings."));
+      preferencesButton.addListener("execute", function () {
+        if (!settingsWindow) {
+          settingsWindow = new tweets.ui.PreferencesWindow();
+          settingsWindow.moveTo(320, 30);
+        }
+        settingsWindow.open();
+      }, this);
+
     }
 
     this.add(toolbar, {

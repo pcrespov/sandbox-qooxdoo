@@ -10,38 +10,54 @@ msgstr ""
 msgid "Reload the tweets"
 msgstr ""
 
-#: tweets/ui/MainWindow.js:58
+#: tweets/ui/MainWindow.js:58 tweets/ui/MainWindow.js:74
 msgid "Add here a message"
 msgstr ""
 
-#: tweets/ui/MainWindow.js:60
+#: tweets/ui/MainWindow.js:60 tweets/ui/MainWindow.js:76
 msgid "Post"
 msgstr ""
 
-#: tweets/ui/MainWindow.js:64
+#: tweets/ui/MainWindow.js:64 tweets/ui/MainWindow.js:80
 msgid "Post message ..."
 msgstr ""
 
-#: tweets/ui/LoginWindow.js:61
+#: tweets/ui/LoginWindow.js:61 tweets/ui/LoginWindow.js:62
 msgid "User name or email"
 msgstr ""
 
-#: tweets/ui/LoginWindow.js:62
+#: tweets/ui/LoginWindow.js:62 tweets/ui/LoginWindow.js:63
 msgid "User"
 msgstr ""
 
-#: tweets/ui/LoginWindow.js:66
+#: tweets/ui/LoginWindow.js:66 tweets/ui/LoginWindow.js:67
 msgid "Password"
 msgstr ""
 
-#: tweets/ui/LoginWindow.js:69
+#: tweets/ui/LoginWindow.js:69 tweets/ui/LoginWindow.js:70
 msgid "Remember Me"
 msgstr ""
 
-#: tweets/ui/LoginWindow.js:71
+#: tweets/ui/LoginWindow.js:71 tweets/ui/LoginWindow.js:72
 msgid "Log In"
 msgstr ""
 
-#: tweets/ui/LoginWindow.js:74
+#: tweets/ui/LoginWindow.js:74 tweets/ui/LoginWindow.js:75
 msgid "Cancel"
+msgstr ""
+
+#: tweets/ui/MainWindow.js:33 tweets/ui/PreferencesWindow.js:7
+msgid "Preferences"
+msgstr ""
+
+#: tweets/ui/MainWindow.js:37
+msgid "Change the applications settings."
+msgstr ""
+
+#: tweets/ui/PreferencesWindow.js:21
+msgid "$$languagename"
+msgstr "English"
+
+#: tweets/ui/PreferencesWindow.js:44
+msgid "Language"
 msgstr ""

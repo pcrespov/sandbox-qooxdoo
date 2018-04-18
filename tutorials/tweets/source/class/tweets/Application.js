@@ -53,7 +53,7 @@ qx.Class.define("tweets.Application",
       const version = qx.core.Environment.get('qx.version');
       this.debug("Running qx version" + version);
 
-      qx.locale.Manager.getInstance().setLocale('es');  // or the locale you added
+      // qx.locale.Manager.getInstance().setLocale('es');  // or the locale you added
 
       // Floating window
       let main = new tweets.ui.MainWindow();
