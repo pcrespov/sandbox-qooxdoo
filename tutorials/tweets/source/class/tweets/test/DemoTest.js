@@ -37,7 +37,7 @@ qx.Class.define("tweets.test.DemoTest",
      */
     testSimple : function()
     {
-      this.assertEquals(4, 3+1, "This should never fail!");
+      this.assertEquals(4, 55, "This should never fail!");
       this.assertFalse(false, "Can false be true?!");
     },
 

@@ -5,3 +5,6 @@
 /qooxdoo/
 /contrib/
 /node_modules/
+
+# output from ./generate.py test
+test

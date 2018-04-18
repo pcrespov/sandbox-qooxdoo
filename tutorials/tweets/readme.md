@@ -1,5 +1,14 @@
 # tweets
 
+## Testing
+
+- needs py2
+
+```bash
+cd tweets
+./generate.py
+# open ./test/index.html in browser
+```
 
 ## Integrate theme
 
