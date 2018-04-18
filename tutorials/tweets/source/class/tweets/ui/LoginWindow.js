@@ -58,20 +58,20 @@ qx.Class.define("tweets.ui.LoginWindow", {
 
             let userName = new qx.ui.form.TextField();
             userName.setRequired(true); // implements qx.ui.form.IForm
-            userName.setPlaceholder("User name or email");
-            form.add(userName, "username", null, "username"); // iform, label, validator, name
+            userName.setPlaceholder(this.tr("User name or email"));
+            form.add(userName, this.tr("User"), null, "username"); // iform, label, validator, name
 
             let password = new qx.ui.form.PasswordField();
             password.setRequired(true);
-            form.add(password, "Password", null, "password");
+            form.add(password, this.tr("Password"), null, "password");
 
             let rememberMe = new qx.ui.form.CheckBox();
-            form.add(rememberMe, "Remember Me", null, "remember");
+            form.add(rememberMe, this.tr("Remember Me"), null, "remember");
 
-            let ok = new qx.ui.form.Button("Log In");
+            let ok = new qx.ui.form.Button(this.tr("Log In"));
             form.addButton(ok);
 
-            let cancel = new qx.ui.form.Button("Cancel");
+            let cancel = new qx.ui.form.Button(this.tr("Cancel"));
             form.addButton(cancel);     
 
             cancel.addListener("execute", function () {

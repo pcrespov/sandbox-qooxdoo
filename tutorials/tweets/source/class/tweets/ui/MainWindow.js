@@ -16,9 +16,9 @@ qx.Class.define('tweets.ui.MainWindow', {
 
     var toolbar = new qx.ui.toolbar.ToolBar(); 
     {
-      var reloadButton = new qx.ui.toolbar.Button('Reload');
+      var reloadButton = new qx.ui.toolbar.Button(this.tr('Reload'));
 
-      reloadButton.setToolTipText('Reload the tweets');
+      reloadButton.setToolTipText(this.tr('Reload the tweets'));
 
       // connect reloadButton event with main window's reload event
       // 
@@ -55,13 +55,13 @@ qx.Class.define('tweets.ui.MainWindow', {
     // textarea & post button
     {
       var textarea = new qx.ui.form.TextArea();
-      textarea.setPlaceholder('Add here a message');
+      textarea.setPlaceholder(this.tr('Add here a message'));
 
-      var postButton = new qx.ui.form.Button('Post').set({
+      var postButton = new qx.ui.form.Button(this.tr('Post')).set({
         width: Math.floor(this.getWidth() / 4.0),
         enabled: false
       });
-      postButton.setToolTipText('Post message ...');
+      postButton.setToolTipText(this.tr('Post message ...'));
 
       // layout
       this.add(textarea, {

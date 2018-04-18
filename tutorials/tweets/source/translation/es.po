@@ -1,47 +1,47 @@
-#: qx/ui/form/validation/Manager.js:37
-msgid "This field is required"
-msgstr ""
-
 #: tweets/ui/MainWindow.js:19
 msgid "Reload"
-msgstr ""
+msgstr "Cargar"
 
 #: tweets/ui/MainWindow.js:21
 msgid "Reload the tweets"
-msgstr ""
+msgstr "Carga los mensajes"
 
 #: tweets/ui/MainWindow.js:58
 msgid "Add here a message"
-msgstr ""
+msgstr "Añade aquí un mensaje"
 
 #: tweets/ui/MainWindow.js:60
 msgid "Post"
-msgstr ""
+msgstr "Mensaje"
 
 #: tweets/ui/MainWindow.js:64
 msgid "Post message ..."
-msgstr ""
+msgstr "Envíe un mensaje ..."
 
 #: tweets/ui/LoginWindow.js:61
 msgid "User name or email"
-msgstr ""
+msgstr "Nombre de usuario o correo electrónico"
 
 #: tweets/ui/LoginWindow.js:62
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #: tweets/ui/LoginWindow.js:66
 msgid "Password"
-msgstr ""
+msgstr "Clave"
 
 #: tweets/ui/LoginWindow.js:69
 msgid "Remember Me"
-msgstr ""
+msgstr "Recuérdame"
 
 #: tweets/ui/LoginWindow.js:71
 msgid "Log In"
-msgstr ""
+msgstr "Entrar"
 
 #: tweets/ui/LoginWindow.js:74
 msgid "Cancel"
+msgstr "Cancelar"
+
+#: qx/ui/form/validation/Manager.js:37
+msgid "This field is required"
 msgstr ""
