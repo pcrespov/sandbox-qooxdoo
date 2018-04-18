@@ -21,7 +21,7 @@
   "applications": [
     {
       "class": "tweets.Application",
-      "theme": "tweets.theme.Theme",
+      "theme": "osparc.theme.OSparcDark",
       "name": "tweets",
       "writeIndexHtmlToRoot": true
     }
