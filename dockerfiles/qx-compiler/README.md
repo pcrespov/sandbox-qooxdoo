@@ -1,4 +1,4 @@
-# [qx-compiler]
+# [qx-compiler] dockerfile
 
 Build an image with [qx-compiler] and uses compose to map source code in the host
 and compile or serve a website
