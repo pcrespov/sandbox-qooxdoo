@@ -30,3 +30,4 @@ VOLUME  /home/node/src
 EXPOSE 8080
 
 ENTRYPOINT [ "qx" ]
+CMD ["compile"]

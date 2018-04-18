@@ -7,8 +7,9 @@ services:
       dockerfile: Dockerfile
       args:
         - version=${VERSION_TAG:-0.2.10}
-    working_dir: /home/node/src
     volumes:
       - '.:/home/node/src'
     ports:
       - '8080:8080'
+    working_dir: /home/node/src/${APP_DIR}
+    command: serve
