@@ -39,6 +39,7 @@ msgid "Log In"
 msgstr "Entrar"
 
 #: tweets/ui/LoginWindow.js:74 tweets/ui/LoginWindow.js:75
+#: qx/ui/control/ColorPopup.js:185
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -61,3 +62,163 @@ msgstr "Español"
 #: tweets/ui/PreferencesWindow.js:44
 msgid "Language"
 msgstr "Idioma"
+
+#: qx/util/Validate.js:90
+msgid "%1 is not a number."
+msgstr ""
+
+#: qx/util/Validate.js:129
+msgid "'%1' is not an email address."
+msgstr ""
+
+#: qx/util/Validate.js:166
+msgid "%1 is not a string."
+msgstr ""
+
+#: qx/util/Validate.js:202
+msgid "%1 is not an url."
+msgstr ""
+
+#: qx/util/Validate.js:243
+msgid "%1 is not a color! %2"
+msgstr ""
+
+#: qx/util/Validate.js:267
+msgid "%1 is not in the range from [%2, %3]."
+msgstr ""
+
+#: qx/util/Validate.js:290
+msgid "%1 is not in %2"
+msgstr ""
+
+#: qx/util/Validate.js:314
+msgid "%1 does not fit %2."
+msgstr ""
+
+#: qx/test/locale/Locale.js:72 qx/test/locale/Locale.js:94
+#: qx/test/locale/Locale.js:161 qx/test/mobile/LocaleSwitch.js:73
+#: qx/test/mobile/LocaleSwitch.js:107 qx/test/mobile/LocaleSwitch.js:150
+#: qx/test/ui/LocaleSwitch.js:86 qx/test/ui/LocaleSwitch.js:115
+#: qx/test/data/marshal/Json.js:78
+msgid "test one"
+msgstr ""
+
+#: qx/test/locale/Locale.js:76 qx/test/locale/Locale.js:80
+#: qx/test/locale/Locale.js:96 qx/test/locale/Locale.js:98
+#: qx/test/mobile/LocaleSwitch.js:82 qx/test/mobile/LocaleSwitch.js:111
+#: qx/test/ui/LocaleSwitch.js:94
+msgid "test Hello %1!"
+msgstr ""
+
+#: qx/test/locale/Locale.js:80 qx/test/locale/Locale.js:98
+#: qx/test/mobile/LocaleSwitch.js:82 qx/test/mobile/LocaleSwitch.js:111
+#: qx/test/mobile/LocaleSwitch.js:112 qx/test/ui/LocaleSwitch.js:94
+msgid "test Jonny"
+msgstr ""
+
+#: qx/test/locale/Locale.js:84 qx/test/locale/Locale.js:87
+#: qx/test/locale/Locale.js:90 qx/test/locale/Locale.js:102
+#: qx/test/locale/Locale.js:104 qx/test/locale/Locale.js:106
+msgid "test one car"
+msgid_plural "test %1 cars"
+msgstr[0] ""
+msgstr[1] ""
+
+#: qx/test/locale/Locale.js:162 qx/test/mobile/LocaleSwitch.js:88
+#: qx/test/mobile/LocaleSwitch.js:108 qx/test/mobile/LocaleSwitch.js:153
+#: qx/test/ui/LocaleSwitch.js:100
+msgid "test two"
+msgstr ""
+
+#: qx/test/util/Serializer.js:556 qx/test/util/Serializer.js:561
+#: qx/test/util/Serializer.js:568
+msgid "test affe"
+msgstr ""
+
+#: qx/ui/control/ColorPopup.js:147
+msgid "Automatic"
+msgstr ""
+
+#: qx/ui/control/ColorPopup.js:155
+msgid "Open ColorSelector"
+msgstr ""
+
+#: qx/ui/control/ColorPopup.js:162 qx/ui/control/ColorSelector.js:357
+msgid "Preview (Old/New)"
+msgstr ""
+
+#: qx/ui/control/ColorPopup.js:180
+msgid "OK"
+msgstr ""
+
+#: qx/ui/control/ColorPopup.js:242
+msgid "Color Selector"
+msgstr ""
+
+#: qx/ui/control/ColorPopup.js:481
+msgid "Basic Colors"
+msgstr ""
+
+#: qx/ui/control/ColorPopup.js:487
+msgid "Recent Colors"
+msgstr ""
+
+#: qx/ui/control/ColorSelector.js:255
+msgid "Visual"
+msgstr ""
+
+#: qx/ui/control/ColorSelector.js:315
+msgid "Presets"
+msgstr ""
+
+#: qx/ui/control/ColorSelector.js:346
+msgid "Details"
+msgstr ""
+
+#: qx/ui/control/ColorSelector.js:375
+msgid "Hex"
+msgstr ""
+
+#: qx/ui/control/ColorSelector.js:398
+msgid "RGB"
+msgstr ""
+
+#: qx/ui/control/ColorSelector.js:430
+msgid "HSB"
+msgstr ""
+
+#: qx/ui/control/DateChooser.js:258
+msgid "Last year"
+msgstr ""
+
+#: qx/ui/control/DateChooser.js:270
+msgid "Last month"
+msgstr ""
+
+#: qx/ui/control/DateChooser.js:282
+msgid "Next month"
+msgstr ""
+
+#: qx/ui/control/DateChooser.js:294
+msgid "Next year"
+msgstr ""
+
+#: qx/ui/table/Table.js:1974
+msgid "one row"
+msgid_plural "%1 rows"
+msgstr[0] ""
+msgstr[1] ""
+
+#: qx/ui/table/Table.js:1976
+msgid "one of one row"
+msgid_plural "%1 of %2 rows"
+msgstr[0] ""
+msgstr[1] ""
+
+#: qx/test/ui/basic/Label.js:245
+msgid "TEST"
+msgstr ""
+
+#: qx/ui/table/columnmodel/Resize.js:197
+msgid "Reset column widths"
+msgstr ""

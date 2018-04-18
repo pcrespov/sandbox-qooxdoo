@@ -1,6 +1,6 @@
 version: '3'
 services:
-  qxcompiler:
+  qx:
     image: itisfoundation/qxcompiler:0.2.10
     volumes:
       - '.:/home/node/src'
