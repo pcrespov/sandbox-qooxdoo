@@ -7,7 +7,7 @@ Contains:
 
 Some example of usage with ```docker-compose``` cli:
 
-- Build image 
+- Build image
 
 ``` bash
     # build container with latest version qx-compiler
@@ -15,6 +15,9 @@ Some example of usage with ```docker-compose``` cli:
 
     # build specific qx-compiler version
     VERSION_TAG=latest docker-compose build
+
+    # another option is simly to pull it from github's registry
+    docker pull itisfoundation/qooxdoo-compiler:latest
 ```
 
 - Run [qooxdoo-compiler]
@@ -53,12 +56,12 @@ docker-compose down
 - Using bare ```docker``` cli is obviously also possible
 
 ```bash
-   # Assuming itisfoundation/qxcompiler is the image's tag
-   docker run -v $(pwd):/home/node/src itisfoundation/qxcompiler create myapp-I
+   # Assuming itisfoundation/qooxdoo-compiler is the image's tag
+   docker run -v $(pwd):/home/node/src itisfoundation/qooxdoo-compiler create myapp-I
 
    # compile
    cd myapp
-   docker run -t -v $(pwd):/home/node/src itisfoundation/qxcompiler compile
+   docker run -t -v $(pwd):/home/node/src itisfoundation/qooxdoo-compiler compile
 
 ```
 
