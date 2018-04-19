@@ -1,13 +1,3 @@
-/* ************************************************************************
-
-   Copyright: 2018 undefined
-
-   License: MIT license
-
-   Authors: undefined
-
-************************************************************************ */
-
 /**
  * This is the main application class of "wam"
  *
@@ -16,14 +6,6 @@
 qx.Class.define("wam.Application",
 {
   extend : qx.application.Standalone,
-
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
 
   members :
   {
@@ -37,36 +19,64 @@ qx.Class.define("wam.Application",
     {
       // Call super class
       this.base(arguments);
+      
+      // application's root widget
+      let rootView = this.getRoot();
 
-      // Enable logging in debug variant
-      if (qx.core.Environment.get("qx.debug"))
+      rootView.set({
+        backgroundColor: 'gray',
+      });
+
+
+      let form = new qx.ui.form.Form();
       {
-        // support native logging capabilities, e.g. Firebug for Firefox
-        qx.log.appender.Native;
-        // support additional cross-browser console. Press F7 to toggle visibility
-        qx.log.appender.Console;
+        let userTxt = new qx.ui.form.TextField().set({
+          required: true,
+        });
+        form.add(userTxt, 'User Id', null, 'user', null);
+
+        let passTxt = new qx.ui.form.PasswordField().set({
+          required: true,
+        });
+        form.add(passTxt, 'Password', null, 'password', null);
+
+        let loginBtn = new qx.ui.form.Button("Log In");
+        form.addButton(loginBtn);
       }
 
-      /*
-      -------------------------------------------------------------------------
-        Below is your actual application code...
-      -------------------------------------------------------------------------
-      */
+      let formView = new qx.ui.form.renderer.Single(form);
+      {
+        formView.set({
+          backgroundColor: "red",
+          width:300,
+        });
+        formView.getLayout().set({
+          spacingY: 10
+        });
+      }
 
-      // Create a button
-      var button1 = new qx.ui.form.Button("Click me", "wam/test.png");
-
-      // Document is the application root
-      var doc = this.getRoot();
-
-      // Add button to document at fixed coordinates
-      doc.add(button1, {left: 100, top: 50});
-
-      // Add an event listener
-      button1.addListener("execute", function() {
-        /* eslint no-alert: "off" */
-        alert("Hello World!");
+      var baseView = new qx.ui.container.Composite(new qx.ui.layout.VBox(5));
+      baseView.set({
+        //backgroundColor: "yellow",
+        padding: 10
       });
+      baseView.getLayout().set({
+        alignX: 'center',
+      });
+
+      baseView.add(new qx.ui.core.Widget().set({ 
+       // backgroundColor: "green"
+      }));
+      baseView.add(formView);
+      baseView.add(new qx.ui.core.Widget().set({ 
+        //backgroundColor: "green"
+      }));
+      baseView.add(new qx.ui.core.Widget().set({ 
+        //backgroundColor: "blue"
+      }));
+      
+      rootView.add(baseView, {edge: '30%'});
+
     }
   }
 });
