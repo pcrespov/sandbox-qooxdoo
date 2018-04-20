@@ -4,32 +4,31 @@
  * @asset(wam/*)
  */
 qx.Class.define("wam.Application",
-{
-  extend : qx.application.Standalone,
+  {
+    extend : qx.application.Standalone,
 
-  members :
+    members :
   {
     /**
-     * This method contains the initial application code and gets called 
+     * This method contains the initial application code and gets called
      * during startup of the application
-     * 
+     *
      * @lint ignoreDeprecated(alert)
      */
-    main : function()
-    {
+    main : function() {
       // Call super class
       this.base(arguments);
-      
+
       // application's root widget
       let rootView = this.getRoot();
 
       let loginView = new wam.ui.LoginPage();
-      
+
       rootView.set({
-        backgroundColor: 'gray',
+        backgroundColor: "gray"
       });
 
-      rootView.add(loginView, {edge: '30%'});
+      rootView.add(loginView, {edge: "30%"});
     }
   }
-});
+  });

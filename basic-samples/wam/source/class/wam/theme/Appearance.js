@@ -9,10 +9,10 @@
 ************************************************************************ */
 
 qx.Theme.define("wam.theme.Appearance",
-{
-  extend : qx.theme.indigo.Appearance,
+  {
+    extend : qx.theme.indigo.Appearance,
 
-  appearances :
+    appearances :
   {
   }
-});
+  });

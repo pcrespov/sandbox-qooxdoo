@@ -9,8 +9,8 @@
 ************************************************************************ */
 
 qx.Theme.define("wam.theme.Theme",
-{
-  meta :
+  {
+    meta :
   {
     color : wam.theme.Color,
     decoration : wam.theme.Decoration,
@@ -18,4 +18,4 @@ qx.Theme.define("wam.theme.Theme",
     icon : qx.theme.icon.Tango,
     appearance : wam.theme.Appearance
   }
-});
+  });

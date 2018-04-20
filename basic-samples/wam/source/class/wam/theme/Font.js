@@ -9,10 +9,10 @@
 ************************************************************************ */
 
 qx.Theme.define("wam.theme.Font",
-{
-  extend : qx.theme.indigo.Font,
+  {
+    extend : qx.theme.indigo.Font,
 
-  fonts :
+    fonts :
   {
   }
-});
+  });

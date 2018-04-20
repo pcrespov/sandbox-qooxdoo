@@ -2,7 +2,12 @@
 
 ``` bash
 
- docker-compose run -w /home/node/src/wam qxcompiler compile
- docker-compose run -w /home/node/src/wam -d --service-ports qxcompiler serve
+cd parent/of/wam
+
+# compile
+TARGET_DIR=wam docker-compose run qx compile
+
+# serve
+TARGET_DIR=wam docker-compose run qx
 
 ```
