@@ -1,10 +1,14 @@
 # app
 
-```bash
+``` bash
 
-alias qx='docker-compose run -w /home/node/src/app --service-ports qxcompiler'
+cd parent/of/wam
 
-alias qx='docker run -w /home/node/src/app -v $(pwd):/home/node/src -p 8080:8080 itisfoundation/qxcompiler'
+# compile
+TARGET_DIR=app docker-compose run qx compile
+
+# serve
+TARGET_DIR=app docker-compose run qx
 
 ```
 
