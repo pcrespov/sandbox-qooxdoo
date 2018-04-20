@@ -1,0 +1,5 @@
+{
+    "eslint.enable": true,
+    "eslint.alwaysShowStatus": true,
+    "jshint.enable": false
+}
