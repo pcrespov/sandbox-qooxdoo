@@ -8,6 +8,9 @@ cd parent/of/wam
 TARGET_DIR=wam docker-compose run qx compile
 
 # serve
-TARGET_DIR=wam docker-compose run qx
+TARGET_DIR=wam docker-compose up
+
+# or
+TARGET_DIR=wam docker-compose run qx serve
 
 ```

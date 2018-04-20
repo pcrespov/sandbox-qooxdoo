@@ -16,6 +16,9 @@ qx.Class.define("wam.Application",
      * @lint ignoreDeprecated(alert)
      */
     main : function() {
+
+      const DEBUG=false;
+
       // Call super class
       this.base(arguments);
 
@@ -24,8 +27,9 @@ qx.Class.define("wam.Application",
 
       let loginView = new wam.ui.LoginPage();
 
+
       rootView.set({
-        backgroundColor: "gray"
+        backgroundColor: DEBUG ? "gray" : null
       });
 
       rootView.add(loginView, {edge: "30%"});

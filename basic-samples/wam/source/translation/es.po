@@ -1,19 +1,19 @@
-#: wam/ui/form/Login.js:15
+#: wam/ui/form/Login.js:15 wam/ui/form/Login.js:14 wam/ui/form/Login.js:17
 msgid "User name or email"
 msgstr ""
 
-#: wam/ui/form/Login.js:17
+#: wam/ui/form/Login.js:17 wam/ui/form/Login.js:16 wam/ui/form/Login.js:19
 msgid "User"
 msgstr ""
 
-#: wam/ui/form/Login.js:21
+#: wam/ui/form/Login.js:21 wam/ui/form/Login.js:20 wam/ui/form/Login.js:23
 msgid "Password"
 msgstr ""
 
-#: wam/ui/form/Login.js:24
+#: wam/ui/form/Login.js:24 wam/ui/form/Login.js:23 wam/ui/form/Login.js:26
 msgid "Remember Me"
 msgstr ""
 
-#: wam/ui/form/Login.js:26
+#: wam/ui/form/Login.js:26 wam/ui/form/Login.js:25 wam/ui/form/Login.js:28
 msgid "Log In"
 msgstr ""

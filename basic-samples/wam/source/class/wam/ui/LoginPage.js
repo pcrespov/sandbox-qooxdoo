@@ -44,11 +44,14 @@ qx.Class.define("wam.ui.LoginPage", {
       // http://www.qooxdoo.org/5.0.2/pages/layout/box.html
       // http://www.qooxdoo.org/5.0.2/demobrowser/#layout~VBox.html
 
+      this.set({
+        backgroundColor: "yellow"
+      });
+
       // Layout abstraction
       let layout = new qx.ui.layout.VBox().set({
         alignY: "middle",
         spacing: 5, // TODO: themed?
-        backgroundColor: "yellow"
       });
 
       this.setLayout(layout);
@@ -73,7 +76,7 @@ qx.Class.define("wam.ui.LoginPage", {
       var loginData = e.getData(); // this loginData is already verified by the form
 
       // TODO: POST server for user authentication!
-      this.debug("TODO posting: " + qx.dev.Debug.debugProperties(e.getData()));
+      console.debug("TODO posting: ", e.getData());
     }, this);
   }
 });
