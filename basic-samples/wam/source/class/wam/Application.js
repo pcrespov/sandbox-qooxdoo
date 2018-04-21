@@ -25,14 +25,15 @@ qx.Class.define("wam.Application",
       // application's root widget
       let rootView = this.getRoot();
 
-      let loginView = new wam.ui.LoginPage();
+      let loginPage = new wam.ui.LoginPage();
+      let contentPage = new wam.ui.ContentPage();
 
-
-      rootView.set({
+      loginPage.set({
         backgroundColor: DEBUG ? "gray" : null
       });
 
-      rootView.add(loginView, {edge: "30%"});
+      //rootView.add(loginView, {edge: "30%"});
+      rootView.add(contentPage, {edge:0});
     }
   }
   });
