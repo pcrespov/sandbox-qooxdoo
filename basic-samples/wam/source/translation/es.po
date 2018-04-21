@@ -1,4 +1,5 @@
 #: wam/ui/form/Login.js:15 wam/ui/form/Login.js:14 wam/ui/form/Login.js:17
+#: wam/ui/form/Login.js:18
 msgid "User name or email"
 msgstr ""
 

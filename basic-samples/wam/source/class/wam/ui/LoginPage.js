@@ -16,15 +16,21 @@ qx.Class.define("wam.ui.LoginPage", {
     // they can be widgets with extended functionality (using mixins)
     let loginForm = new wam.ui.form.Login();
 
-    // widget items
-    let header = new qx.ui.core.Widget();
+    // widget items    
+    let header = new qx.ui.basic.Atom("<h2>Welcome to simcore</h2>", "wam/test.png").set({
+      rich: true,
+      iconPosition: "top",
+    });
+    // TODO Logo and welcome message
+
     let formView = new qx.ui.form.renderer.Single(loginForm);
     let footer = new qx.ui.core.Widget();
+    // TODO Add forgot password? | Create Account
 
     // layouting & apperance
     {
       header.set({
-        backgroundColor: "green"
+        backgroundColor: "green",
       });
 
       formView.set({

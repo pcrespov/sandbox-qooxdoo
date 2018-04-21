@@ -3,6 +3,12 @@
  *      - adds all input fields/buttons for login
  *      - implements IForm interface (enable, required, validation)
  *      - triggers
+ * 
+ * 
+ *  TODO: convert into widget
+ *  TODO: check maintainability
+ *  
+ * 
  */
 qx.Class.define("wam.ui.form.Login", {
   extend: qx.ui.form.Form,
@@ -23,8 +29,8 @@ qx.Class.define("wam.ui.form.Login", {
     passTxt.setRequired(true);
     this.add(passTxt, loc.tr("Password"), null, "password", null);
 
-    let rememberCBx = new qx.ui.form.CheckBox();
-    this.add(rememberCBx, loc.tr("Remember Me"), null, "remember");
+    //let rememberCBx = new qx.ui.form.CheckBox();
+    //this.add(rememberCBx, loc.tr("Remember Me"), null, "remember");
 
     let loginBtn = new qx.ui.form.Button(loc.tr("Log In"));
     this.addButton(loginBtn);
@@ -44,7 +50,7 @@ qx.Class.define("wam.ui.form.Login", {
         var loginData = {
           username: model.getUser(),
           password: model.getPassword(),
-          remember: model.getRemember()
+          // remember: model.getRemember()
         };
         this.fireDataEvent("loginChanged", loginData);
       }
