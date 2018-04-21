@@ -6,5 +6,5 @@ services:
       - '.:/home/node/src'
     ports:
       - '8080:8080'
-    working_dir: /home/node/src/${TARGET_DIR:-app}
+    working_dir: /home/node/src/${TARGET_DIR:-wam}
     command: serve
