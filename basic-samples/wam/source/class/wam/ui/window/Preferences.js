@@ -1,4 +1,4 @@
-qx.Class.define("wam.ui.Preferences", {
+qx.Class.define("wam.ui.window.Preferences", {
     extend: qx.ui.window.Window,
 
     construct: function () {

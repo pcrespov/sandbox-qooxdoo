@@ -9,7 +9,7 @@ qx.Class.define("wam.ui.ContentPage", {
         // Connect actions
         this.__userBtn.addListener("execute", function () {
             if (!this.__preferencesWin) {
-                this.__preferencesWin = new wam.ui.Preferences();
+                this.__preferencesWin = new wam.ui.window.Preferences();
             }
             this.__preferencesWin.open();
 
@@ -21,6 +21,8 @@ qx.Class.define("wam.ui.ContentPage", {
 
     members: {
         __preferencesWin: null,
+
+        // Children
         __userBtn: null,
 
         buildLayout: function () {
