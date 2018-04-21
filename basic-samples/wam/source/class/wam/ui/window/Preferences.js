@@ -4,13 +4,18 @@ qx.Class.define("wam.ui.window.Preferences", {
     construct: function () {
         this.base(arguments, this.tr("Account Settings"));
 
-        // window
+        // window 
+        // TODO: fix-sized modal preference window
         this.set({
             modal: true,
             width: 500,
             height: 500 * 1.2,
+            showClose: true,
+            showMaximize: false,
+            showMinimize: false,
+            resizable: false
         });
-        this.setLayout(new qx.ui.layout.VBox());
+        this.setLayout(new qx.ui.layout.VBox(10));
 
 
         var tabView = new qx.ui.tabview.TabView().set({
@@ -33,7 +38,8 @@ qx.Class.define("wam.ui.window.Preferences", {
 
         __createPage: function (name, iconSrc = null) {
             let page = new qx.ui.tabview.Page(name, iconSrc);
-            page.setLayout(new qx.ui.layout.VBox(4).set({
+            page.setLayout(new qx.ui.layout.VBox(10).set({
+                spacing: 10,
                 alignX: "center"
             }));
 
@@ -52,28 +58,28 @@ qx.Class.define("wam.ui.window.Preferences", {
             let page = this.__createPage("General", iconUrl);
 
             // content
-            let username = new qx.ui.form.TextField();
-            username.set({
+            let username = new qx.ui.form.TextField().set({
+                value: "bizzi",
                 placeholder: "User Name"
             })
             page.add(username);
 
-            let fullname = new qx.ui.form.TextField();
-            fullname.set({
+            let fullname = new qx.ui.form.TextField().set({
                 placeholder: "Full Name"
-            })
+            });
 
             page.add(fullname);
 
-            let email = new qx.ui.form.TextField();
-            email.set({
+            let email = new qx.ui.form.TextField().set({
                 placeholder: "Email",
-            })
+            });
             page.add(email);
 
-            const url = wam.utils.placeholders.getIcon("fa-user", 200);
-            let picture = new qx.ui.basic.Image(url);
-            page.add(picture);
+            // const url = wam.utils.placeholders.getIcon("fa-user", 200);
+            let img = new qx.ui.basic.Image().set({
+                source: wam.utils.placeholders.getGravatar(email.getValue() || "bizzi@simcore.io", 200)
+            });
+            page.add(img);
 
             return page;
         },
@@ -83,16 +89,21 @@ qx.Class.define("wam.ui.window.Preferences", {
             let page = this.__createPage("Security", iconUrl);
 
             // content
-            let password = new qx.ui.form.PasswordField();
-            password.set({
+            page.add(new qx.ui.form.PasswordField().set({
                 placeholder: "Password"
-            })
-            page.add(password);
+            }));
 
+            page.add( new qx.ui.form.PasswordField().set({
+                placeholder: "Re-type Password"
+            }) );
 
+            page.add(new qx.ui.basic.Atom("<h3>DAT-CORE</h3>").set({
+                rich: true
+            }));
+            
             let tokens = new qx.ui.form.TextField();
             tokens.set({
-                placeholder: "Personal Access tokens"
+                placeholder: "Personal Access Token"
             })
             page.add(tokens);
 

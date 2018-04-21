@@ -5,34 +5,20 @@ qx.Class.define("wam.ui.ContentPage", {
         this.base(arguments, new qx.ui.layout.VBox(0));
 
         this.buildLayout();
-
-        // Connect actions
-        this.__userBtn.addListener("execute", function () {
-            if (!this.__preferencesWin) {
-                this.__preferencesWin = new wam.ui.window.Preferences();
-            }
-            this.__preferencesWin.open();
-
-            let win = this.__preferencesWin;
-            const [left, top] = wam.utils.dom.getCenteredLoc(win.getWidth(), win.getHeight());
-            win.moveTo(left, top);
-        }, this);
     },
 
     members: {
         __preferencesWin: null,
 
-        // Children
-        __userBtn: null,
 
         buildLayout: function () {
             let topBar = new qx.ui.container.Composite(new qx.ui.layout.HBox());
             this.buildTopLayout(topBar);
             this.add(topBar);
 
-            // Project content: New project, templates, and recent ...
+            // Content Pane: New project, templates, and recent ...
             this.add(new qx.ui.core.Widget().set({
-                backgroundColor: "green"
+                backgroundColor: "#00264d"
             }), {
                 flex: 1
             });
@@ -40,7 +26,6 @@ qx.Class.define("wam.ui.ContentPage", {
 
         buildTopLayout: function (topBar) {
             topBar.set({
-                // backgroundColor: "orange",
                 height: 70,
                 paddingLeft: 10,
                 paddingRight: 10,
@@ -51,7 +36,7 @@ qx.Class.define("wam.ui.ContentPage", {
             });
 
             // $(width)x$(height)/$(background)/$(fontcolor)/            
-            const iconUrl = wam.utils.placeholders.getIcon("fa-align-justify", 32);
+            // const iconUrl = wam.utils.placeholders.getIcon("fa-align-justify", 24);
             const btnSettings = {
                 allowGrowY: false,
                 minWidth: 32,
@@ -84,11 +69,59 @@ qx.Class.define("wam.ui.ContentPage", {
                 flex: 1
             });
 
-            let userBtn = this.__userBtn = new qx.ui.form.Button(null, iconUrl);
-            userBtn.set(btnSettings);
-            topBar.add(userBtn);
-        }
 
+            let userLbl = new qx.ui.basic.Label("@bizzi").set({
+                minWidth: 20,
+            });
+            topBar.add(userLbl);
+
+            let menuBtn = this.__createUserBtn()
+            menuBtn.setIcon(wam.utils.placeholders.getGravatar("bizzi@simcore.io", 32));
+            menuBtn.set(btnSettings);
+            topBar.add(menuBtn);
+        },
+
+        __createUserBtn: function (iconUrl) {
+            var menu = new qx.ui.menu.Menu();
+
+            // Account Settings
+            // ---
+            // Groups
+            // ---
+            // Help
+            // Report a Problem
+            // About 
+            // ---
+            // Logout
+
+            // TODO: add commands (i.e. short-cut system)
+            let preferences = new qx.ui.menu.Button("Account Settings");
+            preferences.addListener("execute", this.__onOpenAccountSettings);
+
+            menu.add(preferences);
+            menu.addSeparator();
+            menu.add(new qx.ui.menu.Button("Groups"));
+            menu.addSeparator();
+            menu.add(new qx.ui.menu.Button("Help"));
+            menu.add(new qx.ui.menu.Button("Report a Problem"));
+            menu.add(new qx.ui.menu.Button("About"));
+            menu.addSeparator();
+            menu.add(new qx.ui.menu.Button("Logout"));
+
+            var button = new qx.ui.form.MenuButton(null, null, menu);
+            return button;
+        },
+
+        __onOpenAccountSettings: function () {
+            if (!this.__preferencesWin) {
+                this.__preferencesWin = new wam.ui.window.Preferences();
+            }
+            this.__preferencesWin.open();
+
+            let win = this.__preferencesWin;
+            const [left, top] = wam.utils.dom.getCenteredLoc(win.getWidth(), win.getHeight());
+            win.moveTo(left, top);
+        }
     } // members
 
 });
