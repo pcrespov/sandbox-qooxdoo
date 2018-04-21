@@ -3,6 +3,7 @@ qx.Class.define('wam.utils.dom', {
 
     statics: {
         getDocWidth: function () {
+            //  Check qx.bom.Document
             let body = document.body;
             let html = document.documentElement;
             let docWidth = Math.max(body.scrollWidth, body.offsetWidth, html.clientWidth, html.scrollWidth, html.offsetWidth);

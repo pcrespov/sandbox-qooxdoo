@@ -62,7 +62,6 @@ qx.Class.define("wam.ui.Preferences", {
                 placeholder: "Email",
             })
             page.add(email);
-
             
             const url = wam.utils.placeholders.getIcon("fa-user", 200);
             let picture = new qx.ui.basic.Image(url);

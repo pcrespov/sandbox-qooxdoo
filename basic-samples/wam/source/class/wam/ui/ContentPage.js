@@ -14,13 +14,14 @@ qx.Class.define("wam.ui.ContentPage", {
                 this.__preferencesWin.moveTo(0,0); // TODO: center
             }
             this.__preferencesWin.open();
-        }, this)
+        }, this);
+
 
     },
 
     members: {
-        __preferencesWin: null, 
-        __userBtn: null,        
+        __preferencesWin: null,
+        __userBtn: null,
 
         buildLayout: function()
         {
@@ -37,7 +38,7 @@ qx.Class.define("wam.ui.ContentPage", {
         buildTopLayout: function(topBar)
         {
             topBar.set({
-                backgroundColor: "orange",
+                // backgroundColor: "orange",
                 height: 70,
                 paddingLeft: 10,
                 paddingRight: 10,
@@ -58,8 +59,15 @@ qx.Class.define("wam.ui.ContentPage", {
             // let menuBtn = new qx.ui.form.Button(null, iconUrl)
             // menuBtn.set(btnSettings);
             // topBar.add(menuBtn);
+            
+            let logo = new lib.ui.image.Image("wam/osparc.png").set({
+                maxWidth: 70
+            });
+            topBar.add(logo);
 
-            let titleAtm = new qx.ui.basic.Atom(" simcore logo ");
+            let titleAtm = new qx.ui.basic.Atom("<h2>simcore</h2>").set({
+                rich:true
+            });
             topBar.add(titleAtm);
 
             let searchTxt = new qx.ui.form.TextField().set({
@@ -70,7 +78,7 @@ qx.Class.define("wam.ui.ContentPage", {
                 flex: 2
             });
 
-            topBar.add(new qx.ui.core.Spacer(1), {
+            topBar.add(new qx.ui.core.Spacer(5), {
                 flex: 1
             });
 
