@@ -18,3 +18,15 @@ msgstr "Recuerda"
 #: wam/ui/form/Login.js:26 wam/ui/form/Login.js:25 wam/ui/form/Login.js:28
 msgid "Log In"
 msgstr "Acceder"
+
+#: wam/ui/ContentPage.js:18
+msgid "Change the applications settings."
+msgstr ""
+
+#: qx/ui/form/validation/Manager.js:37
+msgid "This field is required"
+msgstr ""
+
+#: wam/ui/Preferences.js:5
+msgid "Account Settings"
+msgstr ""
