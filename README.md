@@ -1,8 +1,5 @@
 # qooxdoo-samples
 
-A collection of qooxdoo project
+A collection of client applications built with [qooxdoo] and some tools around them.
 
-## TODO
-
-- [ ] Add python-based http+socketio server
-- [ ] OM: watch and re-serve in qx-python setup
+[qooxdoo]:http://www.qooxdoo.org
