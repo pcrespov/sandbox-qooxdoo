@@ -41,6 +41,9 @@ qx.Class.define("dbind.Application", {
       this.__buildLayout(itemSchema);
 
 
+      // const USER = new dbind.data.User();
+
+
       // Data model --------------
       const rawData = dbind.data.Fake.createProjectDescriptors();
       // http://www.qooxdoo.org/current/api/#qx.data.Array
