@@ -42,11 +42,18 @@ qx.Class.define("dbind.Application",
       */
 
       let rawData = [];
+      rawData.push(qx.data.marshal.Json.createModel({
+        name: "New Project",
+        description: "Empty",
+        thumbnail: "https://imgplaceholder.com/171x96/cccccc/757575/ion-plus-round",
+        created: null
+      }));
+
       for (var i = 0; i < 5; i++) {
         var item = qx.data.marshal.Json.createModel({
           name: "Project #" + (i + 1),
           description: "This is a very short description",
-          thumbnail: "http://via.placeholder.com/171x96",
+          thumbnail: null,
           created: null
         });
         rawData.push(item);
@@ -70,7 +77,7 @@ qx.Class.define("dbind.Application",
             iconPosition: "top",
             gap: 0,
             rich: true,
-            allowGrowX: false,
+            allowGrowY: false,
             maxWidth: 200
           });
         },
@@ -80,7 +87,11 @@ qx.Class.define("dbind.Application",
               return "<b>" + data + "</b>: " + model.getDescription();
             }
           }, item, id);
-          controler.bindProperty("thumbnail", "icon", null, item, id);
+          controler.bindProperty("thumbnail", "icon", {
+            converter: function (data){
+              return data === null? "http://via.placeholder.com/171x96": data;
+            }
+          }, item, id);
         }
       });
 
