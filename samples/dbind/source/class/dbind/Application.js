@@ -1,13 +1,3 @@
-/* ************************************************************************
-
-   Copyright: 2018 undefined
-
-   License: MIT license
-
-   Authors: undefined
-
-************************************************************************ */
-
 /**
  * This is the main application class of "dbind"
  *
@@ -16,8 +6,6 @@
 qx.Class.define("dbind.Application",
 {
   extend : qx.application.Standalone,
-
-
 
   /*
   *****************************************************************************
@@ -53,20 +41,63 @@ qx.Class.define("dbind.Application",
       -------------------------------------------------------------------------
       */
 
-      // Create a button
-      var button1 = new qx.ui.form.Button("Click me", "dbind/test.png");
+      let rawData = [];
+      for (var i = 0; i < 5; i++) {
+        var item = qx.data.marshal.Json.createModel({
+          name: "Project #" + (i + 1),
+          description: "This is a very short description",
+          thumbnail: "http://via.placeholder.com/171x96",
+          created: null
+        });
+        rawData.push(item);
+      }
 
-      // Document is the application root
-      var doc = this.getRoot();
+      // http://www.qooxdoo.org/current/api/#qx.data.Array
+      // A wrapper around raw array to make it "bindable"
+      var data = new qx.data.Array(rawData);
 
-      // Add button to document at fixed coordinates
-      doc.add(button1, {left: 100, top: 50});
 
-      // Add an event listener
-      button1.addListener("execute", function() {
-        /* eslint no-alert: "off" */
-        alert("Hello World!");
+      let list = new qx.ui.form.List();
+      let controller = new qx.data.controller.List(data, list, 'name');
+
+
+      // https://www.qooxdoo.org/current/pages/data_binding/single_value_binding.html#options-conversion-and-validation
+      // http://www.qooxdoo.org/current/api/#qx.data.SingleValueBinding~bind
+      controller.setDelegate({
+        configureItem: function (item) {
+          // http://www.qooxdoo.org/5.0.2/api/#qx.ui.basic.Atom
+          item.set({
+            iconPosition: "top",
+            gap: 0,
+            rich: true,
+            allowGrowX: false,
+            maxWidth: 200
+          });
+        },
+        bindItem: function (controler, item, id) {
+          controler.bindProperty("name", "label", {
+            converter: function (data, model, source, target) {
+              return "<b>" + data + "</b>: " + model.getDescription();
+            }
+          }, item, id);
+          controler.bindProperty("thumbnail", "icon", null, item, id);
+        }
       });
+
+      list.set({
+        orientation: "horizontal",
+        spacing: 10,
+        // layout
+        allowGrowY: false
+      });
+
+      let layout = new qx.ui.layout.VBox();
+      let container = new qx.ui.container.Composite(layout).set({
+        backgroundColor: 'yellow',
+      });
+      container.add(list, { flex: 1 });
+
+      this.getRoot().add(container, { edge: 0 });
     }
   }
 });
