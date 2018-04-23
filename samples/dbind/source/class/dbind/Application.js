@@ -65,6 +65,20 @@ qx.Class.define("dbind.Application",
 
 
       // Layout -------------
+      let layout = new qx.ui.layout.VBox().set({
+        spacing: 10
+      })
+      let container = new qx.ui.container.Composite(layout).set({
+        backgroundColor: 'yellow',
+      });
+
+      let searchTxt = new qx.ui.form.TextField().set({
+        placeholder: "Search",
+        liveUpdate: true
+      });
+      container.add(searchTxt);
+
+
       let list = new qx.ui.form.List();
       list.set({
         orientation: "horizontal",
@@ -72,17 +86,13 @@ qx.Class.define("dbind.Application",
         // layout
         allowGrowY: false
       });
+      container.add(list);
+
+      this.getRoot().add(container, { edge: 5 });
 
 
-      let layout = new qx.ui.layout.VBox();
-      let container = new qx.ui.container.Composite(layout).set({
-        backgroundColor: 'yellow',
-      });
 
-      container.add(list, { flex: 1 });
-      this.getRoot().add(container, { edge: 0 });
-
-      // binding -
+      // binding ----------------
       let controller = new qx.data.controller.List(data, list, 'name');
 
       // https://www.qooxdoo.org/current/pages/data_binding/single_value_binding.html#options-conversion-and-validation
@@ -112,14 +122,18 @@ qx.Class.define("dbind.Application",
         }
       });
 
-
-  
-
       controller.getSelection().addListener("change", function(e){ 
         const selectedItem = e.getTarget().toArray()[0];
         console.debug("Selected Item:", selectedItem.getName());
       }, this);
 
+
+      //searchTxt.bind("changeValue", );
+      searchTxt.addListener("changeValue", function(e){
+        console.debug("Search string: ", e.getData());
+        
+      }, this);
+      
     }
   }
 });
