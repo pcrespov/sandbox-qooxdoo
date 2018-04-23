@@ -64,9 +64,26 @@ qx.Class.define("dbind.Application",
       var data = new qx.data.Array(rawData);
 
 
+      // Layout -------------
       let list = new qx.ui.form.List();
-      let controller = new qx.data.controller.List(data, list, 'name');
+      list.set({
+        orientation: "horizontal",
+        spacing: 10,
+        // layout
+        allowGrowY: false
+      });
 
+
+      let layout = new qx.ui.layout.VBox();
+      let container = new qx.ui.container.Composite(layout).set({
+        backgroundColor: 'yellow',
+      });
+
+      container.add(list, { flex: 1 });
+      this.getRoot().add(container, { edge: 0 });
+
+      // binding -
+      let controller = new qx.data.controller.List(data, list, 'name');
 
       // https://www.qooxdoo.org/current/pages/data_binding/single_value_binding.html#options-conversion-and-validation
       // http://www.qooxdoo.org/current/api/#qx.data.SingleValueBinding~bind
@@ -95,20 +112,14 @@ qx.Class.define("dbind.Application",
         }
       });
 
-      list.set({
-        orientation: "horizontal",
-        spacing: 10,
-        // layout
-        allowGrowY: false
-      });
 
-      let layout = new qx.ui.layout.VBox();
-      let container = new qx.ui.container.Composite(layout).set({
-        backgroundColor: 'yellow',
-      });
-      container.add(list, { flex: 1 });
+  
 
-      this.getRoot().add(container, { edge: 0 });
+      controller.getSelection().addListener("change", function(e){ 
+        const selectedItem = e.getTarget().toArray()[0];
+        console.debug("Selected Item:", selectedItem.getName());
+      }, this);
+
     }
   }
 });
