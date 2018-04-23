@@ -15,7 +15,7 @@ qx.Class.define("dbind.data.Fake", {
       for (var i = 0; i < 5; i++) {
         var item = qx.data.marshal.Json.createModel({
           name: "Project #" + (i + 1),
-          description: "This is a very short description",
+          description: "This is a very short description " + (i + 1),
           thumbnail: null,
           created: null
         });

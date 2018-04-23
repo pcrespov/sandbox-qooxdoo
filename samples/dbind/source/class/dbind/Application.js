@@ -31,7 +31,14 @@ qx.Class.define("dbind.Application", {
         qx.log.appender.Console;
       }
 
-      this.__buildLayout();
+
+      const itemSchema = {
+        name: "New Project",
+        description: "Empty",
+        thumbnail: "https://imgplaceholder.com/171x96/cccccc/757575/ion-plus-round",
+        created: null
+      };
+      this.__buildLayout(itemSchema);
 
 
       // Data model --------------
@@ -70,15 +77,15 @@ qx.Class.define("dbind.Application", {
         }
       });
 
+      // creates a form
+      let controllerFrm = new qx.data.controller.Form(controller.getSelection(), this.__form);
+
+
       controller.getSelection().addListener("change", function (e) {
         const selectedItem = e.getTarget().toArray()[0];
+        controllerFrm.setModel(selectedItem);
         console.debug("Selected Item:", selectedItem.getName());
       }, this);
-
-
-      // creates a form out of
-
-      let controllerFrm = new qx.data.controller.Form(controller.getSelection());
       
 
       //searchTxt.bind("changeValue", );
@@ -95,7 +102,9 @@ qx.Class.define("dbind.Application", {
 
     __projectsList: null,
 
-    __buildLayout: function () {
+    __form: null,
+
+    __buildLayout: function (modelSkeleton) {
       let layout = new qx.ui.layout.VBox().set({
         spacing: 10
       });
@@ -109,7 +118,6 @@ qx.Class.define("dbind.Application", {
       });
       container.add(this.__searchTxf = searchTxt);
 
-
       let list = new qx.ui.form.List();
       list.set({
         orientation: "horizontal",
@@ -119,11 +127,19 @@ qx.Class.define("dbind.Application", {
       });
       container.add(this.__projectsList = list);
 
+      let form = this.__form = new qx.ui.form.Form();
+      form.addGroupHeader("Selected Item");
+
+      // Builds a form out a JSON
+      for (var key in modelSkeleton)
+      {
+        form.add(new qx.ui.form.TextField().set({ readOnly: true }), key);
+      }
+      container.add( new qx.ui.form.renderer.Single(this.__form) );
+
       this.getRoot().add(container, {
         edge: 5
       });
     }
-
-    
   } // members
 });
