@@ -60,13 +60,14 @@ qx.Class.define("auth.Application", {
 
         let rememberChk = new qx.ui.form.CheckBox();
         loginForm.add(rememberChk, "Remember Me", null, "remember");
-
-        let loginBtn = new qx.ui.form.Button("Log In");
-        loginForm.addButton(loginBtn);
       }
 
+      let loginBtn = new qx.ui.form.Button("Log In");
+      loginForm.addButton(loginBtn);
+
+
       // TODO: validation?
-      // TODO add alternative login methods using tabs?      
+      // TODO add alternative login methods using tabs?
 
       // data binding
       // controller: responsible of connecting a form with a data model
@@ -74,6 +75,39 @@ qx.Class.define("auth.Application", {
 
       // data model. In this case, created out of the form
       let model = controller.createModel();
+
+
+      // events      
+      loginBtn.addListener("execute", function () {
+          if (loginForm.validate()) {
+
+            let serializer = function (object) {
+              if (object instanceof qx.ui.form.ListItem) {
+                return object.getLabel();
+              }
+            };
+            console.debug("You are sending: " + qx.util.Serializer.toUriParameter(model, serializer));
+           
+            // Requests authentication to server
+            let req = new qx.io.request.authentication.Basic(model.getUser(), model.getPassword());            
+
+            req.addListener("success", function(e){
+              // Start application X for user Y ->
+              console.debug("Server said that you are good to go!", e.getResponse());
+            }, this);
+
+
+            req.addListener("statusError", function (e) {
+              // Display error page!
+              console.debug("Upss something went wrong!", e.getResponse());
+            }, this);
+
+            req.send();
+          }
+        },
+        this);
+
+
 
       // layout
       let loginWidget = new qx.ui.form.renderer.Single(loginForm);
