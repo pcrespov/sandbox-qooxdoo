@@ -41,6 +41,11 @@ qx.Class.define("auth.Application", {
         qx.log.appender.Native;
         // support additional cross-browser console. Press F7 to toggle visibility
         qx.log.appender.Console;
+
+        // Enable fake 
+        //if (qx.core.Environment.get("auth.mockBackend")) {
+          auth.mock.User;
+        //}
       }
 
       let loginForm = new qx.ui.form.Form();
@@ -86,20 +91,36 @@ qx.Class.define("auth.Application", {
                 return object.getLabel();
               }
             };
-            console.debug("You are sending: " + qx.util.Serializer.toUriParameter(model, serializer));
-           
-            // Requests authentication to server
-            let req = new qx.io.request.authentication.Basic(model.getUser(), model.getPassword());            
+            console.debug("You are sending: " + 
+            qx.util.Serializer.toUriParameter(model, serializer));
 
-            req.addListener("success", function(e){
+            // Requests authentication to server
+            let req = new qx.io.request.Xhr().set({
+              // qx.io.request.authentication sets headers.
+              // Can send user+passorwd or user=token w/o password!?
+              //authentication: new qx.io.request.authentication.Basic(model.getUser(), model.getPassword()),
+              url: "/login",
+              method: "POST",
+              requestData: qx.util.Serializer.toJson(model, serializer)
+            });
+
+            req.addListener("success", function (e) {
               // Start application X for user Y ->
-              console.debug("Server said that you are good to go!", e.getResponse());
+              let trec = e.getTarget();
+              console.debug("Everything went fine!!")
+              console.debug("status  :", trec.getStatus());
+              console.debug("phase   :", trec.getPhase());
+              console.debug("response: ", trec.getResponse());
             }, this);
 
-
-            req.addListener("statusError", function (e) {
+            req.addListener("fail", function (e) {
               // Display error page!
-              console.debug("Upss something went wrong!", e.getResponse());
+              let trec = e.getTarget();
+              console.debug("Something went wrong!!")
+              console.debug("status  :", trec.getStatus());
+              console.debug("phase   :", trec.getPhase());
+              console.debug("response: ", trec.getResponse());
+
             }, this);
 
             req.send();
