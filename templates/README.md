@@ -8,6 +8,7 @@ Some useful entries in [qx] manual:
 
 ## TODO
 
-- TODO: parameterized and use template engine to generate code
+- TODO: parameterized and use template engine to generate code. 
+- TODO: generate simcore app skeleton. Could reuse qooxdoo/component/skeleton/desktop and extend it with specific resources, etc
 
 [qx]:http://www.qooxdoo.org
