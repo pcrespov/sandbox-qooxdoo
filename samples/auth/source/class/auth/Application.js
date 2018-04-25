@@ -41,85 +41,29 @@ qx.Class.define("auth.Application", {
         qx.log.appender.Native;
         // support additional cross-browser console. Press F7 to toggle visibility
         qx.log.appender.Console;
+
+        // Enables fake server if in qx.debug!
+        //if (qx.core.Environment.get("auth.mockBackend")) {
+        auth.mock.User;
+        //}
       }
 
-      let loginForm = new qx.ui.form.Form();
+      // standard login. i.e. using app database
+      let login = new auth.ui.login.Standard();
+      
+      // TODO: login could offer different types. eg. standard, NIH, lDAP ...
+      // or other third parties. Each login can be added as a different
+      // widget. Can be e.g. implemented as a Tabview as in gitlab or 
+      // with buttons on the side as in wix
 
-      { // Widget items
-        loginForm.addGroupHeader("Login");
-
-        let userNameTxt = new qx.ui.form.TextField();
-        userNameTxt.setRequired(true);
-        userNameTxt.setPlaceholder("User name or email");
-
-        loginForm.add(userNameTxt, "User", null, "user", null);
-
-        let passwordTxt = new qx.ui.form.PasswordField();
-        passwordTxt.setRequired(true);
-        loginForm.add(passwordTxt, "Password", null, "password", null);
-
-        let rememberChk = new qx.ui.form.CheckBox();
-        loginForm.add(rememberChk, "Remember Me", null, "remember");
-      }
-
-      let loginBtn = new qx.ui.form.Button("Log In");
-      loginForm.addButton(loginBtn);
-
-
-      // TODO: validation?
-      // TODO add alternative login methods using tabs?
-
-      // data binding
-      // controller: responsible of connecting a form with a data model
-      let controller = new qx.data.controller.Form(null, loginForm);
-
-      // data model. In this case, created out of the form
-      let model = controller.createModel();
-
-
-      // events      
-      loginBtn.addListener("execute", function () {
-          if (loginForm.validate()) {
-
-            let serializer = function (object) {
-              if (object instanceof qx.ui.form.ListItem) {
-                return object.getLabel();
-              }
-            };
-            console.debug("You are sending: " + qx.util.Serializer.toUriParameter(model, serializer));
-           
-            // Requests authentication to server
-            let req = new qx.io.request.authentication.Basic(model.getUser(), model.getPassword());            
-
-            req.addListener("success", function(e){
-              // Start application X for user Y ->
-              console.debug("Server said that you are good to go!", e.getResponse());
-            }, this);
-
-
-            req.addListener("statusError", function (e) {
-              // Display error page!
-              console.debug("Upss something went wrong!", e.getResponse());
-            }, this);
-
-            req.send();
-          }
-        },
-        this);
-
-
-
-      // layout
-      let loginWidget = new qx.ui.form.renderer.Single(loginForm);
-
-
-      // root is confired as a Canvas here
-      this.getRoot().add(loginWidget, {
+      // root is configured as a Canvas here
+      this.getRoot().add(login, {
         left: "20%",
         top: "20%",
         width: "60%",
         height: "40%"
-      })
+      });
+
     }
   }
 });
