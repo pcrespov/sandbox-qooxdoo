@@ -32,7 +32,7 @@ qx.Class.define("wam.Application",
         backgroundColor: DEBUG ? "gray" : null
       });
 
-      //rootView.add(loginView, {edge: "30%"});
+      //rootView.add(loginPage, {edge: "30%"});
       rootView.add(contentPage, {edge:0});
     }
   }

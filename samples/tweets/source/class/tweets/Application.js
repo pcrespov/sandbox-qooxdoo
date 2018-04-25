@@ -79,6 +79,7 @@ qx.Class.define("tweets.Application",
       this.__loginWindow.addListener("changeLoginData", function(e){
         this.debug("changeLoginData data" + qx.dev.Debug.debugProperties(e.getData()));
         var loginData = e.getData();
+        // HERE you pass loginData to service
         service.fetchTweets();
       }, this);
       
