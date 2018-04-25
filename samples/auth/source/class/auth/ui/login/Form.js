@@ -24,7 +24,7 @@ qx.Class.define("auth.ui.login.Form", {
         //this.add(remember, "Remember Me", null, "remember");
 
         // Buttons
-        let submit = new qx.ui.form.Button("Submit");
+        let submit = new qx.ui.form.Button("Sign in");
         this.addButton(submit);
 
         // data binding

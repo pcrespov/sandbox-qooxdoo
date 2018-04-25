@@ -48,7 +48,13 @@ qx.Class.define("auth.Application", {
         //}
       }
 
+      // standard login. i.e. using app database
       let login = new auth.ui.login.Standard();
+      
+      // TODO: login could offer different types. eg. standard, NIH, lDAP ...
+      // or other third parties. Each login can be added as a different
+      // widget. Can be e.g. implemented as a Tabview as in gitlab or 
+      // with buttons on the side as in wix
 
       // root is configured as a Canvas here
       this.getRoot().add(login, {
