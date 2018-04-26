@@ -12,14 +12,16 @@ qx.Class.define("auth.ui.login.Form", {
         // Items
         let username = new qx.ui.form.TextField();
         // TODO PC: add qx.util.Validate.checkEmail
+        // TODO PC: add also login with user-id
         username.setRequired(true);
-        username.setPlaceholder("User ID or email");
+        username.setPlaceholder("email");
         this.add(username, "User", null, "user", null);
 
         let password = new qx.ui.form.PasswordField();
         password.setRequired(true);
         this.add(password, "Password", null, "password", null);
 
+        // TODO PC:
         //let remember = new qx.ui.form.CheckBox();
         //this.add(remember, "Remember Me", null, "remember");
 
