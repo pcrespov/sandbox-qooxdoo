@@ -19,16 +19,16 @@ qx.Class.define("auth.ui.login.Standard", {
     this.base(arguments);
 
     let header = this.__createHeader();
-    this.__login = new auth.ui.login.Form();
+    this.__form = new auth.ui.login.Form();
 
     // TODO : add Forgot Password? | Create Account? links
     let footer = new qx.ui.core.Widget();
 
     this.__createLayout(header,
-      new qx.ui.form.renderer.Single(this.__login),
+      new qx.ui.form.renderer.Single(this.__form),
       footer);
 
-    this.__login.addListener("submit", this.__onSubmitLogin, this);
+    this.__form.addListener("submit", this.__onSubmitLogin, this);
   },
 
   /*
@@ -37,14 +37,14 @@ qx.Class.define("auth.ui.login.Standard", {
    *****************************************************************************
    */
   members: {
-    __login: null,
-
+    __form: null,
     __token: null,
+    __info: null,
 
     __createHeader: function () {
       const isDev = qx.core.Environment.get("qx.debug") ? true : false;
 
-      // TODO bind label and icon to this property
+      // TODO: bind label and icon to this property
 
       let header = new qx.ui.basic.Atom().set({
         icon: "auth/itis.png",
@@ -144,10 +144,15 @@ qx.Class.define("auth.ui.login.Standard", {
       console.debug("status  :", _req.getStatus());
       console.debug("phase   :", _req.getPhase());
       console.debug("response: ", _req.getResponse());
+      
+      this.__info = _req.getResponse();
+      this.__token = _req.getResponse().userToken;
 
-      // TODO: fire success logged in and store token??
       // TODO: implement token-based authentication: we can request token and from that moment on,
       // just use that...
+
+      // TODO: fire success logged in and store token??
+      this.fireDataEvent("login", true);
     },
 
     __onLoginFailed: function (e) {
@@ -159,8 +164,18 @@ qx.Class.define("auth.ui.login.Standard", {
       console.debug("response: ", _req.getResponse());
 
       // TODO: invalidate form view and flash error!
+      this.fireDataEvent("login", false);
     },
 
-  }
+  },
+
+  /*
+  *****************************************************************************
+   EVENTS
+  *****************************************************************************
+  */
+  events: {
+    "login": "qx.event.type.Data"
+  },
 
 });

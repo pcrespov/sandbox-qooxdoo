@@ -17,6 +17,7 @@ qx.Class.define("auth.ui.login.Form", {
         username.setPlaceholder("email");
         this.add(username, "User", null, "user", null);
 
+        // FIXME: add [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) 
         let password = new qx.ui.form.PasswordField();
         password.setRequired(true);
         this.add(password, "Password", null, "password", null);
@@ -41,7 +42,7 @@ qx.Class.define("auth.ui.login.Form", {
          *
          *  Event data: The new text value of the field.
          */
-        "submit": "qx.event.type.DataEvent"
+        "submit": "qx.event.type.Data"
     },
 
      members: {
