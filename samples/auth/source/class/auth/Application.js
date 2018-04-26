@@ -48,6 +48,8 @@ qx.Class.define("auth.Application", {
         //}
       }
 
+      // FIXME: focus order when pressing tab
+
       // standard login. i.e. using app database
       let loginPlatform = new auth.ui.login.Standard();
       
@@ -64,6 +66,9 @@ qx.Class.define("auth.Application", {
       //login.setBackgroundColor("blue");
 
       // root is configured as a Canvas here
+      this.getRoot().set({
+        backgroundColor: "#707070",
+      });
       this.getRoot().add(login, {
         left: "10%",
         top: "10%",
@@ -80,12 +85,14 @@ qx.Class.define("auth.Application", {
 
       let loginOpenId = new qx.ui.form.Button().set({
         label: "Continue with openID",
+        // FIXME: icon size
         //icon: "https://upload.wikimedia.org/wikipedia/commons/8/88/Openid.svg",
       });
       loginExternal.add(loginOpenId);
 
       let loginNIH = new qx.ui.form.Button().set({
         label: "Continue with NIH",
+        // FIXME: icon size
         //icon: "auth/nih-419.png",
       });
       loginExternal.add(loginNIH);

@@ -64,7 +64,6 @@ qx.Class.define("auth.ui.login.Standard", {
 
       // LayoutItem 
       this.set({
-        backgroundColor: "#707070",
         padding: 10,
       });
 

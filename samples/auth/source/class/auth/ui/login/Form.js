@@ -11,8 +11,8 @@ qx.Class.define("auth.ui.login.Form", {
 
         // Items
         let username = new qx.ui.form.TextField();
-        // TODO PC: add qx.util.Validate.checkEmail
-        // TODO PC: add also login with user-id
+        // TODO: add qx.util.Validate.checkEmail
+        // TODO: add also login with user-id
         username.setRequired(true);
         username.setPlaceholder("email");
         this.add(username, "User", null, "user", null);
@@ -21,7 +21,7 @@ qx.Class.define("auth.ui.login.Form", {
         password.setRequired(true);
         this.add(password, "Password", null, "password", null);
 
-        // TODO PC:
+        // TODO:
         //let remember = new qx.ui.form.CheckBox();
         //this.add(remember, "Remember Me", null, "remember");
 
@@ -67,8 +67,7 @@ qx.Class.define("auth.ui.login.Form", {
             };
             const data = qx.util.Serializer.toJson(this.__model, serializer);
             */
-            
-            var data = {
+            const data = {
                 username: this.__model.getUser(),
                 password: this.__model.getPassword()
             };
