@@ -105,7 +105,11 @@ qx.Class.define("${Namespace}.MyClass", {
   *****************************************************************************
   */
   events: {
-
+    "name1": "qx.event.type.Data",
+    "name2": "qx.event.type.Dom",
+    "name3": "qx.event.type.Drag",
+    "name4": "qx.event.type.Event",
+    "name5": "qx.event.type.Rest"
   },
 
   /*
