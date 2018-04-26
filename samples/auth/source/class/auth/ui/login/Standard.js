@@ -47,9 +47,7 @@ qx.Class.define("auth.ui.login.Standard", {
       // TODO bind label and icon to this property
 
       let header = new qx.ui.basic.Atom().set({
-        label: isDev ? "<h2>Welcome to simcore</h2>" : null,
-        icon: isDev ? "auth/test.png" : null,
-        rich: true,
+        icon: "auth/itis.png",
         iconPosition: "top",
       });
 
@@ -65,39 +63,37 @@ qx.Class.define("auth.ui.login.Standard", {
       const isDev = qx.core.Environment.get("qx.debug") ? true : false;
 
       // LayoutItem 
-      header.set({
-        backgroundColor: isDev ? "green" : null,
+      this.set({
+        backgroundColor: "#707070",
+        padding: 10,
+      });
+
+      this.setLayoutProperties({
+        allowGrowY: false
       });
 
       login.set({
-        backgroundColor: isDev ? "red" : null,
-        width: 300 // TODO: themed?
+        //backgroundColor: isDev ? "red" : null,
+        // width: 100 // TODO: themed?
       });
 
+      // Set buttom wider
       login.getLayout().set({
-        spacingY: 10 // TODO: themed?
+        //spacingY: 10 // TODO: themed?
       });
 
       footer.set({
-        backgroundColor: isDev ? "blue" : null
+        // backgroundColor: isDev ? "blue" : null
       });
 
-      this.set({
-        backgroundColor: isDev ? "yellow" : null
-      });
 
       // Children's layout management
       let layout = new qx.ui.layout.VBox().set({
         alignY: "middle",
-        spacing: 5, // TODO: themed?
+        spacing: 20, // TODO: themed?
       });
-
       this.setLayout(layout);
 
-      // Current's LayoutItem props
-      this.setLayoutProperties({
-        allowGrowY: false
-      });
 
       // Example of item properties {flex:0, width='%'} passed as options.
       // notice that these options are specific for every layout abstraction!
@@ -105,7 +101,7 @@ qx.Class.define("auth.ui.login.Standard", {
       // considering parent layout hints
       this.add(header);
       this.add(login);
-      this.add(footer);
+      // this.add(footer);
     },
 
     __onSubmitLogin: function (e) {
