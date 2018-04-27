@@ -1,6 +1,11 @@
 #!/bin/bash
-
-docker run -it \
-  --entrypoint=/bin/bash \
-  itisfoundation/qooxdoo-compiler:latest \
-  -c "npm ls -g qooxdoo && cat ${QOOXDOO_COMPILER_DIR}/package.json|grep qooxdoo && python --version && printenv && echo"
+echo LET US HAVE A LOOK INSIDE ----------------
+echo
+printenv
+echo
+npm ls -g qooxdoo
+echo
+cat ${QOOXDOO_COMPILER_DIR}/package.json|grep qooxdoo
+echo
+python --version
+echo
