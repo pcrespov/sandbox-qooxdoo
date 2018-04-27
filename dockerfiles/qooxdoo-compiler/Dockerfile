@@ -25,18 +25,12 @@ RUN npm install --quiet --no-progress -g \
         npm@5.5.1 \
         qxcompiler@${QX_COMPILER_VERSION}
 
+  # Overcomes libraries path "../node_modules/qooxdoo-sdk/framework" issue in compile.json
+RUN ln -s $QOOXDOO_COMPILER_DIR/node_modules /home/node
 
 WORKDIR /home/node/src
 VOLUME  /home/node/src
 EXPOSE 8080
-
-# log info
-RUN echo \
- && npm ls -g qooxdoo \
- && cat  $QOOXDOO_COMPILER_DIR/package.json  | grep qooxdoo \
- && python --version \
- && printenv \
- && echo
 
 ENTRYPOINT [ "qx" ]
 CMD ["compile"]
