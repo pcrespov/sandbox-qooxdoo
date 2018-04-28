@@ -1,10 +1,12 @@
-FROM node:8
+FROM node:8.11.1-alpine
 
 LABEL maintainer="pcrespov" 
 
 # qooxdoo variables
 ARG version=0.2.10
 ARG build_date
+ARG vcs_url
+ARG vcs_ref
 
 # Labels http://label-schema.org/rc1/
 LABEL org.label-schema.schema-version="1.0"
@@ -13,10 +15,15 @@ LABEL org.label-schema.name="itisfoundation/qooxdoo-compiler"
 LABEL org.label-schema.description="qooxdoo compiler"
 LABEL org.label-schema.url="http://www.qooxdoo.org"
 LABEL org.label-schema.vcs-url="https://github.com/qooxdoo/qooxdoo-compiler"
-#LABEL org.label-schema.vcs-ref=$commit_id
-#LABEL org.label-schema.vendor="qooxdoo.org"
+LABEL org.label-schema.vcs-url=$vcs_url
+LABEL org.label-schema.vcs-ref=$vcs_ref
+LABEL org.label-schema.vendor="qooxdoo.org"
 LABEL org.label-schema.version=$version
 LABEL org.label-schema.docker.cmd="docker run -v $(pwd):/home/node/src itisfoundation/qooxdoo-compiler"
+
+RUN apk update \
+ && apk upgrade \
+ && apk add --no-cache bash git openssh
 
 # user defined in base image
 USER node
@@ -38,7 +45,7 @@ RUN npm install --quiet --no-progress -g \
         npm@5.5.1 \
         qxcompiler@${QX_COMPILER_VERSION}
 
-  # Overcomes libraries path "../node_modules/qooxdoo-sdk/framework" issue in compile.json
+## Overcomes libraries path "../node_modules/qooxdoo-sdk/framework" issue in compile.json
 RUN ln -s $QOOXDOO_COMPILER_DIR/node_modules /home/node
 
 WORKDIR /home/node/src
