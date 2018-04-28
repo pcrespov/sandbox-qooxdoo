@@ -1,8 +1,8 @@
 # [qooxdoo-compiler] dockerfile
 
-[![](https://images.microbadger.com/badges/image/itisfoundation/qooxdoo-compiler.svg)](https://microbadger.com/images/itisfoundation/qooxdoo-compiler "Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/itisfoundation/qooxdoo-compiler.svg)](https://microbadger.com/images/itisfoundation/qooxdoo-compiler "Get your own version badge on microbadger.com")
-[![](https://images.microbadger.com/badges/commit/itisfoundation/qooxdoo-compiler.svg)](https://microbadger.com/images/itisfoundation/qooxdoo-compiler "Get your own commit badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/itisfoundation/qooxdoo-compiler.svg)](https://microbadger.com/images/itisfoundation/qooxdoo-compiler "")
+[![](https://images.microbadger.com/badges/version/itisfoundation/qooxdoo-compiler.svg)](https://microbadger.com/images/itisfoundation/qooxdoo-compiler "")
+[![](https://images.microbadger.com/badges/commit/itisfoundation/qooxdoo-compiler.svg)](https://microbadger.com/images/itisfoundation/qooxdoo-compiler "")
 
 Contains:
 
