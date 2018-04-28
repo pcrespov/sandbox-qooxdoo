@@ -1,5 +1,4 @@
 #!/bin/bash
-echo LET US HAVE A LOOK INSIDE ----------------
 echo
 printenv
 echo
