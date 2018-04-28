@@ -4,13 +4,13 @@ Contains:
 
 - Dockerfile to build an image with [qooxdoo-compiler]
 - docker-compose configuration to use [qooxdoo-compiler]'s cli: compile, translate, serve ...
-- Docker images can be found at [dockerhub](https://hub.docker.com/r/itisfoundation/qooxdoo-compiler/tags/)
+- These docker images are available at the [dockerhub] registry.
 
 ## Usage
 
 Some example of usage with ```docker-compose``` cli:
 
-- Build image
+- Build image (this step is not necessary since image can be pulled from [dockerhub] )
 
 ``` bash
     # build container with latest version qx-compiler
@@ -36,9 +36,12 @@ Some example of usage with ```docker-compose``` cli:
     APP_DIR=myapp docker-compose up
 ```
 
+See ``samples`` folder in this repo for some examples.
+
 ## Maintenance
 
 Build, tagging, versioning, releasing, etc ... of this image can be performed using the ```makefile```.
 
 [1]:https://www.npmjs.com/package/qxcompiler
 [qooxdoo-compiler]:https://github.com/qooxdoo/qooxdoo-compiler 
+[dockerhub]:https://hub.docker.com/r/itisfoundation/qooxdoo-compiler/tags/
