@@ -1,5 +1,16 @@
 {
     "eslint.enable": true,
     "eslint.alwaysShowStatus": true,
-    "jshint.enable": false
+    "jshint.enable": false,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/__pycache__": true
+    },
+    "files.associations": {
+        ".*rc": "ini",
+    }
 }
