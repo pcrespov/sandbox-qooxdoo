@@ -4,6 +4,9 @@ Contains:
 
 - Dockerfile to build an image with [qooxdoo-compiler]
 - docker-compose configuration to use [qooxdoo-compiler]'s cli: compile, translate, serve ...
+- Docker images can be found at [dockerhub](https://hub.docker.com/r/itisfoundation/qooxdoo-compiler/tags/)
+
+## Usage
 
 Some example of usage with ```docker-compose``` cli:
 
@@ -33,56 +36,9 @@ Some example of usage with ```docker-compose``` cli:
     APP_DIR=myapp docker-compose up
 ```
 
-## Other options
+## Maintenance
 
-```bash
-# build image
-docker-compose build
-
-# create an app: myapp
-docker-compose run qx create myapp -I
-
-# compile myapp
-docker-compose run -w /home/node/src/myapp qx compile
-
-
-# serve myapp
-docker-compose run -w /home/node/src/myapp --service-ports qxcompiler serve
-
-# stop
-docker-compose down
-```
-
-- Using bare ```docker``` cli is obviously also possible
-
-```bash
-   # Assuming itisfoundation/qooxdoo-compiler is the image's tag
-   docker run -v $(pwd):/home/node/src itisfoundation/qooxdoo-compiler create myapp-I
-
-   # compile
-   cd myapp
-   docker run -t -v $(pwd):/home/node/src itisfoundation/qooxdoo-compiler compile
-
-```
-
-- **TIP**: once the app folder is created, defining an alias can be handy
-
-``` bash
-alias qx='docker-compose run -w /home/node/src/myapp --service-ports qx'
-
-qx --help
-qx compile
-
-unalias qx
-
-# stop
-docker-compose down
-```
-
-## TODO
-
-- [ ] option to qooxdoo compiler from github?
-
+Build, tagging, versioning, releasing, etc ... of this image can be performed using the ```makefile```.
 
 [1]:https://www.npmjs.com/package/qxcompiler
 [qooxdoo-compiler]:https://github.com/qooxdoo/qooxdoo-compiler 
