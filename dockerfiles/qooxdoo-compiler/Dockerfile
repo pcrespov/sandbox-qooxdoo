@@ -1,4 +1,4 @@
-FROM node:8.9.2
+FROM node:8
 
 LABEL maintainer="pcrespov" 
 
@@ -32,7 +32,6 @@ ENV QOOXDOO_PATH=$QOOXDOO_COMPILER_DIR/node_modules/qooxdoo-sdk
 
 # access to bin
 ENV PATH=$NPM_CONFIG_PREFIX/bin:$PATH
-
 
 RUN mkdir $NPM_CONFIG_PREFIX
 RUN npm install --quiet --no-progress -g \
