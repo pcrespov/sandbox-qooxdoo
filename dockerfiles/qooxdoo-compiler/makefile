@@ -5,6 +5,7 @@ GIT_COMMIT = $(strip $(shell git rev-parse --short HEAD))
 default: build
 
 build:
+	# FIXME: this does work in mac but not in ubuntu??!
 	docker-compose build --no-cache \
 		--build-arg build_date=`date -u +"%Y-%m-%dT%H:%M:%SZ"`\
 		--build-arg vcs_url=`git config --get remote.origin.url`\
