@@ -25,7 +25,7 @@ RUN apk update \
  && apk upgrade \
  && apk add --no-cache bash git openssh
 
-# fixes child Dockefile not permitted to write in workdir
+# Fixes child Dockefile not permitted to write in workdir
 WORKDIR /home/node/src
 RUN chown -R node:node /home/node/src
 
@@ -49,7 +49,9 @@ RUN npm install --quiet --no-progress -g \
         npm@5.5.1 \
         qxcompiler@${QX_COMPILER_VERSION}
 
-## Overcomes libraries path "../node_modules/qooxdoo-sdk/framework" issue in compile.json
+# TODO: add npm qooxdoo sdk and support for testing/generator
+
+# Overcomes libraries path "../node_modules/qooxdoo-sdk/framework" issue in compile.json
 RUN ln -s $QOOXDOO_COMPILER_DIR/node_modules /home/node
 
 VOLUME  /home/node/src
