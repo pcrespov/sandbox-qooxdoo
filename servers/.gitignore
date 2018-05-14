@@ -45,3 +45,6 @@ venv
 .env
 .env-mysql
 flask.sh
+
+tmp/
+data/

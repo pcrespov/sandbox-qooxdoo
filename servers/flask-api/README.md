@@ -13,14 +13,16 @@ conda create -n flask-api python=3
 source activate flask-api
 pip install -r requirements/dev.txt
 
-# Start shell
+# help
 cd path/to/source
-FLASK_APP=main.py flask shell
+FLASK_APP=main.py FLASK_DEBUG=1 flask --help
+
+# tests and report coverage
+FLASK_APP=main.py FLASK_DEBUG=1 flask test --coverage
 
 
-# Run tests
-cd path/flask-api
-PYTHONPATH=$(pwd)/source python -m nose tests
+# Other alternatives to run tests
+python -m nose tests
 
 ```
 

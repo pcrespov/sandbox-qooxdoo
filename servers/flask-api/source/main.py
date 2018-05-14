@@ -29,6 +29,8 @@ def make_shell_context():
                 Permission=Permission, Post=Post, Comment=Comment)
 
 
+# TODO: would be desirable to have more separation with tests? Wonder if it makes sense to 
+# release tests within container in production?
 @app.cli.command()
 @click.option('--coverage/--no-coverage', default=False,
               help='Run tests under code coverage.')
