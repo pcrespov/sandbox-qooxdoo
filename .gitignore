@@ -101,3 +101,7 @@ ENV/
 .mypy_cache/
 
 TODO.md
+
+
+tmp/
+data/

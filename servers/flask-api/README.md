@@ -26,7 +26,12 @@ FLASK_APP=main.py FLASK_DEBUG=1 flask test --coverage
 
 # Other alternatives to run tests
 python -m nose tests
-
 ```
+
+## TODOs
+
+- Move tests outside source
+- fix docker environment
+- Same venv setup should be easily setup in host -> move docker scripts outside?
 
 [flasky]:https://github.com/miguelgrinberg/flasky
