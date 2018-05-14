@@ -1,12 +1,14 @@
 -r common.txt
+autopep8>=1.3.5
 certifi==2017.7.27.1
 chardet==3.0.4
 coverage==4.4.1
 faker==0.7.18
 httpie==0.9.9
 idna==2.5
+nose>=1.3.7
 Pygments==2.2.0
+pylint>=1.8.4
 requests==2.18.2
 selenium==3.4.3
 urllib3==1.22
-pylint
