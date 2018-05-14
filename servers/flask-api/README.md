@@ -13,6 +13,9 @@ conda create -n flask-api python=3
 source activate flask-api
 pip install -r requirements/dev.txt
 
+# activate it
+source activate flask-api
+
 # help
 cd path/to/source
 FLASK_APP=main.py FLASK_DEBUG=1 flask --help
