@@ -1,6 +1,6 @@
 # qooxdoo-samples
 
-A collection of client applications built with [qooxdoo] and some tools around them.
+A random set of Rich Internet Applications (RIA) implemented with [qooxdoo] and some development tools and servers around them.
 
 ## samples
 
