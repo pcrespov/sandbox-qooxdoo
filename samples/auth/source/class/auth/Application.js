@@ -41,11 +41,12 @@ qx.Class.define("auth.Application", {
         qx.log.appender.Native;
         // support additional cross-browser console. Press F7 to toggle visibility
         qx.log.appender.Console;
+      }
 
-        // Enables fake server if in qx.debug!
-        //if (qx.core.Environment.get("auth.mockBackend")) {
-        auth.mock.User;
-        //}
+      // Enables fake server if in qx.debug!
+      if (qx.core.Environment.get("auth.mockBackend")) {
+        console.debug("Initializing FakeServer ...");
+        auth.mock.RestAPI;
       }
 
       let root = this.getRoot();

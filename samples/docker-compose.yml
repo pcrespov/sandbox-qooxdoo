@@ -7,4 +7,5 @@ services:
     ports:
       - '8080:8080'
     working_dir: /home/node/src/${APP_DIR:-.}
-    command: serve
+    command: serve --set qx.allowUrlSettings=true
+    # Open http://localhost:8080/index.html?qxenv:auth.mockBackend:true
