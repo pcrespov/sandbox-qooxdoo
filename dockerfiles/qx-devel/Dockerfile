@@ -5,22 +5,30 @@ LABEL maintainer=pcrespov
 # TODO:  set as host user, otherwise outdir is set as root in the host
 
 ENV NPM_CONFIG_LOGLEVEL warn
-ENV PATH="/home/node/qooxdoo-compiler/:${PATH}"
+ENV QOOXDOO_PATH=/home/node/qooxdoo-sdk
+ENV QOOXDOO_COMPILER_DIR=/home/node/qooxdoo-compiler
+ENV PATH="${QOOXDOO_PATH}/tool/bin:${QOOXDOO_COMPILER_DIR}:${QOOXDOO_COMPILER_DIR}/node_modules/.bin/:${PATH}"
 
 #
-# + /home/node/            $HOME
-#    + client              $
-#    + qooxdoo-compiler
+# + /home/node/             $HOME
+#    + client/              $WORKDIR
+#    + qooxdoo-compiler/    *
+#       - qx
+#       + node_modules/
+#           + .bin/         *
+#    + qooxdoo-sdk/
+#       + tool/
+#           + bin/          *
 #
+#  * = in $PATH
 
 # (1) Installs qooxdoo compiler for development
 WORKDIR /home/node
 
-RUN git clone https://github.com/qooxdoo/qooxdoo-compiler && \
-    cd qooxdoo-compiler && \
-    #git checkout -b hotfix/patch && \
-    #git pull git@github.com:oetiker/qooxdoo.git environment-fix && \
-    npm i npm@latest && \
+RUN git clone --depth 1 https://github.com/qooxdoo/qooxdoo.git ${QOOXDOO_PATH} && \
+    git clone --depth 1 https://github.com/qooxdoo/qooxdoo-compiler.git ${QOOXDOO_COMPILER_DIR} && \
+    cd ${QOOXDOO_COMPILER_DIR} && \
+    npm install npm@latest && \
     npm install
 
 WORKDIR /home/node/client
