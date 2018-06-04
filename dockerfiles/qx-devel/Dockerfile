@@ -8,6 +8,7 @@ ENV NPM_CONFIG_LOGLEVEL warn
 ENV QOOXDOO_PATH=/home/node/qooxdoo-sdk
 ENV QOOXDOO_COMPILER_DIR=/home/node/qooxdoo-compiler
 ENV PATH="${QOOXDOO_PATH}/tool/bin:${QOOXDOO_COMPILER_DIR}:${QOOXDOO_COMPILER_DIR}/node_modules/.bin/:${PATH}"
+ENV QOOXDOO_VERSION="master"
 
 #
 # + /home/node/             $HOME
