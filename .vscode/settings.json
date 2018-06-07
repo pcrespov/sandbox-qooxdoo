@@ -12,6 +12,7 @@
     },
     "files.associations": {
         ".*rc": "ini",
+        "Dockerfile*": "dockerfile"
     },
     "python.pythonPath": "/home/crespo/anaconda/envs/flask-api/bin/python",
     "editor.tabSize": 2
