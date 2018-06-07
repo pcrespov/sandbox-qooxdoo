@@ -17,56 +17,116 @@ qx.Class.define("core.Application",
 {
   extend : qx.application.Standalone,
 
-
-
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
   members :
   {
-    /**
-     * This method contains the initial application code and gets called 
-     * during startup of the application
-     * 
-     * @lint ignoreDeprecated(alert)
-     */
+    __usersResource : null,
+    __userResource: null,
+    __userStore: null,
+    __usersStore: null,
+    // views
+    __list: null,
+    __userDetail: null,
+
     main : function()
     {
-      // Call super class
       this.base(arguments);
 
-      // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug"))
       {
-        // support native logging capabilities, e.g. Firebug for Firefox
-        qx.log.appender.Native;
-        // support additional cross-browser console. Press F7 to toggle visibility
-        qx.log.appender.Console;
       }
 
-      /*
-      -------------------------------------------------------------------------
-        Below is your actual application code...
-      -------------------------------------------------------------------------
-      */
+      this._setUpResources();
+      this._setUpStores();
+      this._createUI();
+      this._setUpBinding();
 
-      // Create a button
-      var button1 = new qx.ui.form.Button("Click me", "core/test.png");
 
-      // Document is the application root
-      var doc = this.getRoot();
+      // Note the action is invoked on the resource, not the store.
+      // self._usersResource.get();
+    },
 
-      // Add button to document at fixed coordinates
-      doc.add(button1, {left: 100, top: 50});
+    _setUpResources: function(){
+      this.__userResource = new core.rest.Resource({
+        get: {
+          method: "GET",
+          url: "api/v1/users/{id}",
+          check: {
+            id: /\d+/
+          }
+        },
 
-      // Add an event listener
-      button1.addListener("execute", function() {
-        /* eslint no-alert: "off" */
-        alert("Hello World!");
+        put: {
+          method: "PUT",
+          url: "api/v1/users/{id}",
+          check: {
+            id: /\d+/
+          }
+        },
+
+        del: {
+          method: "DELETE",
+          url: "api/v1/users/{id}",
+          check: {
+            id: /\d+/
+          }
+        }
       });
-    }
+
+      this.__usersResource = new core.rest.Resource({
+        get: {
+          method: "GET",
+          url: "api/v1/users/"
+        },
+
+        post: {
+          method: "POST",
+          url: " api/v1/users/"
+        }
+      });
+    },
+
+    _setUpStores: function(){
+
+      /* Attaches a particular rest action to store
+
+        Handles response associated to a resource’ s action.
+        The model property is populated with the marshaled response.
+        Note the action is invoked on the resource, not the store.
+      */
+      this.__userStore = new qx.data.store.Rest(self.__userResource, "get");
+      this.__usersStore = new qx.data.store.Rest(self.__usersResource, "get");
+    },
+
+    _createUI: function(){
+
+      let container = new qx.ui.container.Composite(new qx.ui.layout.Dock());
+      container.setPadding(10);
+
+      let label = new qx.ui.basic.Label("Users");
+      //label.setFont("bold");
+      //label.setPaddingBottom(10);
+      container.add(label, {
+        edge: "north"
+      });
+      
+      let list = this.__list = new qx.ui.list.List();
+      list.setWidth(200);
+      container.add(list, {
+        edge: "west"
+      });
+
+      let detail = this.__userDetail = new core.ui.UserView();
+      container.add(detail, {
+        edge: "center"
+      });
+
+
+      this.getRoot().add(container, {edge: 0});
+    },
+
+    _setUpBinding: function (){
+
+    },
+
   }
 });

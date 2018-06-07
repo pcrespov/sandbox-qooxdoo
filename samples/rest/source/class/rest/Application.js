@@ -29,7 +29,7 @@ qx.Class.define("rest.Application",
           this.base(arguments);
 
           // FIXME: enable only when dev flags
-          //if (qx.core.Environment.get("auth.mockBackend")) {
+          //if (qx.core.Environment.get("rest.mockBackend")) {
           console.debug("Initializing FakeServer ...");
           rest.dev.mock.Users;
           //}
