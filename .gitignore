@@ -108,4 +108,4 @@ data/
 
 
 # generated API
-samples/*/api/
+qooxdoo-framework.d.ts

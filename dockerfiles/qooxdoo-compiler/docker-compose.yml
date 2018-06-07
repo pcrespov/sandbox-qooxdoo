@@ -4,7 +4,8 @@ services:
     image: "itisfoundation/qooxdoo-compiler:${VERSION_TAG:-0.2.10}"
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.alpine
+      # there is no real advantage in having alpine since it will never be used in production!?
       args:
         - version=${VERSION_TAG:-0.2.10}
     volumes:

@@ -28,7 +28,7 @@
   ],
 
   "libraries": [
-    "/home/node/qooxdoo-sdk/framework",
+    "../../qooxdoo-sdk/framework",
     "."
   ]
 }
