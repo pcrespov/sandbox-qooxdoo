@@ -2,13 +2,19 @@ FROM node:8.9.2
 
 LABEL maintainer=pcrespov
 
-# TODO:  set as host user, otherwise outdir is set as root in the host
+# Renaming node as scu
+RUN groupmod --new-name scu node && \
+    usermod --login scu --move-home --home /home/scu node
 
 ENV NPM_CONFIG_LOGLEVEL warn
-ENV QOOXDOO_PATH=/home/node/qooxdoo-sdk
-ENV QOOXDOO_COMPILER_DIR=/home/node/qooxdoo-compiler
+
+ENV HOME /home/scu
+
+ENV QOOXDOO_PATH /home/scu/qooxdoo-sdk
+ENV QOOXDOO_COMPILER_DIR /home/scu/qooxdoo-compiler
+ENV QOOXDOO_VERSION "master"
+
 ENV PATH="${QOOXDOO_PATH}/tool/bin:${QOOXDOO_COMPILER_DIR}:${QOOXDOO_COMPILER_DIR}/node_modules/.bin/:${PATH}"
-ENV QOOXDOO_VERSION="master"
 
 #
 # + /home/node/             $HOME
@@ -22,18 +28,17 @@ ENV QOOXDOO_VERSION="master"
 #           + bin/          *
 #
 #  * = in $PATH
+USER scu
 
 # (1) Installs qooxdoo compiler for development
-WORKDIR /home/node
-
 RUN git clone --depth 1 https://github.com/qooxdoo/qooxdoo.git ${QOOXDOO_PATH} && \
     git clone --depth 1 https://github.com/qooxdoo/qooxdoo-compiler.git ${QOOXDOO_COMPILER_DIR} && \
     cd ${QOOXDOO_COMPILER_DIR} && \
     npm install npm@latest && \
     npm install
 
-WORKDIR /home/node/client
-VOLUME /home/node/client
+WORKDIR /home/scu/client
+VOLUME /home/scu/client
 EXPOSE 8080
 
 CMD ["qx", "serve"]

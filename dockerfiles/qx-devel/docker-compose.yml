@@ -1,13 +1,11 @@
 version: '3'
 services:
   qx:
-    image: "qx:master"
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: qx:master
     volumes:
-      - '.:/home/node/client'
+      - '.:/home/scu/client'
     ports:
       - '8080:8080'
-    working_dir: /home/node/client/${APP_DIR-.}
-    command: serve
+    working_dir: /home/scu/client/${APP_DIR:-.}
+    command: qx serve --set qx.allowUrlSettings=true
+    # now Open http://localhost:8080/index.html?qxenv:auth.mockBackend:true
