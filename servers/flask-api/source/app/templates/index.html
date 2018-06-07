@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}SimCore{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <img class="img-rounded" src="{{ url_for('static', filename='osparc_logo.png') }}" alt="osparc" style="width:15%">
+</div>
+<div>
+    {% if current_user.is_authenticated %}
+    <h2>Welcome {{ current_user.username }}</h2>
+    <p> Here we will have a list of available projects or sessions here ...</p>
+    {% else %}
+    <p> Please <a href="{{ url_for('auth.login')}}">log-in</a> to access available projects/sessions. </p>
+    {% endif %}
+    <p>So far {{ user_count }} users and growing ....</p>
+</div>
+
+{% if 0 %}
+<div>
+    {% if current_user.can(Permission.WRITE)%}
+    {{ wtf.quick_form(form) }}
+    {% endif %}
+</div>
+ <div class="post-tabs">
+    <ul class="nav nav-tabs">
+        <li{% if not show_followed %} class="active"{% endif %}><a href="{{ url_for('.show_all') }}">All</a></li>
+        {% if current_user.is_authenticated %}
+        <li{% if show_followed %} class="active"{% endif %}><a href="{{ url_for('.show_followed') }}">Followers</a></li>
+        {% endif %}
+    </ul>
+    {% include '_posts.html' %}
+</div>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+{% endif %}
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
+{% endblock %}

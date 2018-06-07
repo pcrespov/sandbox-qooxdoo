@@ -101,3 +101,11 @@ ENV/
 .mypy_cache/
 
 TODO.md
+
+
+tmp/
+data/
+
+
+# generated API
+qooxdoo-framework.d.ts
