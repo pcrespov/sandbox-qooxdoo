@@ -2,7 +2,7 @@ version: '3'
 services:
   qx:
     #image: itisfoundation/qooxdoo-compiler:latest
-    image: qx:master
+    image: qx:released
     volumes:
       - '.:/home/scu/client'
     ports:
