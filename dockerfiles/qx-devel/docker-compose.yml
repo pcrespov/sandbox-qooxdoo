@@ -1,7 +1,11 @@
-version: '3'
+version: '3.4'
 services:
   qx:
-    image: qx:master
+    image: qx:${BUILD_TARGET:-master}
+    build:
+      context: .
+      target: ${BUILD_TARGET:-master}
+      # or released
     volumes:
       - '.:/home/scu/client'
     ports:

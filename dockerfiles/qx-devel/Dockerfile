@@ -1,4 +1,4 @@
-FROM node:8.9.2
+FROM node:8.9.2 as base-stage
 
 LABEL maintainer=pcrespov
 
@@ -12,7 +12,6 @@ ENV HOME /home/scu
 
 ENV QOOXDOO_PATH /home/scu/qooxdoo-sdk
 ENV QOOXDOO_COMPILER_DIR /home/scu/qooxdoo-compiler
-ENV QOOXDOO_VERSION "master"
 
 ENV PATH="${QOOXDOO_PATH}/tool/bin:${QOOXDOO_COMPILER_DIR}:${QOOXDOO_COMPILER_DIR}/node_modules/.bin/:${PATH}"
 
@@ -24,21 +23,40 @@ ENV PATH="${QOOXDOO_PATH}/tool/bin:${QOOXDOO_COMPILER_DIR}:${QOOXDOO_COMPILER_DI
 #       + node_modules/
 #           + .bin/         *
 #    + qooxdoo-sdk/
+#       + framework         qx library
 #       + tool/
 #           + bin/          *
 #
 #  * = in $PATH
+#
+
+# FIXME: scu must have same id as host's user so compiler can write in mount volume!
 USER scu
 
-# (1) Installs qooxdoo compiler for development
+# qooxdoo-sdk from source repository. Provides framework and generator.py tools
 RUN git clone --depth 1 https://github.com/qooxdoo/qooxdoo.git ${QOOXDOO_PATH} && \
-    git clone --depth 1 https://github.com/qooxdoo/qooxdoo-compiler.git ${QOOXDOO_COMPILER_DIR} && \
-    cd ${QOOXDOO_COMPILER_DIR} && \
-    npm install npm@latest && \
-    npm install
+    mkdir ${QOOXDOO_COMPILER_DIR}
 
 WORKDIR /home/scu/client
 VOLUME /home/scu/client
 EXPOSE 8080
 
 CMD ["qx", "serve"]
+
+#-------------------------------------------------------------------
+# TODO: switch with arg?? instead?
+FROM base-stage as master
+
+# (1) qooxdoo-compiler from source repository.
+RUN git clone --depth 1 https://github.com/qooxdoo/qooxdoo-compiler.git ${QOOXDOO_COMPILER_DIR} && \
+    cd ${QOOXDOO_COMPILER_DIR} && \
+    npm install npm@latest && \
+    npm install
+
+FROM base-stage as released
+
+# (2) qooxdoo-compiler from npm 
+COPY --chown=scu:scu package*.json ${QOOXDOO_COMPILER_DIR}/
+RUN cd ${QOOXDOO_COMPILER_DIR} && \
+    npm install npm@latest && \
+    npm install
