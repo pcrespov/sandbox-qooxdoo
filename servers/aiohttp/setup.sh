@@ -1,9 +1,11 @@
 #!/bin/sh
 
 # FIXME:
-python3 -m venv ./venv 
+ENV_DIR=./.VENV 
 
-source venv/bin/activate
-venv/bin/pippip install --upgrade pip
-venv/bin/pip install -r source/requirements.txt
+python3 -m venv $ENV_DIR
+
+source $ENV_DIR/bin/activate
+$ENV_DIR/bin/pip install --upgrade pip
+$ENV_DIR/bin/pip install -r source/requirements.txt
 
