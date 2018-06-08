@@ -110,3 +110,5 @@ data/
 qooxdoo-framework.d.ts
 
 
+node_modules/
+package-lock.json
