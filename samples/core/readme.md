@@ -1,5 +1,0 @@
-# core
-
-undefined
-
-undefined
