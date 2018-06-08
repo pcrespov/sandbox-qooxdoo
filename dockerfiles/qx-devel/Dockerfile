@@ -42,7 +42,8 @@ WORKDIR /home/scu/client
 VOLUME /home/scu/client
 EXPOSE 8080
 
-CMD ["qx", "serve"]
+ENTRYPOINT [ "qx" ]
+CMD ["serve"]
 
 #-------------------------------------------------------------------
 # TODO: switch with arg?? instead?
@@ -52,7 +53,7 @@ FROM base-stage as master
 RUN git clone --depth 1 https://github.com/qooxdoo/qooxdoo-compiler.git ${QOOXDOO_COMPILER_DIR} && \
     cd ${QOOXDOO_COMPILER_DIR} && \
     npm install npm@latest && \
-    npm install
+    npm install 
 
 FROM base-stage as released
 
@@ -60,4 +61,8 @@ FROM base-stage as released
 COPY --chown=scu:scu package*.json ${QOOXDOO_COMPILER_DIR}/
 RUN cd ${QOOXDOO_COMPILER_DIR} && \
     npm install npm@latest && \
-    npm install 
+    npm install && \
+    mkdir $QOOXDOO_COMPILER_DIR/node_modules/qxcompiler/node_modules/ && \
+    ln -s $QOOXDOO_PATH $QOOXDOO_COMPILER_DIR/node_modules/qxcompiler/node_modules/
+
+# NOTE: link above fullfils default --qxpath in the qx create command.

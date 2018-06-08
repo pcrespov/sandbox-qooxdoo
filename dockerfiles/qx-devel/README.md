@@ -26,6 +26,12 @@ docker-compose run qx /bin/bash -c "which qx && qx --help"
 BUILD_TARGET=released docker-compose run qx /bin/bash -c  "which qx && qx --help"
 ```
 
+``` bash
+
+docker-compose qx create --qxpath=$QOOXDOO_PATH/framework  mini -I
+
+```
+
 ## TODOs
 
 - TODO: print installed version of qx

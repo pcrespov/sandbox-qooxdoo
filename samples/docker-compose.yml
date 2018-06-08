@@ -2,11 +2,13 @@ version: '3'
 services:
   qx:
     #image: itisfoundation/qooxdoo-compiler:latest
+    #image: qx:master
     image: qx:released
     volumes:
       - '.:/home/scu/client'
     ports:
       - '8080:8080'
     working_dir: /home/scu/client/${APP_DIR:-.}
-    command: qx serve --set qx.allowUrlSettings=true
+    #entrypoint: bash
+    command: serve --set qx.allowUrlSettings=true
     # Open http://localhost:8080/index.html?qxenv:auth.mockBackend:true
