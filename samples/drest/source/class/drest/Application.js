@@ -19,6 +19,13 @@ qx.Class.define("drest.Application", {
         qx.log.appender.Native;
         // support additional cross-browser console. Press F7 to toggle visibility
         qx.log.appender.Console;
+
+        //if (qx.core.Environment.get("drest.mockBackend")) {
+        drest.dev.fake.Gist;
+        drest.dev.fake.Gists;
+        //}
+
+        qx.data.SingleValueBinding.showAllBindingsInLog();
       }
 
       this._setUpResources();
@@ -31,6 +38,7 @@ qx.Class.define("drest.Application", {
       // Select first item in list
       this.__list.addListener("changeModel", function (evt) {
         var model = evt.getData();
+        this.debug(qx.dev.Debug.debugProperties(model));
         this.__list.getSelection().push(model.getItem(0));
       }, this);
 
@@ -40,7 +48,15 @@ qx.Class.define("drest.Application", {
         this.__gistRes.get({
           id: id
         });
+
       }, this);
+
+      this.__gistStore.addListener("loaded", function () {
+        var model = store.getModel();
+        // display the model in the log
+        this.debug(qx.dev.Debug.debugProperties(model));
+      }, this);
+
     },
 
     _setUpResources: function () {
@@ -48,7 +64,7 @@ qx.Class.define("drest.Application", {
       this.__gistsRes = new drest.rest.Resource({
         "get": {
           method: "GET",
-          url: "/gists"
+          url: "/gists/"
         }
       });
 
@@ -56,7 +72,7 @@ qx.Class.define("drest.Application", {
       this.__gistRes = new drest.rest.Resource({
         "get": {
           method: "GET",
-          url: "/gists/{id}"
+          url: "/gist/{id}"
         }
       });
     },
@@ -121,8 +137,12 @@ qx.Class.define("drest.Application", {
       gistStore.bind("model.user.avatar_url", gist.getGravatar(), "source");
       gistStore.bind("model.files", gist.getContent(), "html", {
         converter: function (model) {
-          var files = qx.Class.getProperties(model.constructor);
-          var content = model.get(files[0]).getContent();
+          var content = "Some dummy content ";
+          if (model)
+          {
+          //var files = qx.Class.getProperties(model.constructor);
+          // content = model.get(files[0]).getContent();
+          }          
           content = qx.bom.String.escape(content);
           return "<pre>" + content + "</pre>";
         }

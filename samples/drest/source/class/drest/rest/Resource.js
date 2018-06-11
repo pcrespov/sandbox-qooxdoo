@@ -12,8 +12,9 @@ qx.Class.define("drest.rest.Resource", {
 
     this.configureRequest(function (req) {
       req.setRequestHeader("Accept", "application/json");
-      req.setRequestHeader("Authorization", "token " + GITHUB.access_token);
+      // req.setRequestHeader("Authorization", "token " + GITHUB.access_token);
     });
-    this.setBaseUrl("https://api.github.com");
+
+    // this.setBaseUrl("https://api.github.com");
   }
 });
