@@ -1,5 +1,5 @@
 const GITHUB = {
-  accessToken: qx.core.Environment.get("github.accessToken"),
+  accessToken: qx.core.Environment.get("dev.accessToken"),
   error: false
 };
 
@@ -81,11 +81,16 @@ qx.Class.define("drest.Application", {
     },
 
     _setUpResources: function() {
+      // Fake server does not distinguishes between /gists and /gists/{id}!
+      let URL_SUFFIX = "";
+      if (qx.core.Environment.get("dev.enableFakeServer")) {
+        URL_SUFFIX = "_all";
+      }
       // Index of gists
       this.__gistsRes = new drest.rest.Resource({
         "get": {
           method: "GET",
-          url: "/gists"
+          url: "/gists" + URL_SUFFIX
         }
       });
 

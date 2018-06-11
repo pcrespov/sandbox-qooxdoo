@@ -10,6 +10,6 @@ APP_DIR=drest docker-compose up
 
 ```
 
-open a browser and type ``http://localhost:8080/index.html?qxenv:dev.enableFakeServer:true``.
+open a browser and type ``http://localhost:8080/index.html?qxenv:dev.enableFakeServer:true`` to enable fake backend (see drest/dev/fakerest) that will intercept the call to the server. By default, this feature is disabled.
 
-to enable fake backend (see drest/dev/fakerest) that will intercept the call to the server. By default, this feature is disabled.
+Other option is ``http://localhost:8080/index.html?qxenv:dev.enableFakeServer:false&qxenv:dev.accessToken:xxxxxx`` and access directly to gihub API (see ``secrets.env``).

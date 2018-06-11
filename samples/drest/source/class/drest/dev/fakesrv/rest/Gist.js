@@ -22,14 +22,8 @@ qx.Class.define("drest.dev.fakesrv.rest.Gist", {
               "type": "text/plain",
               "language": null,
               "raw_url": "https://gist.githubusercontent.com/pcrespov/f011c5d496ec1623d44f78427140061f/raw/a76000e2d203022e0cdb07161aea207fb41f586b/Bar",
-              "size": 18
-            },
-            "Foo": {
-              "filename": "Foo",
-              "type": "text/plain",
-              "language": null,
-              "raw_url": "https://gist.githubusercontent.com/pcrespov/f011c5d496ec1623d44f78427140061f/raw/61a9fe3c3eb211f53e88c8d16bb9d3e446a19605/Foo",
-              "size": 18
+              "size": 18,
+              "content": "should request raw_url from BAR"
             }
           }
         });

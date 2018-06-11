@@ -7,7 +7,7 @@ qx.Class.define("drest.dev.fakesrv.rest.Gists", {
   statics: {
     mockData: [{
       method: "GET",
-      url: "/gists",
+      url: "/gists_all", // cannot be called /gists while having /gists/{id}!
       response: [
         200, // OK
         {
