@@ -5,20 +5,22 @@ qx.Class.define("drest.dev.fakesrv.rest.Gist", {
     mockData: [{
       method: "GET",
       url: "/gist/{id}",
-      response: [
-        200, // OK
-        {
+      response: function(request) {
+        let status = 200; // OK
+        let headers = {
           "Content-Type": "application/json"
-        },
-        qx.lang.Json.stringify({
-          description: "This is a fake response for user {id}",
+        };
+        let body = qx.lang.Json.stringify({
+          description: "This is a fake response for user " + request.url,
           user: {
             login: "bizzy",
             avatarUrl: drest.Utils.getGravatar("bizzy@itis.ethz.ch")
           },
           files: ["<html><h1>Hoi zaeme</h1></html>", "<html><h1>Hi there</h1></html>"]
-        })
-      ]
+        });
+
+        request.respond(status, headers, body);
+      }
     }]
   },
 
