@@ -4,7 +4,7 @@
 qx.Class.define("drest.view.Gist", {
   extend: qx.ui.container.Composite,
 
-  construct: function () {
+  construct: function() {
     this.base(arguments);
 
     var gridLayout = new qx.ui.layout.Grid(5, 5);
@@ -72,19 +72,19 @@ qx.Class.define("drest.view.Gist", {
 
     __content: "",
 
-    getDescription: function () {
+    getDescription: function() {
       return this.__description;
     },
 
-    getGravatar: function () {
+    getGravatar: function() {
       return this.__gravatar;
     },
 
-    getUsername: function () {
+    getUsername: function() {
       return this.__username;
     },
 
-    getContent: function () {
+    getContent: function() {
       return this.__content;
     }
   }

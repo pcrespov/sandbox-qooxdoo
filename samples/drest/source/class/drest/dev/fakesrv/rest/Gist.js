@@ -1,4 +1,4 @@
-qx.Class.define("drest.dev.fake.Gist", {
+qx.Class.define("drest.dev.fakesrv.rest.Gist", {
   type: "static",
 
   statics: {
@@ -23,7 +23,9 @@ qx.Class.define("drest.dev.fake.Gist", {
   },
 
   defer: function(mystatics) {
-    qx.dev.FakeServer.getInstance().configure(mystatics.mockData);
+    if (qx.core.Environment.get("dev.enableFakeServer")) {
+      qx.dev.FakeServer.getInstance().configure(mystatics.mockData);
+    }
   }
 
 });

@@ -20,10 +20,10 @@ qx.Class.define("drest.Application", {
         // support additional cross-browser console. Press F7 to toggle visibility
         qx.log.appender.Console;
 
-        // if (qx.core.Environment.get("drest.mockBackend")) {
-        drest.dev.fake.Gist;
-        drest.dev.fake.Gists;
-        // }
+        if (qx.core.Environment.get("dev.enableFakeServer")) {
+          drest.dev.fakesrv.rest.Gist;
+          drest.dev.fakesrv.rest.Gists;
+        }
 
         qx.data.SingleValueBinding.showAllBindingsInLog();
       }
@@ -133,7 +133,7 @@ qx.Class.define("drest.Application", {
 
       gistStore.bind("model.description", gist.getDescription(), "value");
       gistStore.bind("model.user.login", gist.getUsername(), "value");
-      gistStore.bind("model.user.avatar_url", gist.getGravatar(), "source");
+      gistStore.bind("model.user.avatarUrl", gist.getGravatar(), "source");
       gistStore.bind("model.files", gist.getContent(), "html", {
         converter: function(model) {
           var content = "Some dummy content ";

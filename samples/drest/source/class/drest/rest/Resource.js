@@ -7,10 +7,10 @@ qx.Class.define("drest.rest.Resource", {
   /**
    * @ignore(GITHUB.*)
    */
-  construct: function (description) {
+  construct: function(description) {
     this.base(arguments, description);
 
-    this.configureRequest(function (req) {
+    this.configureRequest(function(req) {
       req.setRequestHeader("Accept", "application/json");
       // req.setRequestHeader("Authorization", "token " + GITHUB.access_token);
     });

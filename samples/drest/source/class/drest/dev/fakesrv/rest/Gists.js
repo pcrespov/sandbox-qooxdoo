@@ -1,7 +1,7 @@
 /**
  * http://www.qooxdoo.org/current/pages/communication/fake_server.html
  */
-qx.Class.define("drest.dev.fake.Gists", {
+qx.Class.define("drest.dev.fakesrv.rest.Gists", {
   type: "static",
 
   statics: {
@@ -28,7 +28,9 @@ qx.Class.define("drest.dev.fake.Gists", {
   },
 
   defer: function(mystatics) {
-    qx.dev.FakeServer.getInstance().configure(mystatics.mockData);
+    if (qx.core.Environment.get("dev.enableFakeServer")) {
+      qx.dev.FakeServer.getInstance().configure(mystatics.mockData);
+    }
   }
 
 });
