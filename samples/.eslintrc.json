@@ -5,7 +5,7 @@
   "extends": "qx",
   "globals": {
     "qx": false,
-    "q": false,
+    "drest": false,
     "qxWeb": false,
     "qxapp": false
   },
