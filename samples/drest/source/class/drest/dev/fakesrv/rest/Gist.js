@@ -4,7 +4,7 @@ qx.Class.define("drest.dev.fakesrv.rest.Gist", {
   statics: {
     mockData: [{
       method: "GET",
-      url: "/gist/{id}",
+      url: "/gists/{id}",
       response: function(request) {
         let status = 200; // OK
         let headers = {
@@ -12,11 +12,26 @@ qx.Class.define("drest.dev.fakesrv.rest.Gist", {
         };
         let body = qx.lang.Json.stringify({
           description: "This is a fake response for user " + request.url,
-          user: {
-            login: "bizzy",
-            avatarUrl: drest.Utils.getGravatar("bizzy@itis.ethz.ch")
+          owner: {
+            "login": "bizzy",
+            "avatar_url": drest.Utils.getGravatar("bizzy@itis.ethz.ch")
           },
-          files: ["<html><h1>Hoi zaeme</h1></html>", "<html><h1>Hi there</h1></html>"]
+          files: {
+            "Bar": {
+              "filename": "Bar",
+              "type": "text/plain",
+              "language": null,
+              "raw_url": "https://gist.githubusercontent.com/pcrespov/f011c5d496ec1623d44f78427140061f/raw/a76000e2d203022e0cdb07161aea207fb41f586b/Bar",
+              "size": 18
+            },
+            "Foo": {
+              "filename": "Foo",
+              "type": "text/plain",
+              "language": null,
+              "raw_url": "https://gist.githubusercontent.com/pcrespov/f011c5d496ec1623d44f78427140061f/raw/61a9fe3c3eb211f53e88c8d16bb9d3e446a19605/Foo",
+              "size": 18
+            }
+          }
         });
 
         request.respond(status, headers, body);
@@ -26,6 +41,7 @@ qx.Class.define("drest.dev.fakesrv.rest.Gist", {
 
   defer: function(mystatics) {
     if (qx.core.Environment.get("dev.enableFakeServer")) {
+      console.debug("Fake server on /gist/{id}");
       qx.dev.FakeServer.getInstance().configure(mystatics.mockData);
     }
   }

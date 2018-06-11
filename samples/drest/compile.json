@@ -16,8 +16,7 @@
   "defaultTarget": "source",
   "locales": ["en"],
   "environment": { 
-      "qx.icontheme": "Tango",
-      "dev.enableFakeServer": false
+      "qx.icontheme": "Tango"
   },
   "applications": [
     {

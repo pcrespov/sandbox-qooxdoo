@@ -1,3 +1,8 @@
+const GITHUB = {
+  accessToken: qx.core.Environment.get("github.accessToken"),
+  error: false
+};
+
 qx.Class.define("drest.Application", {
   extend: qx.application.Standalone,
 
@@ -9,7 +14,14 @@ qx.Class.define("drest.Application", {
     __list: null,
     __gist: null,
 
+    /**
+     * @ignore(GITHUB)
+     */
     main: function() {
+      if (typeof GITHUB == "undefined") {
+        return;
+      }
+
       // Call super class
       this.base(arguments);
 
@@ -21,8 +33,8 @@ qx.Class.define("drest.Application", {
         qx.log.appender.Console;
 
         if (qx.core.Environment.get("dev.enableFakeServer")) {
-          drest.dev.fakesrv.rest.Gist;
           drest.dev.fakesrv.rest.Gists;
+          drest.dev.fakesrv.rest.Gist;
         }
 
         qx.data.SingleValueBinding.showAllBindingsInLog();
@@ -52,10 +64,19 @@ qx.Class.define("drest.Application", {
         });
       }, this);
 
-      this.__gistStore.addListener("loaded", function() {
+      this.__gistsRes.addListener("actionSucess", function(evt) {
+        var model = this.__gistsStore.getModel();
+        this.debug(qx.dev.Debug.debugProperties(model));
+      }, this);
+
+      this.__gistRes.addListener("actionSucess", function(evt) {
         var model = this.__gistStore.getModel();
         // display the model in the log
         this.debug(qx.dev.Debug.debugProperties(model));
+      }, this);
+
+      this.__gistRes.addListener("actionError", function(evt) {
+        this.debug(evt.getAction(), "Failed");
       }, this);
     },
 
@@ -64,7 +85,7 @@ qx.Class.define("drest.Application", {
       this.__gistsRes = new drest.rest.Resource({
         "get": {
           method: "GET",
-          url: "/gists/"
+          url: "/gists"
         }
       });
 
@@ -72,7 +93,7 @@ qx.Class.define("drest.Application", {
       this.__gistRes = new drest.rest.Resource({
         "get": {
           method: "GET",
-          url: "/gist/{id}"
+          url: "/gists/{id}"
         }
       });
     },
@@ -132,14 +153,14 @@ qx.Class.define("drest.Application", {
       var gist = this.__gist;
 
       gistStore.bind("model.description", gist.getDescription(), "value");
-      gistStore.bind("model.user.login", gist.getUsername(), "value");
-      gistStore.bind("model.user.avatarUrl", gist.getGravatar(), "source");
+      gistStore.bind("model.owner.login", gist.getUsername(), "value");
+      gistStore.bind("model.owner.avatar_url", gist.getGravatar(), "source");
       gistStore.bind("model.files", gist.getContent(), "html", {
         converter: function(model) {
           var content = "Some dummy content ";
           if (model) {
-            // var files = qx.Class.getProperties(model.constructor);
-            // content = model.get(files[0]).getContent();
+            var files = qx.Class.getProperties(model.constructor);
+            content = model.get(files[0]).getContent();
           }
           content = qx.bom.String.escape(content);
           return "<pre>" + content + "</pre>";

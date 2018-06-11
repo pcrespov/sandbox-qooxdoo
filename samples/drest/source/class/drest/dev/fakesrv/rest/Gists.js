@@ -7,20 +7,24 @@ qx.Class.define("drest.dev.fakesrv.rest.Gists", {
   statics: {
     mockData: [{
       method: "GET",
-      url: "/gists/",
+      url: "/gists",
       response: [
         200, // OK
         {
           "Content-Type": "application/json"
         },
         qx.lang.Json.stringify([{
-          id: 1
+          id: "1",
+          description: "Demo1"
         }, {
-          id: 2
+          id: "2",
+          description: "Demo2"
         }, {
-          id: 3
+          id: "3",
+          description: "Demo3"
         }, {
-          id: 4
+          id: "4",
+          description: "Demo4"
         }
         ])
       ]
@@ -29,6 +33,7 @@ qx.Class.define("drest.dev.fakesrv.rest.Gists", {
 
   defer: function(mystatics) {
     if (qx.core.Environment.get("dev.enableFakeServer")) {
+      console.debug("Fake server on /gists");
       qx.dev.FakeServer.getInstance().configure(mystatics.mockData);
     }
   }
