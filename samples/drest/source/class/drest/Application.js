@@ -9,7 +9,7 @@ qx.Class.define("drest.Application", {
     __list: null,
     __gist: null,
 
-    main: function () {
+    main: function() {
       // Call super class
       this.base(arguments);
 
@@ -20,10 +20,10 @@ qx.Class.define("drest.Application", {
         // support additional cross-browser console. Press F7 to toggle visibility
         qx.log.appender.Console;
 
-        //if (qx.core.Environment.get("drest.mockBackend")) {
+        // if (qx.core.Environment.get("drest.mockBackend")) {
         drest.dev.fake.Gist;
         drest.dev.fake.Gists;
-        //}
+        // }
 
         qx.data.SingleValueBinding.showAllBindingsInLog();
       }
@@ -36,30 +36,30 @@ qx.Class.define("drest.Application", {
       this.__gistsRes.get();
 
       // Select first item in list
-      this.__list.addListener("changeModel", function (evt) {
+      this.__list.addListener("changeModel", function(evt) {
         var model = evt.getData();
-        this.debug(qx.dev.Debug.debugProperties(model));
+        console.debug(qx.dev.Debug.debugProperties(model));
         this.__list.getSelection().push(model.getItem(0));
       }, this);
 
       // On selection of item populate gist view
-      this.__list.getSelection().addListener("change", function (evt) {
-        var id = this.__list.getSelection().getItem(0).getId();
+      this.__list.getSelection().addListener("change", function(evt) {
+        var id = this.__list.getSelection().getItem(0)
+          .getId();
+        console.debug("Requesting ", id, "...");
         this.__gistRes.get({
           id: id
         });
-
       }, this);
 
-      this.__gistStore.addListener("loaded", function () {
-        var model = store.getModel();
+      this.__gistStore.addListener("loaded", function() {
+        var model = this.__gistStore.getModel();
         // display the model in the log
         this.debug(qx.dev.Debug.debugProperties(model));
       }, this);
-
     },
 
-    _setUpResources: function () {
+    _setUpResources: function() {
       // Index of gists
       this.__gistsRes = new drest.rest.Resource({
         "get": {
@@ -77,13 +77,13 @@ qx.Class.define("drest.Application", {
       });
     },
 
-    _setUpStores: function () {
+    _setUpStores: function() {
       // Attach particular resource action to stores
       this.__gistsStore = new qx.data.store.Rest(this.__gistsRes, "get");
       this.__gistStore = new qx.data.store.Rest(this.__gistRes, "get");
     },
 
-    _createGui: function () {
+    _createGui: function() {
       var dockContainer = new qx.ui.container.Composite(new qx.ui.layout.Dock());
       dockContainer.setPadding(10);
 
@@ -110,18 +110,17 @@ qx.Class.define("drest.Application", {
       });
     },
 
-
-    _setUpBinding: function () {
-      var list = this.__list,
-        gistsStore = this.__gistsStore,
-        gistStore = this.__gistStore;
+    _setUpBinding: function() {
+      let list = this.__list;
+      let gistsStore = this.__gistsStore;
+      let gistStore = this.__gistStore;
 
       // List
       list.setLabelPath("description");
       list.setLabelOptions({
-        converter: function (label, model, source, target) {
-          if (label === null || !label.length) {
-            return model.getId();
+        converter: function(label, model, source, target) {
+          if (label == undefined || label === null || !label.length) {
+            return String(model.getId());
           }
           return label;
         }
@@ -136,17 +135,16 @@ qx.Class.define("drest.Application", {
       gistStore.bind("model.user.login", gist.getUsername(), "value");
       gistStore.bind("model.user.avatar_url", gist.getGravatar(), "source");
       gistStore.bind("model.files", gist.getContent(), "html", {
-        converter: function (model) {
+        converter: function(model) {
           var content = "Some dummy content ";
-          if (model)
-          {
-          //var files = qx.Class.getProperties(model.constructor);
-          // content = model.get(files[0]).getContent();
-          }          
+          if (model) {
+            // var files = qx.Class.getProperties(model.constructor);
+            // content = model.get(files[0]).getContent();
+          }
           content = qx.bom.String.escape(content);
           return "<pre>" + content + "</pre>";
         }
       });
-    },
+    }
   } // members
 });
