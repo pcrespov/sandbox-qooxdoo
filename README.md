@@ -21,5 +21,9 @@ docker-compose run qx create mynewapp -I
 APP_DIR=mynewapp docker-compose up
 ```
 
+## servers
+
+A colletion server-side applications in python
+
 [qooxdoo]:http://www.qooxdoo.org
 [qx]:http://www.qooxdoo.org
