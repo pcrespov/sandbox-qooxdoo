@@ -1,0 +1,34 @@
+{
+  "targets": [
+    {
+      "type": "source",
+      "outputPath": "source-output"
+    },
+    {
+      "type": "hybrid",
+      "outputPath": "hybrid-output"
+    },
+    {
+      "type": "build",
+      "outputPath": "build-output"
+    }
+  ],
+  "defaultTarget": "source",
+  "locales": ["en"],
+  "environment": { 
+      "qx.icontheme": "Tango"
+  },     
+  "applications": [
+    {
+      "class": "catalog.Application",
+      "theme": "catalog.theme.Theme",
+      "name": "catalog",
+      "writeIndexHtmlToRoot": true
+    }
+  ],
+
+  "libraries": [
+    "/home/scu/qooxdoo-compiler/node_modules/qxcompiler/node_modules/qooxdoo-sdk/framework",
+    "."
+  ]
+}
