@@ -1,7 +1,6 @@
 {
     "eslint.enable": true,
-    "eslint.alwaysShowStatus": true,
-    "jshint.enable": false,
+    "eslint.alwaysShowStatus": true,    
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
