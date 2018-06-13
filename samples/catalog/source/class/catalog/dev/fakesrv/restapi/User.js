@@ -10,8 +10,10 @@ qx.Class.define("catalog.dev.fakesrv.restapi.User", {
           let headers = {
             "Content-Type": "application/json"
           };
-          // FIXME: parse id from url request!   
-          let data = catalog.dev.fakesrv.db.User.CREATEMOCK(request.getId());
+
+          let parts = qx.util.StringSplit.split(request.url, "/"); 
+          let userId = parts[parts.length-1];
+          let data = catalog.dev.fakesrv.db.User.CREATEMOCK(userId);
           let body = qx.lang.Json.stringify(data);
           request.respond(status, headers, body);
         }

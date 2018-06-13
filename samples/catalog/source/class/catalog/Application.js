@@ -17,7 +17,7 @@ qx.Class.define("catalog.Application",
       __list: null,
       __detail: null,
 
-     main: function () {
+      main: function () {
         // Call super class
         this.base(arguments);
 
@@ -33,8 +33,10 @@ qx.Class.define("catalog.Application",
 
         this.__restResources.users.get();
 
+        this.__setUpConnections();
+
       },
-      
+
       __setUpDataResources: function () {
         const PREFIX = "api/v1";
 
@@ -42,7 +44,7 @@ qx.Class.define("catalog.Application",
         let _users = new catalog.io.rest.Resource({
           "get": {
             method: "GET",
-            url: PREFIX+"/users/"
+            url: PREFIX + "/users/"
           }
         });
 
@@ -50,30 +52,30 @@ qx.Class.define("catalog.Application",
           // Get
           "get": {
             method: "GET",
-            url: PREFIX+"/users/{id}",
+            url: PREFIX + "/user/{id}",
             check: { id: /\d+/ }
           },
           // Modify
           "put": {
             method: "GET",
-            url: PREFIX+"/users/{id}",
+            url: PREFIX + "/user/{id}",
             check: { id: /\d+/ }
           },
           // Add
           "post": {
             method: "GET",
-            url: PREFIX+"/users/"
+            url: PREFIX + "/users/"
           }
         });
 
-        this.__restResources = { 
-          users: _users, 
-          user: _user 
+        this.__restResources = {
+          users: _users,
+          user: _user
         };
 
         // Read-only stores: server -> store
         // Stores associated to a single resouce actions
-        this.__readOnlyStores = { 
+        this.__readOnlyStores = {
           users: new qx.data.store.Rest(_users, "get"),
           user: new qx.data.store.Rest(_user, "get"),
         };
@@ -112,23 +114,21 @@ qx.Class.define("catalog.Application",
 
       },
 
-      __setUpBinding: function(){
+      __setUpBinding: function () {
         let list = this.__list;
-        let users = this.__readOnlyStores['users'];
-        let user = this.__readOnlyStores['user'];
+        let users = this.__readOnlyStores.users;
 
         // List of Users
-
         // TODO: ensure attribute .username exits!?
         list.setLabelPath("username");
         list.setLabelOptions({
-          converter: function(label, model, source, target) {
+          converter: function (label, model, source, target) {
             if (label == undefined || label === null || !label.length) {
               return String(model.getId());
             }
             return label;
           },
-          onUpdate: function(sourceObj, targetObj, data){
+          onUpdate: function (sourceObj, targetObj, data) {
             console.debug("Databinding updated successfully for ", data)
           }
         });
@@ -136,7 +136,47 @@ qx.Class.define("catalog.Application",
         // store -> ui
         users.bind("model", list, "model");
 
-        // this.__list.
+        // Detail of user
+        let user = this.__readOnlyStores.user;
+        let view = this.__detail;
+
+        // TODO: need to know about user's data structure
+        user.bind("model.fullname", view.getDescription(), "value");
+        user.bind("model.username", view.getUsername(), "value");
+        user.bind("model.avatarUrl", view.getGravatar(), "source");
+        user.bind("model.projects", view.getContent(), "html", {
+          converter: function (data, model, source, target) {
+            if (data != undefined)
+            {              
+              return "<pre>" + qx.dev.Debug.debugProperties(data) + "</pre>";
+            }
+            return qx.lang.Json.stringify(data);
+          }
+        });
+
+      },
+
+      __setUpConnections: function () {
+
+        // On selection of item populate gist view
+        this.__list.addListener("changeModel", function(evt) {
+          var model = evt.getData();
+          console.debug(qx.dev.Debug.debugProperties(model));
+
+          this.__list.getSelection().push(model.getItem(0));
+        }, this);
+
+        // Selection triggers item resource request
+        this.__list.getSelection().addListener("change", function (evt) {
+          var id = this.__list.getSelection().getItem(0)
+            .getId();
+          console.debug("Requesting ", id, "...");
+          this.__restResources.user.get({
+            id: id
+          });
+        }, this);
+
+
       }
     }
   });
