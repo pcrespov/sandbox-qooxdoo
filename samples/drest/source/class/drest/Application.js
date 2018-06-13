@@ -81,7 +81,7 @@ qx.Class.define("drest.Application", {
     },
 
     _setUpResources: function() {
-      // Fake server does not distinguishes between /gists and /gists/{id}!
+      // FIXME:Fake server does not distinguishes between /gists and /gists/{id}!
       let URL_SUFFIX = "";
       if (qx.core.Environment.get("dev.enableFakeServer")) {
         URL_SUFFIX = "_all";
