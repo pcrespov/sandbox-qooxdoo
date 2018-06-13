@@ -141,14 +141,14 @@ qx.Class.define("catalog.Application",
         let view = this.__detail;
 
         // TODO: need to know about user's data structure
-        user.bind("model.fullname", view.getDescription(), "value");
+        user.bind("model.email", view.getDescription(), "value");
         user.bind("model.username", view.getUsername(), "value");
         user.bind("model.avatarUrl", view.getGravatar(), "source");
         user.bind("model.projects", view.getContent(), "html", {
           converter: function (data, model, source, target) {
             if (data != undefined)
-            {              
-              return "<pre>" + qx.dev.Debug.debugProperties(data) + "</pre>";
+            {
+              return qx.dev.Debug.debugProperties(data, 10, true, 2);
             }
             return qx.lang.Json.stringify(data);
           }
@@ -170,7 +170,7 @@ qx.Class.define("catalog.Application",
         this.__list.getSelection().addListener("change", function (evt) {
           var id = this.__list.getSelection().getItem(0)
             .getId();
-          console.debug("Requesting ", id, "...");
+          console.debug("Requesting resource #", id, "...");
           this.__restResources.user.get({
             id: id
           });
