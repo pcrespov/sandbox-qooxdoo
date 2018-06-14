@@ -1,36 +1,45 @@
 # dockerfiles
 
-## qx-development
 
-Build image:
+To build images just run ``./bin/build.sh``
+
+Or step by stem
 
 ```bash
-cd qx-devel
+cd dockerfiles/qx-devel
 
-# produces qx:master
+# produces qx:master (default)
 docker-compose build
 
 # produces qx:released
 BUILD_TARGET=released docker-compose build
+
+
+# create myapp-w-* project with qx:master (default)
+docker-compose qx create myapp-w-master -I
+
+# create myapp-w-* project with qx:released
+IMAGE_VERSION=released docker-compose qx create myapp-w-released -I
+
+# qx serve --set qx.allowUrlSettings=true with qx:master (default)
+APP_DIR=minimal docker-compose up
+
+# qx serve --set qx.allowUrlSettings=true with qx:master (default)
+IMAGE_VERSION=released APP_DIR=minimal docker-compose up
 ```
 
-Runs command inside and check qx available and its version
+**NOTE** : Projects generated with these version differ in :
 
-```bash
-cd qx-devel
+- In Manifest.json
+  - "qooxdoo-range": "6.0.0-alpha-20180529" in master
+  - "qooxdoo-range": "6.0.0-alpha" in released
+- In compile.json, libraries paths to the sdk are different:
+  - "/home/scu/qooxdoo-compiler/node_modules/qooxdoo-sdk/framework" in master
+  - "/home/scu/qooxdoo-compiler/node_modules/qxcompiler/node_modules/qooxdoo-sdk/framework" in released
 
-# runs inside qx:master
-docker-compose run qx /bin/bash -c "which qx && qx --help"
 
-# produces qx:released
-BUILD_TARGET=released docker-compose run qx /bin/bash -c  "which qx && qx --help"
-```
 
-``` bash
 
-docker-compose qx create --qxpath=$QOOXDOO_PATH/framework  mini -I
-
-```
 
 ## TODOs
 
