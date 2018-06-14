@@ -109,6 +109,7 @@ data/
 # generated API
 qooxdoo-framework.d.ts
 
+source-output/
 node_modules/
 package-lock.json
 

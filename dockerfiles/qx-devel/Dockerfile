@@ -71,7 +71,9 @@ COPY --chown=scu:scu package*.json ${QOOXDOO_COMPILER_DIR}/
 RUN cd ${QOOXDOO_COMPILER_DIR} && \
     npm install npm@latest && \
     npm install && \
-    mkdir -p $QOOXDOO_COMPILER_DIR/node_modules/qxcompiler/node_modules/ && \
+    mkdir $QOOXDOO_COMPILER_DIR/node_modules/qxcompiler/node_modules/ && \
     ln -s $QOOXDOO_PATH $QOOXDOO_COMPILER_DIR/node_modules/qxcompiler/node_modules/
 
-# NOTE: link above fullfils default --qxpath in the qx create command.
+# NOTE: link above fullfils default --qxpath in the ``qx create`` command.
+# WARNING: this introduces an inconvenience since the compile.json gets an absolute path
+# to the default qxpath instead of $QOOXDOO_PATH (see README.md)

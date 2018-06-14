@@ -11,6 +11,9 @@ services:
     working_dir: /home/scu/client/${APP_DIR:-.}
     env_file:
       - secrets.env
-    #entrypoint: bash
+    #entrypoint: bash      
     command: serve --set qx.allowUrlSettings=true
+    
+    #
     # Open http://localhost:8080/index.html?qxenv:dev.enableFakeServer:true
+    #
