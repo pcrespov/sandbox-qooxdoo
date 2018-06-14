@@ -112,5 +112,6 @@ qooxdoo-framework.d.ts
 node_modules/
 package-lock.json
 
-*ignore
-secrets.env
+# key-words in filename to ignore them
+*secret*
+*ignore*

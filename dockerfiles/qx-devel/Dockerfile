@@ -50,6 +50,12 @@ CMD ["serve"]
 FROM base-stage as master
 
 # (1) qooxdoo-compiler from source repository.
+# TODO: should be able to get any point in time of the master branch (or other)
+#     - set specific git commit via command line
+#     - label commit id and branch. Label full git command line. Based on label-schema.org
+#     - Could --depth 10 and ``git checkout <sha1>`` a commit within last 10?
+#     - WARNING: guarantee qooxdoo-sdk and qooxdoo-compiler are in sync
+#
 RUN git clone --depth 1 https://github.com/qooxdoo/qooxdoo-compiler.git ${QOOXDOO_COMPILER_DIR} && \
     cd ${QOOXDOO_COMPILER_DIR} && \
     npm install npm@latest && \

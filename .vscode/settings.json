@@ -11,6 +11,7 @@
     },
     "files.associations": {
         ".*rc": "ini",
+        ".env*": "ini",
         "Dockerfile*": "dockerfile"
     },
     "python.pythonPath": "/home/crespo/anaconda/envs/flask-api/bin/python",
