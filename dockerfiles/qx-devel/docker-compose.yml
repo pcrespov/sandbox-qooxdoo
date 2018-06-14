@@ -11,5 +11,5 @@ services:
     ports:
       - '8080:8080'
     working_dir: /home/scu/client/${APP_DIR:-.}
-    command: qx serve --set qx.allowUrlSettings=true
+    command: serve --set qx.allowUrlSettings=true
     # now Open http://localhost:8080/index.html?qxenv:auth.mockBackend:true
