@@ -14,6 +14,7 @@
         ".env*": "ini",
         "Dockerfile*": "dockerfile"
     },
-    "python.pythonPath": "/home/crespo/anaconda/envs/flask-api/bin/python",
-    "editor.tabSize": 2
+    "python.pythonPath": "/home/crespo/.virtualenvs/aiohttp/bin/python",
+    "editor.tabSize": 2,
+    "python.venvPath": "~/.virtualenvs"
 }
