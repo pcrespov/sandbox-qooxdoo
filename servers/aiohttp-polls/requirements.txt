@@ -1,0 +1,13 @@
+psycopg2-binary
+aiohttp
+aiohttp_jinja2
+aiopg[sa]
+pyyaml
+
+# ci
+pytest
+Faker
+
+# devel
+pylint
+autopep8
