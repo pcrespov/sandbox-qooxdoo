@@ -12,3 +12,6 @@ async def test_hello(aiohttp_client, loop):
     assert resp.status == 200
     text = await resp.text()
     assert 'Hello, world' in text  
+
+#def test_fails():
+#  assert False    
