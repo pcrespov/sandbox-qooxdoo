@@ -5,7 +5,7 @@ from aiohttp_security.abc import AbstractAuthorizationPolicy
 
 from passlib.hash import sha256_crypt
 
-from . import model as db
+from . import db
 from .session import setup as setup_session
 
 

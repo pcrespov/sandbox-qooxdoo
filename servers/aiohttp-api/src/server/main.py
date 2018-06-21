@@ -11,20 +11,22 @@ async def hello(request):
     return web.Response(text='Hoi zaeme')
 
 
-async def make_app():
+def make_app():
 
-    db_engine = await create_engine(user='aiohttp_security',
-                                   password='aiohttp_security',
-                                   database='aiohttp_security',
-                                   host='127.0.0.1')
+    #db_engine = await create_engine(user='aiohttp_security',
+    #                               password='aiohttp_security',
+    #                               database='aiohttp_security',
+    #                               host='127.0.0.1')
     app = web.Application()
-    app['config'] = get_config(argv)
+    #app['config'] = get_config(argv)
 
     # dummy
     app.router.add_get('/', hello)
 
-    setup_auth(app, db_engine)
-    setup_api(app, db_engine)
+    #setup_auth(app, db_engine)
+    #setup_api(app, db_engine)
+
+    return app
 
     
     

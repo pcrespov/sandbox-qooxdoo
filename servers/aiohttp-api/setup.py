@@ -3,7 +3,10 @@ from setuptools import find_packages, setup
 
 install_requires = ['aiohttp',
                     'aiopg[sa]',
+                    'aiohttp-security',
+                    'aiohttp_session[secure]',
                     'aiohttp-swagger',
+                    'passlib',
                     'trafaret-config']
 
 setup(name='aiohttp-server',
