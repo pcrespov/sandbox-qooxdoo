@@ -103,8 +103,8 @@ ENV/
 
 TODO.md
 
-tmp/
-data/
+# pytest
+.pytest_cache
 
 # generated API
 qooxdoo-framework.d.ts
@@ -116,3 +116,5 @@ package-lock.json
 # key-words in filename to ignore them
 *secret*
 *ignore*
+tmp/
+data/
