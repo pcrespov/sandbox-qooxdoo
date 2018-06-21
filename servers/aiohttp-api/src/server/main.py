@@ -1,24 +1,23 @@
+import logging
+import sys
+
 from aiohttp import web
+from aiopg.sa import create_engine
 
 from .api import setup as setup_api
 from .auth import setup as setup_auth
-
-from aiopg.sa import create_engine
+from .settings import get_config
 
 __version__ = "0.0"
+
 
 async def hello(request):
     return web.Response(text='Hoi zaeme')
 
 
-def make_app():
-
-    #db_engine = await create_engine(user='aiohttp_security',
-    #                               password='aiohttp_security',
-    #                               database='aiohttp_security',
-    #                               host='127.0.0.1')
+def make_app(argv):
     app = web.Application()
-    #app['config'] = get_config(argv)
+    app['config'] = get_config(argv)
 
     # dummy
     app.router.add_get('/', hello)
@@ -28,12 +27,17 @@ def make_app():
 
     return app
 
-    
-    
-def main():
-    app = make_app()
-    web.run_app(app, host='localhost')
+
+def main(argv):
+    logging.basicConfig(level=logging.DEBUG)
+
+    app = make_app(argv)
+
+    config = app['config']
+    web.run_app(app,
+                host=config['host'],
+                port=config['port'])
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])

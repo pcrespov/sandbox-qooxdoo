@@ -52,9 +52,9 @@ class DBAuthorizationPolicy(AbstractAuthorizationPolicy):
             return False
 
 
-async def check_credentials(db_engine, username, password):
+async def check_credentials(db_engine, email, password):
     async with db_engine.acquire() as conn:
-        where = sa.and_(db.users.c.login == username,
+        where = sa.and_(db.users.c.email == email,
                         sa.not_(db.users.c.disabled))
         query = db.users.select().where(where)
         ret = await conn.execute(query)

@@ -1,31 +1,33 @@
 from aiohttp import web
+from aiohttp_security import (authorized_userid, forget, has_permission,
+                              login_required, remember)
 from aiohttp_swagger import setup_swagger
-from aiohttp_security import (
-    remember, forget, authorized_userid,
-    has_permission, login_required,
-)
 
 # API version
 __version__ = "1.0"
 
+
 async def login(request):
     response = web.HTTPFound('/')
     form = await request.post()
-    login = form.get('login')
+    email = form.get('email')
     password = form.get('password')
-    db_engine = request.app.db_engine
-    if await check_credentials(db_engine, login, password):
-        await remember(request, response, login)
-        return response
     
+    db_engine = request.app.db_engine
+    if await check_credentials(db_engine, email, password):
+        await remember(request, response, email)
+        return response
+
     return web.HTTPUnauthorized(
-            body=b'Invalid username/password combination')        
+        body=b'Invalid email/password combination')
+
 
 @login_required
 async def logout(request):
     response = web.Response(body=b'You have been logged out')
     await forget(request, response)
     return response
+
 
 @login_required
 async def ping(request):
@@ -45,15 +47,14 @@ async def ping(request):
     return web.Response(text="pong")
 
 
-
-def setup(app):    
+def setup(app):
     # routing
     router = app.router
     prefix = "/api/v{}".format(__version__)
 
-    router.add_route('POST', prefix+'/login', login, name='login')
-    router.add_route('GET', prefix+'/logout', logout, name='logout')
-    router.add_route('GET', '/ping', ping)
+    router.add_post(prefix+'/login', login, name='login')
+    router.add_get(prefix+'/logout', logout, name='logout')
+    router.add_get(prefix+'/ping', ping)
 
     # middlewares
     setup_swagger(app, swagger_url=prefix+"/doc")
