@@ -1,7 +1,18 @@
+""" server's rest API
+
+"""
 from aiohttp import web
-from aiohttp_security import (authorized_userid, forget, has_permission,
-                              login_required, remember)
 from aiohttp_swagger import setup_swagger
+
+from aiohttp_security import (
+    remember, forget, authorized_userid,
+    has_permission, login_required
+)
+
+from .auth import (
+    check_credentials
+)
+
 
 # API version
 __version__ = "1.0"
@@ -12,8 +23,9 @@ async def login(request):
     form = await request.post()
     email = form.get('email')
     password = form.get('password')
-    
-    db_engine = request.app.db_engine
+
+    # TODO: ensure right key in application's config?
+    db_engine = request.app['db_engine']
     if await check_credentials(db_engine, email, password):
         await remember(request, response, email)
         return response
@@ -29,7 +41,7 @@ async def logout(request):
     return response
 
 
-@login_required
+@has_permission("user")
 async def ping(request):
     """
       ---
@@ -47,7 +59,7 @@ async def ping(request):
     return web.Response(text="pong")
 
 
-def setup(app):
+def setup_api(app):
     # routing
     router = app.router
     prefix = "/api/v{}".format(__version__)

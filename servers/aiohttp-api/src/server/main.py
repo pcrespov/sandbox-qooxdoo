@@ -1,43 +1,44 @@
+""" Main application
+
+"""
 import logging
-import sys
 
 from aiohttp import web
-from aiopg.sa import create_engine
 
-from .api import setup as setup_api
-from .auth import setup as setup_auth
-from .settings import get_config
+from .db import setup_db
+from .auth import setup_auth
+from .api import setup_api
+from .session import setup_session
 
-__version__ = "0.0"
+from .config import get_config
 
-
-async def hello(request):
-    return web.Response(text='Hoi zaeme')
+__version__ = "0.0.1"
 
 
-def make_app(argv):
+async def init_app(argv=None):
+    """
+    NOTICE it is async!
+    """
     app = web.Application()
     app['config'] = get_config(argv)
 
-    # dummy
-    app.router.add_get('/', hello)
-
-    #setup_auth(app, db_engine)
-    #setup_api(app, db_engine)
+    setup_db(app)
+    setup_session(app)
+    setup_auth(app, app['db_engine'])
+    setup_api(app)
 
     return app
 
 
 def main(argv):
+    """
+    NOTICE it is sync!
+    """
     logging.basicConfig(level=logging.DEBUG)
 
-    app = make_app(argv)
-
-    config = app['config']
+    app = init_app(argv)
+    config = get_config(argv)
     web.run_app(app,
                 host=config['host'],
                 port=config['port'])
 
-
-if __name__ == '__main__':
-    main(sys.argv[1:])

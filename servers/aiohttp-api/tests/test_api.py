@@ -2,7 +2,7 @@ from server.main import make_app
 
 
 async def test_simple(aiohttp_client, loop):
-    app = make_app()
+    app = make_app(["--print-config"])
     client = await aiohttp_client(app)
     response = await client.get('/')
     assert response.status == 200

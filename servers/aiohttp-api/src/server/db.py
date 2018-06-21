@@ -1,51 +1,17 @@
-import sqlalchemy as sa
+""" Postgress db
+"""
+import logging
 
+import aiopg.sa
 
-metadata = sa.MetaData()
-
-# User
-users = sa.Table(
-    'users', metadata,
-    sa.Column('id', sa.Integer, nullable=False),
-    sa.Column('login', sa.String(256), nullable=False),
-    sa.Column('passwd', sa.String(256), nullable=False),
-    sa.Column('is_superuser', sa.Boolean, nullable=False,
-              server_default='FALSE'),
-    sa.Column('disabled', sa.Boolean, nullable=False,
-              server_default='FALSE'),
-
-    # indices
-    sa.PrimaryKeyConstraint('id', name='user_pkey'),
-    sa.UniqueConstraint('login', name='user_login_key'),
-)
-
-
-permissions = sa.Table(
-    'permissions', metadata,
-    sa.Column('id', sa.Integer, nullable=False),
-    sa.Column('user_id', sa.Integer, nullable=False),
-    sa.Column('perm_name', sa.String(64), nullable=False),
-
-    # indices
-    sa.PrimaryKeyConstraint('id', name='permission_pkey'),
-    sa.ForeignKeyConstraint(['user_id'], [users.c.id],
-                            name='user_permission_fkey',
-                            ondelete='CASCADE'),
-)
-
-
-# Role
-
-# Project
-
-
-
+_LOGGER = logging.getLogger(__name__)
 
 class RecordNotFound(Exception):
     """Requested record in database was not found"""
 
+async def create_aiopg(app):
+    _LOGGER.debug('creating db engine ... ')
 
-async def init_pg(app):
     conf = app['config']['postgres']
     engine = await aiopg.sa.create_engine(
         database=conf['database'],
@@ -56,9 +22,16 @@ async def init_pg(app):
         minsize=conf['minsize'],
         maxsize=conf['maxsize'],
     )
-    app['db'] = engine
+    
+    _LOGGER.debug('db engine created')
+    app['db_engine'] = engine
 
 
-async def close_pg(app):
-    app['db'].close()
-    await app['db'].wait_closed()
+async def dispose_aiopg(app):
+    app['db_engine'].close()
+    await app['db_engine'].wait_closed()
+
+
+def setup_db(app):
+    app.on_startup.append(create_aiopg)
+    app.on_cleanup.append(dispose_aiopg)

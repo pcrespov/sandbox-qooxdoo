@@ -38,6 +38,9 @@ def get_config(argv=None) -> dict:
   options, unknown = ap.parse_known_args(argv)
 
   config = commandline.config_from_options(options, T_SCHEMA)
+
+  print(config)
+
   return config
 
 
