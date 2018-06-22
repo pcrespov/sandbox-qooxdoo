@@ -24,7 +24,7 @@ async def init_app(argv=None):
 
     setup_db(app)
     setup_session(app)
-    setup_auth(app, app['db_engine'])
+    setup_auth(app)
     setup_api(app)
 
     return app

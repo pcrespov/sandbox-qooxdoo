@@ -11,8 +11,13 @@ from . import model
 
 
 class DBAuthorizationPolicy(AbstractAuthorizationPolicy):
-    def __init__(self, dbengine):
-        self.dbengine = dbengine
+    def __init__(self, app, db_engine_key):
+        self._app = app
+        self._dbkey = db_engine_key
+
+    @property
+    def dbengine(self):
+        return self._app[self._dbkey]
 
     async def authorized_userid(self, identity):
         async with self.dbengine.acquire() as conn:
@@ -66,9 +71,9 @@ async def check_credentials(db_engine, username, password):
     return False
 
 
-def setup_auth(app, db_engine):
+def setup_auth(app):
     # WARNING: expected aiosession already initialized!
     identity_policy = SessionIdentityPolicy()
 
-    authorization_policy = DBAuthorizationPolicy(db_engine)
+    authorization_policy = DBAuthorizationPolicy(app, 'db_engine')
     setup_security(app, identity_policy, authorization_policy)
