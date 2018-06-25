@@ -7,6 +7,7 @@ from aiohttp_security import (
 from aiohttp_security.abc import AbstractAuthorizationPolicy
 from passlib.hash import sha256_crypt
 
+
 from . import model
 
 
@@ -66,14 +67,17 @@ async def check_credentials(db_engine, username, password):
         ret = await conn.execute(query)
         user = await ret.fetchone()
         if user is not None:
-            _hash = user[2]
+            _hash = user[2] # password
             return sha256_crypt.verify(password, _hash)
     return False
 
+
+generate_password_hash = sha256_crypt.hash
 
 def setup_auth(app):
     # WARNING: expected aiosession already initialized!
     identity_policy = SessionIdentityPolicy()
 
+    # FIXME: cannot guarantee correct config key for db's engine!
     authorization_policy = DBAuthorizationPolicy(app, 'db_engine')
     setup_security(app, identity_policy, authorization_policy)

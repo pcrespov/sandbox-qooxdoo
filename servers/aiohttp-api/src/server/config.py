@@ -29,6 +29,7 @@ def get_config(argv=None) -> dict:
   ap = argparse.ArgumentParser()
 
   # TODO: pass configuration to load via command line
+  # TODO: pass configuration to init db via command line
   commandline.standard_argparse_options(
       ap,
       default_config=DEFAULT_CONFIG_PATH

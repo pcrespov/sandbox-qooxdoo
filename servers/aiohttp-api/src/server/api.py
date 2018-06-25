@@ -26,12 +26,12 @@ async def login(request):
     # TODO: ensure right key in application's config?
     db_engine = request.app['db_engine']
     if await check_credentials(db_engine, email, password):
-        await remember(request, response, email)
-        # TODO: build token and send back!
-        response = jsonify({
-            'token': g.current_user.generate_auth_token(expiration=3600), 
-            'userid': ,
+        # FIXME: build proper token and send back!
+        response = web.json_response({
+            'token': "123", #g.current_user.generate_auth_token(expiration=3600), 
+            'userid': 0,
             'expiration': 3600})
+        await remember(request, response, email)
         return response
 
     return web.HTTPUnauthorized(
@@ -45,7 +45,7 @@ async def logout(request):
     return response
 
 
-@has_permission("user")
+@has_permission("tester")
 async def ping(request):
     """
       ---
@@ -59,6 +59,10 @@ async def ping(request):
               description: successful operation. Return "pong" text
           "405":
               description: invalid HTTP Method
+          "401":
+              Unauthorized: need to login first
+          "403":
+              Forbidden: permission denied given the user's privilege
     """
     return web.Response(text="pong")
 

@@ -15,7 +15,7 @@ from .config import get_config
 __version__ = "0.0.1"
 
 
-async def init_app(argv=None):
+def init_app(argv=None):
     """
     NOTICE it is async!
     """

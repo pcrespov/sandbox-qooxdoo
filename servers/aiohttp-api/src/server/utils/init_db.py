@@ -5,6 +5,8 @@ References:
 """
 from sqlalchemy import create_engine, MetaData
 
+from passlib.hash import sha256_crypt
+
 from server.model import users, permissions
 from server.config import SRC_DIR, get_config
 
@@ -71,11 +73,14 @@ def drop_tables(engine=test_engine):
 
 
 def sample_data(engine=test_engine):
+
+    generate_password_hash = sha256_crypt.hash
+    
     conn = engine.connect()
     conn.execute(users.insert(), [
-        {'login': 'bizzy@itis.ethz.ch', 'passwd': 'z43', 'is_superuser': False, 'disabled': False},
-        {'login': 'pcrespov', 'passwd': '123', 'is_superuser':True, 'disabled': False},
-        {'login': 'mrspam', 'passwd': '345', 'is_superuser': True, 'disabled': True}
+        {'login': 'bizzy@itis.ethz.ch', 'passwd': generate_password_hash('z43'), 'is_superuser': False, 'disabled': False},
+        {'login': 'pcrespov', 'passwd': generate_password_hash('123'), 'is_superuser':True, 'disabled': False},
+        {'login': 'mrspam', 'passwd': generate_password_hash('345'), 'is_superuser': True, 'disabled': True}
         ])
 
     conn.execute(permissions.insert(), [
