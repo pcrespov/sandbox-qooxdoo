@@ -19,7 +19,6 @@ __version__ = "1.0"
 
 
 async def login(request):
-    response = web.HTTPFound('/')
     form = await request.post()
     email = form.get('email')
     password = form.get('password')
@@ -28,6 +27,11 @@ async def login(request):
     db_engine = request.app['db_engine']
     if await check_credentials(db_engine, email, password):
         await remember(request, response, email)
+        # TODO: build token and send back!
+        response = jsonify({
+            'token': g.current_user.generate_auth_token(expiration=3600), 
+            'userid': ,
+            'expiration': 3600})
         return response
 
     return web.HTTPUnauthorized(
@@ -66,7 +70,7 @@ def setup_api(app):
 
     router.add_post(prefix+'/login', login, name='login')
     router.add_get(prefix+'/logout', logout, name='logout')
-    router.add_get(prefix+'/ping', ping)
+    router.add_get(prefix+'/ping', ping, name='ping')
 
     # middlewares
     setup_swagger(app, swagger_url=prefix+"/doc")
