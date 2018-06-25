@@ -1,0 +1,28 @@
+version: '3.4'
+services:
+  db:
+    image: postgres:10
+    restart: always
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  app:
+    build:
+      context: .
+      dockerfile: ./servers/aiohttp-api/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - './servers/aiohttp-api:/home/scu/source'
+    depends_on:
+      - db
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 18080:8080
+    depends_on:
+      - db
+volumes:
+  db-volume:
