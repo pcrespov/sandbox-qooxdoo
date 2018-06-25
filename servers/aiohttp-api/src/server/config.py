@@ -39,7 +39,7 @@ def get_config(argv=None) -> dict:
 
   config = commandline.config_from_options(options, T_SCHEMA)
 
-  print(config)
+  print("Loading config ", argv, ":\n\t", config)
 
   return config
 

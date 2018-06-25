@@ -21,7 +21,7 @@ users = sa.Table(
     sa.UniqueConstraint('login', name='user_login_key'),
 )
 
-
+# FIXME: create roles as in flasky!
 permissions = sa.Table(
     'permissions', metadata,
     sa.Column('id', sa.Integer, nullable=False),

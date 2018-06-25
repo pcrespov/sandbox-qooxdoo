@@ -26,10 +26,16 @@ async def create_aiopg(app):
     _LOGGER.debug('db engine created')
     app['db_engine'] = engine
 
+    _LOGGER.debug('db engine created')
+
 
 async def dispose_aiopg(app):
+    _LOGGER.debug('closing db engine ...')
+
     app['db_engine'].close()
     await app['db_engine'].wait_closed()
+    
+    _LOGGER.debug('db engine closed')
 
 
 def setup_db(app):
