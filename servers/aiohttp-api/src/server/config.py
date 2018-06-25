@@ -7,7 +7,7 @@ from trafaret_config import commandline
 
 SRC_DIR = pathlib.Path(__file__).parent.parent
 DEFAULT_CONFIG_PATH = SRC_DIR / 'config' / 'server.yaml'
-
+TEST_CONFIG_PATH = SRC_DIR / 'config' / 'server-test.yaml'
 
 T_SCHEMA = T.Dict({
   T.Key('postgres'):
