@@ -5,8 +5,8 @@ import pathlib
 import trafaret as T
 from trafaret_config import commandline
 
-BASE_DIR = pathlib.Path(__file__).parent.parent
-DEFAULT_CONFIG_PATH = BASE_DIR / 'config' / 'server.yaml'
+SRC_DIR = pathlib.Path(__file__).parent.parent
+DEFAULT_CONFIG_PATH = SRC_DIR / 'config' / 'server.yaml'
 
 
 T_SCHEMA = T.Dict({

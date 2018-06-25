@@ -1,7 +1,7 @@
 postgres:
   database: test_aiohttpdemo
   user: test_aiohttpdemo_user
-  password: aiohttpdemo_pass
+  password: test_aiohttpdemo_pass
   host: localhost
   port: 5432
   minsize: 1
