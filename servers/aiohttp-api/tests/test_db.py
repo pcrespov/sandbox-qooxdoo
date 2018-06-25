@@ -1,10 +1,12 @@
+import pytest
 import sqlalchemy as sa
-
+ 
 from server.config import get_config, SRC_DIR
 from server.db import (create_aiopg, dispose_aiopg)
 from server.model import (users, permissions)
 
-async def test_basic_db_workflow():
+
+async def test_basic_db_workflow(postgres_service):
   """
   create engine
   connect
@@ -17,6 +19,7 @@ async def test_basic_db_workflow():
   app = {'config': get_config(['-c', TEST_CONFIG_PATH.as_posix()])}
   await create_aiopg(app)
 
+  # creates new engine!
   assert 'db_engine' in app
   engine = app['db_engine']
 
