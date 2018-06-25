@@ -3,6 +3,7 @@
 -e .
 
 # testing
+passlib
 pytest
 pytest-aiohttp
 pytest-docker
