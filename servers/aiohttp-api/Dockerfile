@@ -11,12 +11,17 @@ RUN apk add --no-cache \
 ENV HOME /home/scu
 ENV SIMCORE_WEB_OUTDIR $HOME/src/static
 ENV SIMCORE_WEB_CONFIG development
+ENV IS_CONTAINER_CONTEXT Yes
 
 WORKDIR /home/scu
 
 RUN python3 -m venv .venv &&\
     ~/.venv/bin/pip install --no-cache --upgrade pip &&\
     chown scu:scu -R ~/.venv
+
+COPY servers/aiohttp-api/requirements* ./
+RUN ~/.venv/bin/pip install --no-cache -r requirements-prod.txt &&\
+    ~/.venv/bin/pip install --no-cache -r requirements-test.txt
 
 # USER scu
 

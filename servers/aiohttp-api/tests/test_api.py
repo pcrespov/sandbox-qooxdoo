@@ -1,4 +1,5 @@
 import pytest
+import logging
 
 from server.main import init_app
 from server.config import TEST_CONFIG_PATH

@@ -3,11 +3,7 @@
 -e .
 
 # testing
-passlib
-pytest
-pytest-aiohttp
-pytest-docker
-psycopg2
+-r requirements-test.txt
 
 # linting
 autopep8>=1.3.5

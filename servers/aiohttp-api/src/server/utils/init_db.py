@@ -1,12 +1,14 @@
 """ Initializes tables in database and adds some sample data for testing
 
 FIXME: this place does not fill right... see how this script is called
-
+FIXME: check https://github.com/aio-libs/aiohttp_admin/blob/master/demos/blog/aiohttpdemo_blog/generate_data.py
+FIXME: rename as server.dev.generate_data.py and set dev as an optional sub-package as server[dev]
 
 References:
 [1]:https://github.com/aio-libs/aiohttp-demos/blob/master/docs/preparations.rst#environment
 """
 import logging
+import os
 
 from passlib.hash import sha256_crypt
 from sqlalchemy import (MetaData,
@@ -26,12 +28,6 @@ _LOGGER = logging.getLogger(__name__)
 
 DSN = "postgresql://{user}:{password}@{host}:{port}/{database}"
 
-ADMIN_DB_URL = DSN.format(
-    user='postgres', password='postgres', database='postgres',
-    host='db', port=5432
-)
-
-admin_engine = create_engine(ADMIN_DB_URL, isolation_level='AUTOCOMMIT')
 
 USER_CONFIG_PATH = SRC_DIR / 'config' / 'server.yaml'
 USER_CONFIG = get_config(['-c', USER_CONFIG_PATH.as_posix()])
@@ -43,12 +39,25 @@ TEST_CONFIG = get_config(['-c', TEST_CONFIG_PATH.as_posix()])
 TEST_DB_URL = DSN.format(**TEST_CONFIG['postgres'])
 test_engine = create_engine(TEST_DB_URL)
 
+# FIXME: admin user/passwords and in sync with other host/port configs
+ADMIN_DB_URL = DSN.format(
+    user='postgres',
+    password='postgres',
+    database='postgres',
+    host=USER_CONFIG['postgres']['host'],
+    port=5432
+)
+
+# TODO: what is isolation_level?
+admin_engine = create_engine(ADMIN_DB_URL, isolation_level='AUTOCOMMIT')
+
 
 def setup_db(config):
     db_name = config['database']
     db_user = config['user']
     db_pass = config['password']
 
+    # TODO: compose using query semantics. Clarify pros/cons vs string cli?
     conn = admin_engine.connect()
     conn.execute("DROP DATABASE IF EXISTS %s" % db_name)
     conn.execute("DROP ROLE IF EXISTS %s" % db_user)
@@ -89,17 +98,18 @@ def sample_data(engine=test_engine):
 
     generate_password_hash = sha256_crypt.hash
 
+    #TODO: use fake
     conn = engine.connect()
     conn.execute(users.insert(), [
         {'login': 'bizzy@itis.ethz.ch',
          'passwd': generate_password_hash('z43'),
          'is_superuser': False,
          'disabled': False},
-        {'login': 'pcrespov',
+        {'login': 'pcrespov@foo.com',
          'passwd': generate_password_hash('123'),
          'is_superuser': True,
          'disabled': False},
-        {'login': 'mrspam',
+        {'login': 'mrspam@bar.io',
          'passwd': generate_password_hash('345'),
          'is_superuser': True,
          'disabled': True}
