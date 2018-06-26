@@ -47,6 +47,7 @@ qx.Class.define("auth.Application", {
       if (qx.core.Environment.get("auth.mockBackend")) {
         console.debug("Initializing FakeServer ...");
         auth.mock.RestAPI;
+        auth.mock.Auth;
       }
 
       let root = this.getRoot();

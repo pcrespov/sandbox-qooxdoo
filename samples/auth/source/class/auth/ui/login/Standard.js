@@ -105,11 +105,13 @@ qx.Class.define("auth.ui.login.Standard", {
 
     __onSubmitLogin: function (e) {
       // this is user's input
-      var loginData = e.getData();
+      var loginData = e.getData();      
 
-      let auth = new qx.io.request.authentication.Basic(
-        loginData.user,
-        loginData.password);
+      //let auth = new qx.io.request.authentication.Basic(
+      //  loginData.user,
+      //  loginData.password);
+      // Can send user+passorwd or user=token w/o password!?
+      let auth = new qx.io.request.authentication.Basic("user","pass")
 
       // TODO: encapsulate entire request in separate class
       // let req = new auth.io.request.Login(loginData());
@@ -123,14 +125,16 @@ qx.Class.define("auth.ui.login.Standard", {
       //  qx.util.Serializer.toUriParameter(model, serializer));
 
       // Requests authentication to server
-      let req = new qx.io.request.Xhr();
+      // TODO: mimetypes supported??
+      let req = new qx.io.request.Xhr("api/v1.0/login", "POST");
       req.set({
-        // qx.io.request.authentication sets headers.
-        // Can send user+passorwd or user=token w/o password!?
+        accept: "application/json",
         authentication: auth,
-        url: "/login",
-        method: "POST",
-        requestData: qx.util.Serializer.toJson(loginData)
+        requestData: {
+          email: loginData.username,
+          password: loginData.password
+        },
+        cache: false
       });
 
       req.addListener("success", this.__onLoginSucceed, this);
