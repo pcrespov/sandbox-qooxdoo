@@ -26,9 +26,9 @@ qx.Class.define("auth.Application", {
 
   members: {
     /**
-     * This method contains the initial application code and gets called 
+     * This method contains the initial application code and gets called
      * during startup of the application
-     * 
+     *
      * @lint ignoreDeprecated(alert)
      */
     main: function () {
@@ -58,7 +58,7 @@ qx.Class.define("auth.Application", {
     __demo: function (root) {
       /**
        *  Demo #1
-       * 
+       *
        */
       // root is configured as a Canvas here
       root.set({
@@ -69,14 +69,20 @@ qx.Class.define("auth.Application", {
       let loginGroup = new qx.ui.container.Composite(new qx.ui.layout.HBox(30));
 
       // standard login. i.e. using app database
-      let platformLogin = new auth.ui.login.Standard();
+      let platformLogin = new auth.ui.login.BasicView();
+      platformLogin.addListener("login", function(e) {
+        if (e.getData()==true){
+          alert("Logged in!");
+        }
+      }, this);
+      
       loginGroup.add(platformLogin, {
         width: "60%"
       });
 
       // login could offer different types. eg. standard, NIH, lDAP ...
       // or other third parties. Each login can be added as a different
-      // widget. Can be e.g. implemented as a Tabview as in gitlab or 
+      // widget. Can be e.g. implemented as a Tabview as in gitlab or
       // with buttons on the side as in wix
       let externalLogin = this.__createExternalLogin();
       loginGroup.add(externalLogin);
@@ -111,10 +117,10 @@ qx.Class.define("auth.Application", {
       });
       loginGroup.add(loginNIH);
 
-      // Connect dummy      
+      // Connect dummy
       loginOpenId.addListener("execute", function (){
         const img = "https://upload.wikimedia.org/wikipedia/commons/8/88/Openid.svg";
-        
+
         let win = new qx.ui.window.Window("External Login");
         win.setLayout(new qx.ui.layout.Basic());
         win.setModal(true);

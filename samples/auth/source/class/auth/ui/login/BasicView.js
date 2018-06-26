@@ -1,12 +1,12 @@
 /**
  * Creates a standard widget for a login
- * 
+ *
  *  Features:
  *    - Login form
  *    - Some decoration
- * 
+ *
  */
-qx.Class.define("auth.ui.login.Standard", {
+qx.Class.define("auth.ui.login.BasicView", {
 
   extend: qx.ui.container.Composite,
 
@@ -38,7 +38,7 @@ qx.Class.define("auth.ui.login.Standard", {
    */
   members: {
     __form: null,
-    __auth: null,
+    __auth: new qx.io.request.authentication.Basic("", ""),
 
     __createHeader: function () {
       const isDev = qx.core.Environment.get("qx.debug") ? true : false;
@@ -61,7 +61,7 @@ qx.Class.define("auth.ui.login.Standard", {
 
       const isDev = qx.core.Environment.get("qx.debug") ? true : false;
 
-      // LayoutItem 
+      // LayoutItem
       this.set({
         padding: 10,
       });
@@ -103,27 +103,11 @@ qx.Class.define("auth.ui.login.Standard", {
     },
 
     __onSubmitLogin: function (e) {
-      // this is user's input
       var loginData = e.getData();
 
-      //let auth = new qx.io.request.authentication.Basic(
-      //  loginData.user,
-      //  loginData.password);
-      // Can send user+passorwd or user=token w/o password!?
       let auth = new qx.io.request.authentication.Basic(
         loginData.username,
         loginData.password)
-
-      // TODO: encapsulate entire request in separate class
-      // let req = new auth.io.request.Login(loginData());
-
-      //let serializer = function (object) {
-      //  if (object instanceof qx.ui.form.ListItem) {
-      //    return object.getLabel();
-      //  }
-      //};
-      //console.debug("You are sending: " +
-      //  qx.util.Serializer.toUriParameter(model, serializer));
 
       // Requests authentication to server
       // TODO: mimetypes supported??
@@ -144,33 +128,36 @@ qx.Class.define("auth.ui.login.Standard", {
     },
 
     __onLoginSucceed: function (e) {
-      let _req = e.getTarget();
-      console.debug("Authorized",
-        "status  :", _req.getStatus(),
-        "phase   :", _req.getPhase(),
-        "response: ", _req.getResponse()
+      let req = e.getTarget();
+      console.debug("Login suceeded:",
+        "status  :", req.getStatus(),
+        "phase   :", req.getPhase(),
+        "response: ", req.getResponse()
       );
-
-      const token = _req.getResponse().token;
-      this.__auth = new qx.io.request.authentication.Basic(token, null)
 
 
       // TODO: implement token-based authentication: we can request token and from that moment on,
-      // just use that...
+      // just use that...      
+      const token = req.getResponse().token;
+      this.__auth = new qx.io.request.authentication.Basic(token, null)
 
-      // TODO: fire success logged in and store token??
       this.fireDataEvent("login", true);
     },
 
     __onLoginFailed: function (e) {
-      let _req = e.getTarget();
-      console.debug("Unauthorized",
-        "status  :", _req.getStatus(),
-        "phase   :", _req.getPhase(),
-        "response: ", _req.getResponse()
+      const req = e.getTarget();
+      console.debug("Login failed:",
+        "status  :", req.getStatus(),
+        "phase   :", req.getPhase(),
+        "response: ", req.getResponse()
       );
 
-      // TODO: invalidate form view and flash error!
+      let msg = null;
+      if (req.getStatus() != 401) {
+        msg = "Unable to login. Server returned " + String(req.getStatus());
+      }      
+      this.__form.flashInvalidLogin(msg);
+
       this.fireDataEvent("login", false);
     },
 

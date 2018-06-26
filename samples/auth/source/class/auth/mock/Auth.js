@@ -13,29 +13,28 @@ qx.Class.define("auth.mock.Auth", {
         const login = auth.mock.Auth._decodeAuthHeader(request.requestHeaders)
         // const login = auth.mock.Auth._parseLoginParameters(request.requestBody)
 
-        let status = 401; // Unauthorized
+        let status;
         let headers = {
           "Content-Type": "application/json"
         };
-        let body = { error: "Unauthorized access" };
-
-        // 
-        //const login = qx.lang.Json.parse(request.requestBody);
-        // TODO: validate json!
-
-        // if login.user exists:
-        //  if verified:
-        //    if valid login.password:
-        //      if suceeds:
-        //        return token
+        let body;
 
         const DUMMY_EMAIL = "bizzy@itis.ethz.ch";
         const DUMMY_PASS = "z43";
+        const DUMMY_USERTOKEN = "eeeaee5e-9b6e-475b-abeb-66a000be8d03";
 
-        if (login.email == DUMMY_EMAIL && login.password == DUMMY_PASS) {
+        let ok = login.email == DUMMY_EMAIL && login.password == DUMMY_PASS;
+        if (!ok) {
+          ok = login.email == DUMMY_USERTOKEN;
+        }
+
+        if (ok) {
           status = 200;
-          const DUMMY_USERTOKEN = "eeeaee5e-9b6e-475b-abeb-66a000be8d03";
           body = { token: DUMMY_USERTOKEN }
+        }
+        else {
+          status = 401; // Unauthorized
+          body = { error: "Unauthorized access" };
         }
 
         request.respond(status, headers, qx.lang.Json.stringify(body));
@@ -43,13 +42,13 @@ qx.Class.define("auth.mock.Auth", {
     }],
 
     _decodeAuthHeader: function (requestHeaders) {
-      let res = { email: null, password: null };      
+      let res = { email: null, password: null };
       let header = requestHeaders["Authorization"]
-      
+
       // Remove 'Basic $value'
       let value = header.split(" ")[1]
       // parse '$username : $password'
-      let pair = qx.util.Base64.decode(value).split(":")       
+      let pair = qx.util.Base64.decode(value).split(":")
       res['email'] = pair[0]; res['password'] = pair[1];
 
       return res;
