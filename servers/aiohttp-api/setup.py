@@ -1,23 +1,37 @@
+#pylint: disable=C0103
+#pylint: disable=C0111
+import logging
+
 from setuptools import find_packages, setup
 
-install_requires = []
+logging.basicConfig(level=logging.INFO)
+_LOGGER = logging.getLogger(__name__)
 
-with open('requirements.txt', 'r') as fh:
-    install_requires = fh.read().splitlines()
 
-setup(name='aiohttp-server',
-      version='0.0.0',
-      description='aiohttp server demo with qx client',
-      platforms=['POSIX'],  # TODO:check
-      package_dir={'': 'src'},
-      packages=find_packages('src'),
-      package_data={
-          '': ['static/*.*']
-      },
-      include_package_data=True,
-      # requirements
-      install_requires=install_requires,
-      setup_requires=['pytest-runner'],
-      tests_require=['pytest'],
-      zip_safe=False  # TODO:check
-      )
+def _parse_lines(requirement_filepath):
+    requires = []
+    with open(requirement_filepath, 'r') as fh:
+        requires = [line.strip() for line in fh.readlines() if "#" not in line]
+    _LOGGER.info("Found %d packages in %s", len(
+        requires), requirement_filepath)
+    return requires
+
+
+if __name__ == "__main__":
+
+    setup(name='aiohttp-server',
+          version='0.0.0',
+          description='aiohttp server demo with qx client',
+          platforms=['POSIX'],  # TODO:check
+          package_dir={'': 'src'},
+          packages=find_packages('src'),
+          package_data={
+              '': ['static/*.*']
+          },
+          include_package_data=True,
+          # requirements
+          install_requires=_parse_lines('requirements-prod.txt'),
+          setup_requires=['pytest-runner'],
+          tests_require=_parse_lines('requirements-test.txt'),
+          zip_safe=False  # TODO:check
+          )

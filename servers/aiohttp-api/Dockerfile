@@ -20,7 +20,7 @@ RUN python3 -m venv .venv &&\
     chown scu:scu -R ~/.venv
 
 COPY servers/aiohttp-api/requirements* ./
-RUN ~/.venv/bin/pip install --no-cache -r requirements.txt &&\
+RUN ~/.venv/bin/pip install --no-cache -r requirements-prod.txt &&\
     ~/.venv/bin/pip install --no-cache -r requirements-test.txt
 
 # USER scu
