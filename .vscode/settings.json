@@ -14,7 +14,7 @@
         ".env*": "ini",
         "Dockerfile*": "dockerfile"
     },    
-    "editor.tabSize": 2,
+    "editor.tabSize": 4,
     "python.pythonPath": "${workspaceFolder}/.venv/aiohttp-api/bin/python",
     "python.unitTest.pyTestEnabled": true,
 }
