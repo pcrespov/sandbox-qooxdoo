@@ -38,8 +38,7 @@ qx.Class.define("auth.ui.login.Standard", {
    */
   members: {
     __form: null,
-    __token: null,
-    __info: null,
+    __auth: null,
 
     __createHeader: function () {
       const isDev = qx.core.Environment.get("qx.debug") ? true : false;
@@ -105,13 +104,15 @@ qx.Class.define("auth.ui.login.Standard", {
 
     __onSubmitLogin: function (e) {
       // this is user's input
-      var loginData = e.getData();      
+      var loginData = e.getData();
 
       //let auth = new qx.io.request.authentication.Basic(
       //  loginData.user,
       //  loginData.password);
       // Can send user+passorwd or user=token w/o password!?
-      let auth = new qx.io.request.authentication.Basic("user","pass")
+      let auth = new qx.io.request.authentication.Basic(
+        loginData.username,
+        loginData.password)
 
       // TODO: encapsulate entire request in separate class
       // let req = new auth.io.request.Login(loginData());
@@ -130,10 +131,10 @@ qx.Class.define("auth.ui.login.Standard", {
       req.set({
         accept: "application/json",
         authentication: auth,
-        requestData: {
-          email: loginData.username,
-          password: loginData.password
-        },
+        //requestData: {
+        //  email: loginData.username,
+        //  password: loginData.password
+        //},
         cache: false
       });
 
@@ -144,13 +145,15 @@ qx.Class.define("auth.ui.login.Standard", {
 
     __onLoginSucceed: function (e) {
       let _req = e.getTarget();
-      console.debug("Everything went fine!!");
-      console.debug("status  :", _req.getStatus());
-      console.debug("phase   :", _req.getPhase());
-      console.debug("response: ", _req.getResponse());
-      
-      this.__info = _req.getResponse();
-      this.__token = _req.getResponse().userToken;
+      console.debug("Authorized",
+        "status  :", _req.getStatus(),
+        "phase   :", _req.getPhase(),
+        "response: ", _req.getResponse()
+      );
+
+      const token = _req.getResponse().token;
+      this.__auth = new qx.io.request.authentication.Basic(token, null)
+
 
       // TODO: implement token-based authentication: we can request token and from that moment on,
       // just use that...
@@ -160,12 +163,12 @@ qx.Class.define("auth.ui.login.Standard", {
     },
 
     __onLoginFailed: function (e) {
-      // Display error page!
       let _req = e.getTarget();
-      console.debug("Something went wrong!!");
-      console.debug("status  :", _req.getStatus());
-      console.debug("phase   :", _req.getPhase());
-      console.debug("response: ", _req.getResponse());
+      console.debug("Unauthorized",
+        "status  :", _req.getStatus(),
+        "phase   :", _req.getPhase(),
+        "response: ", _req.getResponse()
+      );
 
       // TODO: invalidate form view and flash error!
       this.fireDataEvent("login", false);

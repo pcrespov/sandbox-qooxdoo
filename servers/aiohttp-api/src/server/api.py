@@ -1,5 +1,8 @@
 """ server's rest API
 
+
+
+TODO: extend api using swagger!
 """
 from aiohttp import web
 from aiohttp_swagger import setup_swagger

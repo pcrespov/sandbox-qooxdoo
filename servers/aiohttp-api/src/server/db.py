@@ -38,6 +38,7 @@ async def dispose_aiopg(app):
     _LOGGER.debug('db engine closed')
 
 
-def setup_db(app):    
+def setup_db(app):
+    # appends def fun(app) -> coroutines
     app.on_startup.append(create_aiopg)
     app.on_cleanup.append(dispose_aiopg)
