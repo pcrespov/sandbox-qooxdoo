@@ -1,8 +1,8 @@
 /*** Fake rest-API for testing
- * 
+ *
  *  Hooks to the client and attends its requests emulating the responses of
  *  a server. This is intended only FOR DEVELOPMENT
- *  
+ *
  * See http://www.qooxdoo.org/5.0.2/pages/communication/fake_server.html
  * See HTTP status codes: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
  */

@@ -31,6 +31,8 @@ ENV PATH="${QOOXDOO_PATH}/tool/bin:${QOOXDOO_COMPILER_DIR}:${QOOXDOO_COMPILER_DI
 #  * = in $PATH
 #
 
+COPY --chown=scu:scu entrypoint.sh $HOME/entrypoint.sh
+
 # FIXME: scu must have same id as host's user so compiler can write in mount volume!
 USER scu
 
@@ -43,7 +45,7 @@ WORKDIR /home/scu/client
 VOLUME /home/scu/client
 EXPOSE 8080
 
-ENTRYPOINT [ "qx" ]
+ENTRYPOINT [ "/home/scu/entrypoint.sh" ]
 CMD ["serve"]
 
 #-------------------------------------------------------------------

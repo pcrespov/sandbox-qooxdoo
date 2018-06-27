@@ -1,18 +1,16 @@
 /* global qxapp
-*/
-/* eslint no-warning-comments: "off" */
-
-/*
   TODO: Create common interface for all types of login. e.g. openID or NIH or standard
+
+  eslint no-warning-comments: "off"
 */
 qx.Class.define("auth.ui.login.LoginPage", {
   extend: qx.ui.container.Composite,
 
-  construct: function() {
+  varruct: function() {
     this.base(arguments, new qx.ui.layout.HBox(30));
 
     // standard login. i.e. using app database
-    let platformLogin = new auth.ui.login.BasicView();
+    var platformLogin = new auth.ui.login.BasicView();
     this.add(platformLogin, {
       width: "60%"
     });
@@ -21,7 +19,7 @@ qx.Class.define("auth.ui.login.LoginPage", {
     // or other third parties. Each login can be added as a different
     // widget. Can be e.g. implemented as a Tabview as in gitlab or
     // with buttons on the side as in wix
-    let externalLogin = this.__createExternalLogin();
+    var externalLogin = this.__createExternalLogin();
     this.add(externalLogin);
 
     // TODO: check how to bypass child events to parent
@@ -40,19 +38,19 @@ qx.Class.define("auth.ui.login.LoginPage", {
       /**
        * For demo purposes
        */
-      let layout = new qx.ui.layout.VBox(10).set({
+      var layout = new qx.ui.layout.VBox(10).set({
         alignY: "middle"
       });
-      let loginGroup = new qx.ui.container.Composite(layout);
+      var loginGroup = new qx.ui.container.Composite(layout);
 
-      let loginOpenId = new qx.ui.form.Button().set({
+      var loginOpenId = new qx.ui.form.Button().set({
         label: "Continue with openID"
         // FIXME: icon size
         // icon: "https://upload.wikimedia.org/wikipedia/commons/8/88/Openid.svg",
       });
       loginGroup.add(loginOpenId);
 
-      let loginNIH = new qx.ui.form.Button().set({
+      var loginNIH = new qx.ui.form.Button().set({
         label: "Continue with NIH"
         // FIXME: icon size
         // icon: "qxapp/nih-419.png",
@@ -61,9 +59,9 @@ qx.Class.define("auth.ui.login.LoginPage", {
 
       // Connect dummy
       loginOpenId.addListener("execute", function() {
-        const img = "https://upload.wikimedia.org/wikipedia/commons/8/88/Openid.svg";
+        var img = "https://upload.wikimedia.org/wikipedia/commons/8/88/Openid.svg";
 
-        let win = new qx.ui.window.Window("External Login");
+        var win = new qx.ui.window.Window("External Login");
         win.setLayout(new qx.ui.layout.Basic());
         win.setModal(true);
         win.add(new qx.ui.basic.Image(img));
@@ -71,9 +69,9 @@ qx.Class.define("auth.ui.login.LoginPage", {
       });
 
       loginNIH.addListener("execute", function() {
-        const img = "qxapp/nih-419.png";
+        var img = "qxapp/nih-419.png";
 
-        let win = new qx.ui.window.Window("External Login");
+        var win = new qx.ui.window.Window("External Login");
         win.setLayout(new qx.ui.layout.Basic());
         win.setModal(true);
         win.add(new qx.ui.basic.Image(img));

@@ -31,8 +31,7 @@ async def login(request):
     if await check_credentials(db_engine, email, password):
         # FIXME: build proper token and send back!
         response = web.json_response({
-            'token': "123", #g.current_user.generate_auth_token(expiration=3600), 
-            'userid': 0,
+            'token': "eeeaee5e-9b6e-475b-abeb-66a000be8d03";, #g.current_user.generate_auth_token(expiration=3600), 
             'expiration': 3600})
         await remember(request, response, email)
         return response
