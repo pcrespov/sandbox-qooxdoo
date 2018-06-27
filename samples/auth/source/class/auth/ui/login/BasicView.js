@@ -12,10 +12,10 @@ qx.Class.define("auth.ui.login.BasicView", {
 
   /*
   *****************************************************************************
-     varRUCTOR
+     constructOR
   *****************************************************************************
   */
-  varruct: function () {
+  construct: function () {
     this.base(arguments);
 
     var header = this.__createHeader();

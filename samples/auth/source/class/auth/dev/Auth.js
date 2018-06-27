@@ -1,4 +1,6 @@
 /* eslint no-warning-comments: "off" */
+/* eslint no-underscore-dangle: "off" */
+/* global auth */
 qx.Class.define("auth.dev.Auth", {
   type: "static",
 
@@ -7,49 +9,56 @@ qx.Class.define("auth.dev.Auth", {
     mockData: [{
       method: "POST",
       url: "api/v1.0/login",
-      response: function (request) {
-        console.log("Received request:", request)
+      response: function(request) {
+        console.log("Received request:", request);
 
-        const login = auth.dev.Auth._decodeAuthHeader(request.requestHeaders)
-        // const login = auth.dev.Auth._parseLoginParameters(request.requestBody)
+        var login = auth.dev.Auth.__decodeAuthHeader(request.requestHeaders);
+        // var login = auth.dev.Auth.__parseLoginParameters(request.requestBody)
 
-        let status;
-        let headers = {
+        var status;
+        var headers = {
           "Content-Type": "application/json"
         };
-        let body;
+        var body;
 
-        const DUMMY_EMAIL = "bizzy@itis.ethz.ch";
-        const DUMMY_PASS = "z43";
-        const DUMMY_USERTOKEN = "eeeaee5e-9b6e-475b-abeb-66a000be8d03";
+        var DUMMY_EMAIL = "bizzy@itis.ethz.ch";
+        var DUMMY_PASS = "z43";
+        var DUMMY_USERTOKEN = "eeeaee5e-9b6e-475b-abeb-66a000be8d03";
 
-        let ok = login.email == DUMMY_EMAIL && login.password == DUMMY_PASS;
+        var ok = login.email == DUMMY_EMAIL && login.password == DUMMY_PASS;
         if (!ok) {
           ok = login.email == DUMMY_USERTOKEN;
         }
 
         if (ok) {
           status = 200;
-          body = { token: DUMMY_USERTOKEN }
-        }
-        else {
+          body = {
+            token: DUMMY_USERTOKEN
+          };
+        } else {
           status = 401; // Unauthorized
-          body = { error: "Unauthorized access" };
+          body = {
+            error: "Unauthorized access"
+          };
         }
 
         request.respond(status, headers, qx.lang.Json.stringify(body));
       }
     }],
 
-    _decodeAuthHeader: function (requestHeaders) {
-      let res = { email: null, password: null };
-      let header = requestHeaders["Authorization"]
+    __decodeAuthHeader: function(requestHeaders) {
+      var res = {
+        email: null,
+        password: null
+      };
+      var header = requestHeaders["Authorization"];
 
       // Remove 'Basic $value'
-      let value = header.split(" ")[1]
+      var value = header.split(" ")[1];
       // parse '$username : $password'
-      let pair = qx.util.Base64.decode(value).split(":")
-      res['email'] = pair[0]; res['password'] = pair[1];
+      var pair = qx.util.Base64.decode(value).split(":");
+      res["email"] = pair[0];
+      res["password"] = pair[1];
 
       return res;
     },
@@ -59,12 +68,15 @@ qx.Class.define("auth.dev.Auth", {
      * parameters from body
      *
     */
-    _parseLoginParameters: function (requestBody) {
-      let res = { email: null, password: null }
+    _parseLoginParameters: function(requestBody) {
+      var res = {
+        email: null,
+        password: null
+      };
 
-      let vars = requestBody.split('&');
-      for (let i = 0; i < vars.length; ++i) {
-        let pair = vars[i].split('=');
+      var vars = requestBody.split("&");
+      for (var i = 0; i < vars.length; ++i) {
+        var pair = vars[i].split("=");
         res[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
       }
       return res;
@@ -72,7 +84,7 @@ qx.Class.define("auth.dev.Auth", {
 
   },
 
-  defer: function (mystatics) {
+  defer: function(mystatics) {
     qx.dev.FakeServer.getInstance().configure(mystatics.mockData);
   }
 

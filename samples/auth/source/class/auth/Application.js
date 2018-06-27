@@ -12,7 +12,10 @@
  * This is the main application class of "auth"
  *
  * @asset(auth/*)
+ *
  */
+
+/* global auth */
 qx.Class.define("auth.Application", {
   extend: qx.application.Standalone,
 
@@ -31,7 +34,7 @@ qx.Class.define("auth.Application", {
      *
      * @lint ignoreDeprecated(alert)
      */
-    main: function () {
+    main: function() {
       // Call super class
       this.base(arguments);
 
@@ -48,38 +51,47 @@ qx.Class.define("auth.Application", {
         console.debug("Initializing FakeServer ...");
         auth.dev.RestAPI;
         auth.dev.Auth;
+        auth.test.DemoTest;
       }
 
-      let root = this.getRoot();
+      var root = this.getRoot();
       this.__demo(root);
-
     },
 
-    __demo: function (root) {
+    __demo: function(root) {
       /**
        *  Demo #1
        *
        */
       // root is configured as a Canvas here
       root.set({
-        backgroundColor: "#00284d",
+        backgroundColor: "#00284d"
       });
 
       var widget = new qx.ui.container.Composite(new qx.ui.layout.Dock()).set(
         {
-          //decorator: "main",
-          allowGrowX: false,
+          // decorator: "main",
+          allowGrowX: false
         });
 
-      let loginPage = new auth.ui.login.LoginPage();
-      loginPage.addListener("login", function (e) {
+      var loginPage = new auth.ui.login.LoginPage();
+      loginPage.addListener("login", function(e) {
         if (e.getData() == true) {
           alert("Logged in!");
         }
       }, this);
 
-      widget.add(loginPage, { edge: "center" });
-      root.add(widget, { left: "0%", top: "0%", right: "0%", bottom: "0%", width: "0%", height: "0%" });
-    },
+      widget.add(loginPage, {
+        edge: "center"
+      });
+      root.add(widget, {
+        left: "0%",
+        top: "0%",
+        right: "0%",
+        bottom: "0%",
+        width: "0%",
+        height: "0%"
+      });
+    }
   }
 });

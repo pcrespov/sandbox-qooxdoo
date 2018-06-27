@@ -65,6 +65,10 @@ qx.Class.define("auth.test.DemoTest",
       got = qx.util.Base64.decode(qx.util.Base64.encode("foo" + ':' + null)).split(":");
       this.assertIdentical(got[0], "foo")
       this.assertIdentical(got[1], "null")
+    },
+
+    testFail: function(){      
+      this.assertEquals(2,3)
     }
   }
 });
