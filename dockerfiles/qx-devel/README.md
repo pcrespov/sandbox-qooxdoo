@@ -28,6 +28,43 @@ APP_DIR=minimal docker-compose up
 IMAGE_VERSION=released APP_DIR=minimal docker-compose up
 ```
 
+Added a new entrypoint that unifies the CLIs of both ``qooxdoo-sdk/tools/generator.py`` and
+``qx``-compiler. Then we can query help or versions simply by 
+
+```bash
+docker-compose up --help
+docker-compose up --version
+
+IMAGE_VERSION=master docker-compose up --help
+IMAGE_VERSION=released docker-compose up --version
+```
+
+or create a test or api documentation (produced by ``generator.py``) of a project called ``minimal`` just type
+```bash
+APP_DIR=minimal docker-compose run qx test
+APP_DIR=minimal docker-compose run qx api
+```
+
+To serve the doc or the test runner we need a small file server (due to security reasons we cannot just drop ``index.html`` on the browser). Here we have nodejs to the rescue. we can easily install a http-server and fire it as
+```bash
+npm install http-server -g
+http-server path/to/test/
+```
+or if you really do not want to install node in your system, you can always run it within a docker
+``` bash
+docker build -t http-server . -f-<<EOF
+FROM node
+WORKDIR /user/src/app
+RUN npm install http-server -g
+EXPOSE 8080
+VOLUME /user/src/app
+ENTRYPOINT ["http-server"]
+EOF
+
+docker run -p 8080:8080 -v $(pwd):/user/src/app http-server path/to/testdir
+
+```
+
 **NOTE** : Projects generated with these version differ in :
 
 - In Manifest.json
@@ -43,6 +80,6 @@ IMAGE_VERSION=released APP_DIR=minimal docker-compose up
 
 ## TODOs
 
-- TODO: print installed version of qx
+- [ ] TODO: print installed version of qx
 
 [generator]:https://www.qooxdoo.org/devel/pages/tool/generator/cheat_sheet.html

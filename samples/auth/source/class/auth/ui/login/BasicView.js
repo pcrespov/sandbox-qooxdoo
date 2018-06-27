@@ -12,17 +12,17 @@ qx.Class.define("auth.ui.login.BasicView", {
 
   /*
   *****************************************************************************
-     CONSTRUCTOR
+     varRUCTOR
   *****************************************************************************
   */
-  construct: function () {
+  varruct: function () {
     this.base(arguments);
 
-    let header = this.__createHeader();
+    var header = this.__createHeader();
     this.__form = new auth.ui.login.Form();
 
     // TODO : add Forgot Password? | Create Account? links
-    let footer = new qx.ui.core.Widget();
+    var footer = new qx.ui.core.Widget();
 
     this.__createLayout(header,
       new qx.ui.form.renderer.Single(this.__form),
@@ -41,13 +41,13 @@ qx.Class.define("auth.ui.login.BasicView", {
     __auth: new qx.io.request.authentication.Basic("", ""),
 
     __createHeader: function () {
-      const isDev = qx.core.Environment.get("qx.debug") ? true : false;
+      var isDev = qx.core.Environment.get("qx.debug") ? true : false;
 
       // TODO: bind label and icon to this property
 
-      let header = new qx.ui.basic.Atom().set({
+      var header = new qx.ui.basic.Atom().set({
         icon: "auth/itis.png",
-        iconPosition: "top",
+        iconPosition: "top"
       });
 
       return header;
@@ -59,11 +59,11 @@ qx.Class.define("auth.ui.login.BasicView", {
       // http://www.qooxdoo.org/5.0.2/pages/layout/box.html
       // http://www.qooxdoo.org/5.0.2/demobrowser/#layout~VBox.html
 
-      const isDev = qx.core.Environment.get("qx.debug") ? true : false;
+      var isDev = qx.core.Environment.get("qx.debug") ? true : false;
 
       // LayoutItem
       this.set({
-        padding: 10,
+        padding: 10
       });
 
       this.setLayoutProperties({
@@ -86,9 +86,9 @@ qx.Class.define("auth.ui.login.BasicView", {
 
 
       // Children's layout management
-      let layout = new qx.ui.layout.VBox().set({
+      var layout = new qx.ui.layout.VBox().set({
         alignY: "middle",
-        spacing: 20, // TODO: themed?
+        spacing: 20 // TODO: themed?
       });
       this.setLayout(layout);
 
@@ -105,13 +105,13 @@ qx.Class.define("auth.ui.login.BasicView", {
     __onSubmitLogin: function (e) {
       var loginData = e.getData();
 
-      let auth = new qx.io.request.authentication.Basic(
+      var auth = new qx.io.request.authentication.Basic(
         loginData.username,
         loginData.password)
 
       // Requests authentication to server
       // TODO: mimetypes supported??
-      let req = new qx.io.request.Xhr("api/v1.0/login", "POST");
+      var req = new qx.io.request.Xhr("api/v1.0/login", "POST");
       req.set({
         accept: "application/json",
         authentication: auth,
@@ -128,7 +128,7 @@ qx.Class.define("auth.ui.login.BasicView", {
     },
 
     __onLoginSucceed: function (e) {
-      let req = e.getTarget();
+      var req = e.getTarget();
       console.debug("Login suceeded:",
         "status  :", req.getStatus(),
         "phase   :", req.getPhase(),
@@ -137,29 +137,29 @@ qx.Class.define("auth.ui.login.BasicView", {
 
 
       // TODO: implement token-based authentication: we can request token and from that moment on,
-      // just use that...      
-      const token = req.getResponse().token;
+      // just use that...
+      var token = req.getResponse().token;
       this.__auth = new qx.io.request.authentication.Basic(token, null)
 
       this.fireDataEvent("login", true);
     },
 
     __onLoginFailed: function (e) {
-      const req = e.getTarget();
+      var req = e.getTarget();
       console.debug("Login failed:",
         "status  :", req.getStatus(),
         "phase   :", req.getPhase(),
         "response: ", req.getResponse()
       );
 
-      let msg = null;
+      var msg = null;
       if (req.getStatus() != 401) {
         msg = "Unable to login. Server returned " + String(req.getStatus());
-      }      
+      }
       this.__form.flashInvalidLogin(msg);
 
       this.fireDataEvent("login", false);
-    },
+    }
 
   },
 
@@ -170,6 +170,6 @@ qx.Class.define("auth.ui.login.BasicView", {
   */
   events: {
     "login": "qx.event.type.Data"
-  },
+  }
 
 });

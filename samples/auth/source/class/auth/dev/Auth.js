@@ -55,9 +55,9 @@ qx.Class.define("auth.dev.Auth", {
     },
 
     /**
-     * Parse {email:, password:} object extracting 
+     * Parse {email:, password:} object extracting
      * parameters from body
-     * 
+     *
     */
     _parseLoginParameters: function (requestBody) {
       let res = { email: null, password: null }

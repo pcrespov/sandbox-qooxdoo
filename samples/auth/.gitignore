@@ -5,3 +5,7 @@
 /qooxdoo/
 /contrib/
 /node_modules/
+
+# generator outputs
+/api/
+/test/
