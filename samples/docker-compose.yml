@@ -7,13 +7,30 @@ services:
     volumes:
       - '.:/home/scu/client'
     ports:
-      - '8080:8080'
+      - '${PORT:-9000}:8080'
     working_dir: /home/scu/client/${APP_DIR:-.}
     env_file:
       - secrets.env
-    #entrypoint: bash      
     command: serve --set qx.allowUrlSettings=true
-    
+  #---------------------------------------------------------
+  doc:
+    image: http-server:latest
+    volumes:
+      - '.:/user/src/app'
+    ports:
+      - '${PORT:-9001}:8080'
+    working_dir: /user/src/app/${APP_DIR:-.}
+    command: api
+  #---------------------------------------------------------
+  test:
+    image: http-server:latest
+    volumes:
+      - '.:/user/src/app'
+    ports:
+      - '${PORT:-9002}:8080'
+    working_dir: /user/src/app/${APP_DIR:-.}
+    command: test
+
     #
     # Open http://localhost:8080/index.html?qxenv:dev.enableFakeServer:true
     #

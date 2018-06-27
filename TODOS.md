@@ -1,5 +1,6 @@
 # TODOS
 
-- TODO: explore qx.dev.unit for mockups, stubs, spies, etc
-- TODO: Create tests
-- TODO: Create doc api
+-[ ] TODO: explore qx.dev.unit for mockups, stubs, spies, etc
+-[ ] TODO: Create tests
+-[ ] TODO: Create doc api
+-[ ] TODO: add myapp/config.json and customize upon creation

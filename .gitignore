@@ -118,3 +118,6 @@ package-lock.json
 *ignore*
 tmp/
 data/
+
+# demo proj in the README.md
+myapp/
