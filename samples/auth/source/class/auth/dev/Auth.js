@@ -1,5 +1,5 @@
 /* eslint no-warning-comments: "off" */
-qx.Class.define("auth.mock.Auth", {
+qx.Class.define("auth.dev.Auth", {
   type: "static",
 
   statics: {
@@ -10,8 +10,8 @@ qx.Class.define("auth.mock.Auth", {
       response: function (request) {
         console.log("Received request:", request)
 
-        const login = auth.mock.Auth._decodeAuthHeader(request.requestHeaders)
-        // const login = auth.mock.Auth._parseLoginParameters(request.requestBody)
+        const login = auth.dev.Auth._decodeAuthHeader(request.requestHeaders)
+        // const login = auth.dev.Auth._parseLoginParameters(request.requestBody)
 
         let status;
         let headers = {

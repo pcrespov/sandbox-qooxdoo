@@ -7,7 +7,7 @@
  * See HTTP status codes: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
  */
 
-qx.Class.define('auth.mock.RestAPI', {
+qx.Class.define('auth.dev.RestAPI', {
 
   statics: {
     //  Defines responses to HTTP method/request URL pairs

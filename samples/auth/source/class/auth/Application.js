@@ -46,8 +46,8 @@ qx.Class.define("auth.Application", {
       // Enables fake server if in qx.debug!
       if (qx.core.Environment.get("auth.mockBackend")) {
         console.debug("Initializing FakeServer ...");
-        auth.mock.RestAPI;
-        auth.mock.Auth;
+        auth.dev.RestAPI;
+        auth.dev.Auth;
       }
 
       let root = this.getRoot();
@@ -67,7 +67,7 @@ qx.Class.define("auth.Application", {
 
       var widget = new qx.ui.container.Composite(new qx.ui.layout.Dock()).set(
         {
-          decorator: "main",
+          //decorator: "main",
           allowGrowX: false,
         });
 
