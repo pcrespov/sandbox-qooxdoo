@@ -1,4 +1,4 @@
-/** * Fake rest-API for testing
+/** Fake rest-API for testing
  *
  *  Hooks to the client and attends its requests emulating the responses of
  *  a server. This is intended only FOR DEVELOPMENT

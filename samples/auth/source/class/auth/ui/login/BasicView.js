@@ -15,7 +15,7 @@ qx.Class.define("auth.ui.login.BasicView", {
      constructOR
   *****************************************************************************
   */
-  construct: function () {
+  constructor: function () {
     this.base(arguments);
 
     var header = this.__createHeader();

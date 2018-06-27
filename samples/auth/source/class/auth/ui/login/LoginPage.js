@@ -6,7 +6,7 @@
 qx.Class.define("auth.ui.login.LoginPage", {
   extend: qx.ui.container.Composite,
 
-  construct: function() {
+  constructor: function() {
     this.base(arguments, new qx.ui.layout.HBox(30));
 
     // standard login. i.e. using app database
