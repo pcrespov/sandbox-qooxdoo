@@ -2,15 +2,13 @@
 
 echo Running \'docker-compose build "$@"\'
 
-# produces qx:master
+echo Produces qx:master -----------------------------------------------
 docker-compose build "$@"
-docker-compose run --entrypoint /bin/bash qx -c "which qx && qx --help 2>&1 >/dev/null | grep  Versions"
-docker-compose down
+docker-compose run --rm qx --version
 
-# produces qx:released
+echo Produces qx:released ---------------------------------------------
 BUILD_TARGET=released docker-compose build "$@"
-BUILD_TARGET=released docker-compose run --entrypoint /bin/bash qx -c "which qx && qx --help 2>&1 >/dev/null | grep  Versions"
-docker-compose down
+BUILD_TARGET=released docker-compose run --rm qx --version
 
-# display images
+echo Display images ---------------------------------------------------
 docker image ls | grep qx

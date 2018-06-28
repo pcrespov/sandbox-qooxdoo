@@ -38,8 +38,6 @@ qx.Class.define("auth.Application", {
         console.debug("Initializing FakeServer ...");
         auth.dev.RestAPI;
         auth.dev.Auth;
-        auth.test.DemoTest;
-        auth.test.RestAPI;
       }
 
       var root = this.getRoot();
