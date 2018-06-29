@@ -55,9 +55,23 @@ qx.Class.define("auth.Application", {
       }
 
       var root = this.getRoot();
-      this.__demo(root);
+      this.check(function(success){
+        let page = null;
+        if (success){
+          page = new Applicatio
+        }else{
+          page = new auth.ui.login.LoginPage();
+        }
+        page.show();
+      }, this);
+
+      //this.__demo(root);
     },
 
+    check: function (cb, ctx ){
+
+    },
+    
     __demo: function(root) {
       /**
        *  Demo #1
