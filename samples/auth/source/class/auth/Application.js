@@ -1,25 +1,12 @@
-/* ************************************************************************
-
-   Copyright: 2018 undefined
-
-   License: MIT license
-
-   Authors: undefined
-
-************************************************************************ */
-
 /**
  * This is the main application class of "auth"
  *
  * @asset(auth/*)
  *
  */
-
 /* global auth */
 qx.Class.define("auth.Application", {
   extend: qx.application.Standalone,
-
-
 
   /*
   *****************************************************************************
@@ -51,7 +38,6 @@ qx.Class.define("auth.Application", {
         console.debug("Initializing FakeServer ...");
         auth.dev.RestAPI;
         auth.dev.Auth;
-        auth.test.DemoTest;
       }
 
       var root = this.getRoot();

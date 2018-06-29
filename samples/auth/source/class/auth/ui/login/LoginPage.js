@@ -1,12 +1,12 @@
-/* global qxapp
+/** global qxapp
   TODO: Create common interface for all types of login. e.g. openID or NIH or standard
-
-  eslint no-warning-comments: "off"
 */
+/* eslint no-warning-comments: "off" */
+/* global auth */
 qx.Class.define("auth.ui.login.LoginPage", {
   extend: qx.ui.container.Composite,
 
-  constructor: function() {
+  construct: function() {
     this.base(arguments, new qx.ui.layout.HBox(30));
 
     // standard login. i.e. using app database
@@ -69,7 +69,7 @@ qx.Class.define("auth.ui.login.LoginPage", {
       });
 
       loginNIH.addListener("execute", function() {
-        var img = "qxapp/nih-419.png";
+        var img = "https://upload.wikimedia.org/wikipedia/commons/8/88/Openid.svg";
 
         var win = new qx.ui.window.Window("External Login");
         win.setLayout(new qx.ui.layout.Basic());
