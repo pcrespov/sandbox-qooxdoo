@@ -41,23 +41,31 @@ qx.Class.define("auth.Application", {
       }
 
       var root = this.getRoot();
-      this.check(function(success){
-        let page = null;
-        if (success){
-          page = new Applicatio
-        }else{
-          page = new auth.ui.login.LoginPage();
-        }
-        page.show();
-      }, this);
+      root.set({
+        backgroundColor: "#00284d"
+      });
+
+      
+      // a page adds himself to the root
+      var page = new auth.ui.LoginPage();
+
+      // this.check(function (success) {
+      //   let page = null;
+      //   if (success) {
+      //     page = new Applicatio
+      //   } else {
+      //     page = new auth.ui.login.LoginPage();
+      //   }
+      //   page.show();
+      // }, this);
 
       //this.__demo(root);
     },
 
-    check: function (cb, ctx ){
-
+    request: function(cb, ctx) {
+      console.info("Request");
     },
-    
+
     __demo: function(root) {
       /**
        *  Demo #1
