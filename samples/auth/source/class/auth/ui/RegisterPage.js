@@ -73,7 +73,6 @@ qx.Class.define("auth.ui.RegisterPage", {
         this.__register();
       }, this);
 
-
       btn = new qx.ui.form.Button(this.tr("Cancel"));
       btn.setWidth(width);
       grp.add(btn, {

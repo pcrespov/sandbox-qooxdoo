@@ -33,29 +33,33 @@ qx.Class.define("auth.Application", {
         backgroundColor: "#00284d"
       });
 
-      this.request("type==check", function(success) {
+      this.restart();
+
+      // this.__demo(root);
+    },
+
+    restart: function() {
+      this.request("type=check", function(success) {
         var page = null;
         if (success) {
-          page = new auth.ui.MainApplication();
+          page = new auth.ui.MainPage();
         } else {
           page = new auth.ui.LoginPage();
         }
         page.show();
       }, this);
-
-      // this.__demo(root);
     },
 
     request: function(str, cbk, ctx) {
-      // var rpc = new qx.io.request.Xhr(str);
-      // rpc.addListener("success", function(e, x, y) {
-      //   var request = e.getTarget();
-      //   var response = request.getResponse();
-      //   cbk.call(ctx, (response == "true"));
-      // }, this);
+      var req = new qx.io.request.Xhr("api/auth", "GET");
+      req.setRequestData(str);
+      req.addListener("success", function(e, x, y) {
+        var request = e.getTarget();
+        var response = request.getResponse();
+        cbk.call(ctx, (response == "true"));
+      }, this);
 
-      // rpc.send();
-      cbk.call(ctx, false);
+      req.send();
     },
 
     __demo: function(root) {

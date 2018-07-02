@@ -19,6 +19,7 @@ qx.Class.define("auth.ui.LoginPage", {
       width: 300,
       height: 250
     });
+
     this.__buildPage();
     // Place this in document's center. TODO: should be automatically reposition of document size changed!?
     var top = parseInt((qx.bom.Document.getHeight() - this.getHeight()) / 2, 10);
@@ -29,98 +30,113 @@ qx.Class.define("auth.ui.LoginPage", {
       left: left
     });
   },
+
   destruct: function() {
     console.debug("destroying LoginPage");
   },
   members: {
-    _name: null,
-    _pass: null,
-    _remember: null,
+    _form: null,
 
     __buildPage: function() {
+      this._form = new qx.ui.form.Form();
+
+      var top = 0;
       var atm = new qx.ui.basic.Atom().set({
         icon: "auth/itis.png",
         iconPosition: "top"
       });
       atm.setWidth(this.getWidth() - 20);
       this.add(atm, {
-        top: 0,
+        top: top,
         left: 10
       });
 
-      var name = new qx.ui.form.TextField();
-      name.setPlaceholder("Your email address");
-      this.add(name, {
-        top: 65,
+      top += 65;
+      var email = new qx.ui.form.TextField();
+      email.setPlaceholder("Your email address");
+      email.setRequired(true);
+      this.add(email, {
+        top: top,
         left: 10,
         right: 10
       });
-      this._name = name;
+      this._form.add(email, "", qx.util.Validate.email(), "email", null);
 
+      top += 40;
       var pass = new qx.ui.form.PasswordField();
       pass.setPlaceholder("Your password");
+      pass.setRequired(true);
       this.add(pass, {
-        top: 100,
+        top: top,
         left: 10,
         right: 10
       });
-      this._pass = pass;
+      this._form.add(pass, "", null, "password", null);
 
-      var chk = new qx.ui.form.CheckBox("<b style='color: #FFFFFF'>" + this.tr("Remember me ?") + "</b>");
+      top += 35;
+      var chk = new qx.ui.form.CheckBox("<b style='color: #FFFFFF'>" + this.tr("Remember me?") + "</b>");
       var lbl = chk.getChildControl("label");
       lbl.setRich(true);
       this.add(chk, {
-        top: 130,
+        top: top,
         left: 10
       });
-      this._remember = chk;
+      this._form.add(chk, "", null, "remember", null);
 
-      var btnForgot = this.createLinkButton("Forgot Password?", function() {
+      var btnForgot = this.createLinkButton(this.tr("Forgot Password?"), function() {
         this.forgot();
       }, this);
       this.add(btnForgot, {
-        top: 130,
+        top: top,
         right: 10
       });
 
       var width = parseInt((this.getWidth() - 30) / 2, 10);
-      var btnLogin = this.createButton("Log In", width, function() {
-        this.login();
+      var btnLogin = this.createButton(this.tr("Log In"), width, function() {
+        if (this._form.validate()) {
+          this.login();
+        }
       }, this);
       this.add(btnLogin, {
-        bottom: 20,
+        bottom: 30,
         left: 10
       });
 
-      var btnRegister = this.createButton("Register", width, function() {
+      var btnRegister = this.createButton(this.tr("Register"), width, function() {
         this.register();
       }, this);
       this.add(btnRegister, {
-        bottom: 20,
+        bottom: 30,
         right: 10
       });
     },
 
     login: function() {
       // Data
-      var name = this._name.getValue();
-      var pass = this._pass.getValue();
-      var remember = this._remember.getValue();
+      var email = this._form.getItems().email;
+      var pass = this._form.getItems().password;
+      var remember = this._form.getItems().remember;
 
       var str = "type=login";
-      str += "&username=" + name;
-      str += "&password=" + pass;
-      str += "&remember=" + remember;
+      str += "&username=" + email.getValue();
+      str += "&password=" + pass.getValue();
+      str += "&remember=" + remember.getValue();
 
       var app = qx.core.Init.getApplication();
       app.request(str, function(success) {
         var page = null;
         if (success) {
-          page = new auth.ui.MainApplication();
+          page = new auth.ui.MainPage();
           page.show();
           this.destroy();
         } else {
-          alert(this.tr("Could not log in."));
+          // Flash message
+          var message = this.tr("Invalid email or password");
+          email.setInvalidMessage(message);
+          pass.setInvalidMessage(message);
+          email.setValid(false);
+          pass.setValid(false);
+          //alert(this.tr("Could not log in."));
         }
       }, this);
     },

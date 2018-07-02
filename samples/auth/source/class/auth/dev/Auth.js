@@ -5,6 +5,7 @@ qx.Class.define("auth.dev.Auth", {
   type: "static",
 
   statics: {
+    REMEMBER: false,
 
     mockData: [{
       method: "POST",
@@ -43,6 +44,30 @@ qx.Class.define("auth.dev.Auth", {
         }
 
         request.respond(status, headers, qx.lang.Json.stringify(body));
+      }
+    }, {
+      method: "GET",
+      url: "api/auth",
+      response: function(request) {
+        var headers = {
+          "Content-Type": "application/text"
+        };
+
+        var DUMMY_EMAIL = "bizzy@itis.ethz.ch";
+        var DUMMY_PASS = "z43";
+
+        var parts = request.url.split("?")[1].split("&");
+        var operation = parts[0];
+        if (operation == "type=check") {
+          request.respond(200, headers, String(auth.dev.Auth.REMEMBER));
+        } else if (operation == "type=login") {
+          var email = parts[1].split("=")[1];
+          var pass = parts[2].split("=")[1];
+          auth.dev.Auth.REMEMBER = parts[3].split("=")[1]=="true";
+
+          var ok = DUMMY_EMAIL == email && DUMMY_PASS == pass;    
+          request.respond(200, headers, ok? "true": "false");
+        }
       }
     }],
 
