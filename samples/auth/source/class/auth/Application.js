@@ -8,12 +8,6 @@
 qx.Class.define("auth.Application", {
   extend: qx.application.Standalone,
 
-  /*
-  *****************************************************************************
-     MEMBERS
-  *****************************************************************************
-  */
-
   members: {
     /**
      * This method contains the initial application code and gets called
@@ -27,17 +21,11 @@ qx.Class.define("auth.Application", {
 
       // Enable logging in debug variant
       if (qx.core.Environment.get("qx.debug")) {
-        // support native logging capabilities, e.g. Firebug for Firefox
-        qx.log.appender.Native;
-        // support additional cross-browser console. Press F7 to toggle visibility
-        qx.log.appender.Console;
-      }
-
-      // Enables fake server if in qx.debug!
-      if (qx.core.Environment.get("auth.mockBackend")) {
-        console.debug("Initializing FakeServer ...");
-        auth.dev.RestAPI;
-        auth.dev.Auth;
+        if (qx.core.Environment.get("auth.mockBackend")) {
+          console.debug("Initializing FakeServer ...");
+          auth.dev.RestAPI;
+          auth.dev.Auth;
+        }
       }
 
       var root = this.getRoot();
@@ -45,25 +33,29 @@ qx.Class.define("auth.Application", {
         backgroundColor: "#00284d"
       });
 
-      
-      // a page adds himself to the root
-      var page = new auth.ui.LoginPage();
+      this.request("type==check", function(success) {
+        var page = null;
+        if (success) {
+          page = new auth.ui.MainApplication();
+        } else {
+          page = new auth.ui.LoginPage();
+        }
+        page.show();
+      }, this);
 
-      // this.check(function (success) {
-      //   let page = null;
-      //   if (success) {
-      //     page = new Applicatio
-      //   } else {
-      //     page = new auth.ui.login.LoginPage();
-      //   }
-      //   page.show();
-      // }, this);
-
-      //this.__demo(root);
+      // this.__demo(root);
     },
 
-    request: function(cb, ctx) {
-      console.info("Request");
+    request: function(str, cbk, ctx) {
+      // var rpc = new qx.io.request.Xhr(str);
+      // rpc.addListener("success", function(e, x, y) {
+      //   var request = e.getTarget();
+      //   var response = request.getResponse();
+      //   cbk.call(ctx, (response == "true"));
+      // }, this);
+
+      // rpc.send();
+      cbk.call(ctx, false);
     },
 
     __demo: function(root) {

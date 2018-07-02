@@ -6,9 +6,12 @@
  * http://www.softwaresamurai.org/2018/01/06/login-form-with-php-and-qooxdoo/
  *
  */
+/* global auth */
 qx.Class.define("auth.ui.LoginPage", {
   extend: qx.ui.container.Composite,
-  construct: function () {
+  include: auth.ui.MPage,
+
+  construct: function() {
     this.base(arguments);
     // Setup children's layout and widget dims
     this.setLayout(new qx.ui.layout.Canvas());
@@ -16,7 +19,7 @@ qx.Class.define("auth.ui.LoginPage", {
       width: 300,
       height: 250
     });
-    this._buildLogin();
+    this.__buildPage();
     // Place this in document's center. TODO: should be automatically reposition of document size changed!?
     var top = parseInt((qx.bom.Document.getHeight() - this.getHeight()) / 2, 10);
     var left = parseInt((qx.bom.Document.getWidth() - this.getWidth()) / 2, 10);
@@ -26,7 +29,7 @@ qx.Class.define("auth.ui.LoginPage", {
       left: left
     });
   },
-  destruct: function () {
+  destruct: function() {
     console.debug("destroying LoginPage");
   },
   members: {
@@ -34,18 +37,7 @@ qx.Class.define("auth.ui.LoginPage", {
     _pass: null,
     _remember: null,
 
-    _buildLogin: function () {
-      var semi = new qx.ui.core.Widget();
-      semi.set({
-        opacity: 0.8
-      });
-      this.add(semi, {
-        top: 1,
-        left: 1,
-        right: 1,
-        bottom: 1
-      });
-
+    __buildPage: function() {
       var atm = new qx.ui.basic.Atom().set({
         icon: "auth/itis.png",
         iconPosition: "top"
@@ -55,7 +47,6 @@ qx.Class.define("auth.ui.LoginPage", {
         top: 0,
         left: 10
       });
-
 
       var name = new qx.ui.form.TextField();
       name.setPlaceholder("Your email address");
@@ -84,7 +75,7 @@ qx.Class.define("auth.ui.LoginPage", {
       });
       this._remember = chk;
 
-      var btnForgot = this._createLinkButton("Forgot Password?", function () {
+      var btnForgot = this.createLinkButton("Forgot Password?", function() {
         this.forgot();
       }, this);
       this.add(btnForgot, {
@@ -93,7 +84,7 @@ qx.Class.define("auth.ui.LoginPage", {
       });
 
       var width = parseInt((this.getWidth() - 30) / 2, 10);
-      var btnLogin = this._createButton("Log In", width, function () {
+      var btnLogin = this.createButton("Log In", width, function() {
         this.login();
       }, this);
       this.add(btnLogin, {
@@ -101,7 +92,7 @@ qx.Class.define("auth.ui.LoginPage", {
         left: 10
       });
 
-      var btnRegister = this._createButton("Register", width, function () {
+      var btnRegister = this.createButton("Register", width, function() {
         this.register();
       }, this);
       this.add(btnRegister, {
@@ -109,75 +100,24 @@ qx.Class.define("auth.ui.LoginPage", {
         right: 10
       });
     },
-    /**
-     * Create link button
-     */
-    _createLinkButton: function (cbk, ctx) {
-      var strForgot = "<center><i style='color: white'>" + this.tr("Forgot Password ?") + "</i></center>";
-      var atm = new qx.ui.basic.Atom(strForgot);
-      atm.set({ cursor: 'pointer' });
-      var lbl = atm.getChildControl("label");
-      lbl.setRich(true);
-      lbl.setAllowGrowY(true);
-      atm.addListener("mouseover", function () {
-        atm.setLabel("<u style='color: white'>" + strForgot + "</u>");
-      }, this);
-      atm.addListener("mouseout", function () {
-        atm.setLabel(strForgot);
-      }, this);
-      atm.addListener("click", function () {
-        cbk.call(this); //  == this.cbk()
-      }, ctx);
 
-      return atm;
-    },
-    /**
-     * Custom button creation
-     */
-    _createButton: function (txt, width, cbk, ctx) {
-      var btn = new qx.ui.form.Button(txt);
-      btn.set({
-        width: width,
-        cursor: "pointer"
-      });
-      btn.addListenerOnce("appear", function () {
-        // TODO: set color
-      });
-      btn.addListener("hover", function () {
-        // change button's color
-      }, this);
-      btn.addListener("mouseout", function () {
-        // set original color
-      }, this);
-      btn.addListener("execute", function (e) {
-        cbk.call(this); // <= this.call() in ctx
-      }, ctx);
-
-      return btn;
-    },
-
-    /**
-     * Funtionality
-     */
-    login: function () {
+    login: function() {
+      // Data
       var name = this._name.getValue();
       var pass = this._pass.getValue();
       var remember = this._remember.getValue();
 
-      // app.check();
       var str = "type=login";
       str += "&username=" + name;
       str += "&password=" + pass;
       str += "&remember=" + remember;
 
-
-      // request server for login.
       var app = qx.core.Init.getApplication();
-      app.request_login(str, function (success) {
-        var win = null;
+      app.request(str, function(success) {
+        var page = null;
         if (success) {
-          win = new ao.apps.users.SoftwareSamurai.ApplicationWindow();
-          win.show();
+          page = new auth.ui.MainApplication();
+          page.show();
           this.destroy();
         } else {
           alert(this.tr("Could not log in."));
@@ -185,15 +125,15 @@ qx.Class.define("auth.ui.LoginPage", {
       }, this);
     },
 
-    forgot: function () {
-      var forgot = new auth.ui.ForgotWindow();
+    forgot: function() {
+      var forgot = new auth.ui.ForgotPage();
       forgot.show();
-      this.destroy(); // <---- this is how close this window
+      this.destroy();
     },
 
-    register: function () {
-      var signup = new auth.ui.SignupWindow();
-      signup.show();
+    register: function() {
+      var register = new auth.ui.RegisterPage();
+      register.show();
       this.destroy();
     }
   }

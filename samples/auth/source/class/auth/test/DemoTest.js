@@ -34,7 +34,8 @@ qx.Class.define("auth.test.DemoTest",
       },
 
       testFail: function () {
-        this.assertEquals(3, 88);
+        const ab = 3;
+        this.assertEquals(3, ab);
       },
 
       /*
