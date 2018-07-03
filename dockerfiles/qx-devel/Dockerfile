@@ -38,8 +38,9 @@ USER scu
 
 # qooxdoo-sdk from source repository. Provides framework and generator.py tools
 RUN git clone --depth 1 https://github.com/qooxdoo/qooxdoo.git ${QOOXDOO_PATH} && \
+    sed 's/6.0.0-alpha[^"]*/'$(date +"6.0.0-alpha-%Y%m%d")'/' ${QOOXDOO_PATH}/framework/Manifest.json > ${QOOXDOO_PATH}/framework/Manifest.json.$$ && \
+    mv ${QOOXDOO_PATH}/framework/Manifest.json.$$ ${QOOXDOO_PATH}/framework/Manifest.json && \
     mkdir -p ${QOOXDOO_COMPILER_DIR}
-
 
 WORKDIR /home/scu/client
 VOLUME /home/scu/client
