@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "npm": "^6.1.0",
+    "qxcompiler": "^0.2.13"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1"
+  }
+}

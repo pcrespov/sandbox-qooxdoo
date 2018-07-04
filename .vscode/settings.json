@@ -1,7 +1,6 @@
 {
     "eslint.enable": true,
-    "eslint.alwaysShowStatus": true,
-    "jshint.enable": false,
+    "eslint.alwaysShowStatus": true,    
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -14,7 +13,12 @@
         ".*rc": "ini",
         ".env*": "ini",
         "Dockerfile*": "dockerfile"
-    },
-    "python.pythonPath": "/home/crespo/anaconda/envs/flask-api/bin/python",
-    "editor.tabSize": 2
+    },    
+    "editor.tabSize": 2,
+    "python.pythonPath": "${workspaceFolder}/.venv/aiohttp-api/bin/python",
+    "python.unitTest.pyTestEnabled": true,
+    "[python]":{
+        "editor.detectIndentation" : false,
+        "editor.tabSize" : 4
+      }
 }

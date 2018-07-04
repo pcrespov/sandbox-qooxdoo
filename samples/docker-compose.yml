@@ -1,12 +1,36 @@
 version: '3'
 services:
   qx:
-    #image: itisfoundation/qooxdoo-compiler:latest
-    image: qx:released
+    image: qx:${IMAGE_VERSION:-released}
     volumes:
       - '.:/home/scu/client'
     ports:
-      - '8080:8080'
+      - '9000:8080'
     working_dir: /home/scu/client/${APP_DIR:-.}
-    command: qx serve --set qx.allowUrlSettings=true
-    # Open http://localhost:8080/index.html?qxenv:auth.mockBackend:true
+    env_file:
+      - secrets.env
+    command: serve --set qx.allowUrlSettings=true
+  #---------------------------------------------------------
+  test:
+    image: qx:${IMAGE_VERSION:-released}
+    volumes:
+      - '.:/home/scu/client'
+    ports:
+      - '9001:8080'
+    working_dir: /home/scu/
+    command: srv . -p 8080
+  #---------------------------------------------------------    
+  doc:
+    image: http-server:latest
+    volumes:
+      - '.:/user/src/app'
+    ports:
+      - '9002:8080'
+    working_dir: /user/src/app/${APP_DIR:-.}
+    command: api
+
+  #
+  # Open http://localhost:9000/index.html?qxenv:dev.enableFakeServer:true  
+  # Open http://localhost:9001/client/auth/test/index-source.html
+  # Open http://localhost:9002
+  #

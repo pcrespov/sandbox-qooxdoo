@@ -1,0 +1,9 @@
+# production requirements
+aiohttp
+aiopg[sa]
+aiohttp-security
+aiohttp_session[secure]
+aiohttp-swagger
+passlib
+tenacity
+trafaret-config
