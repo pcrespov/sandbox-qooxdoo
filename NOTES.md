@@ -14,10 +14,14 @@
 - [ ] TODO: explore qx.dev.unit for mockups, stubs, spies, etc in [writing test classes](http://www.qooxdoo.org/devel/pages/development/frame_apps_testrunner.html#writing-test-classes) 
 - [ ] TODO: Review testcafe [integration by cboulanger](https://github.com/cboulanger/qx-contrib-Dialog/blob/testcafe/.travis.yml)
 
+
+### qx
+
+- [ ] memory management in [js](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management) and [qx](http://www.qooxdoo.org/devel/pages/development/memory_management.html)
+
 ### vscode
 
 - [ ] TODO: modify js formatter to comply with linters .e.g. function () ...
-
 
 ### random
 - [ ] TODO: add myapp/config.json and customize upon creation
