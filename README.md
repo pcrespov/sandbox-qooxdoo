@@ -2,7 +2,6 @@
 
 A random set of Rich Internet Applications (RIA) implemented with [qooxdoo] and some development tools and servers around them.
 
-
 ## dockerfiles
 
 - ``qooxdoo-compiler`` is a lightweight image with [qx] compiler. Detailed tagging, labeling and released in docker-hub registry
